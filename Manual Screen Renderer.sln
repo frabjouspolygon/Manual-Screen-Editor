@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manual Screen Renderer", "Manual Screen Renderer\Manual Screen Renderer.csproj", "{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04B9F72F-C8DB-483D-A48E-879AB98D1A0A}
+	EndGlobalSection
+EndGlobal
