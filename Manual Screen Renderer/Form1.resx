@@ -125,6 +125,274 @@
   <data name="splitContainer1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
+  <data name="nudDepth.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="nudDepth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 69</value>
+  </data>
+  <data name="nudDepth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 38</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="nudDepth.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;nudDepth.Name" xml:space="preserve">
+    <value>nudDepth</value>
+  </data>
+  <data name="&gt;&gt;nudDepth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nudDepth.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;nudDepth.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnPickSky.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickSky.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickSky.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickSky.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 471</value>
+  </data>
+  <data name="btnPickSky.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickSky.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;btnPickSky.Name" xml:space="preserve">
+    <value>btnPickSky</value>
+  </data>
+  <data name="&gt;&gt;btnPickSky.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickSky.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickSky.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnPickShading.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickShading.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickShading.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
+  </data>
+  <data name="btnPickShading.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickShading.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 421</value>
+  </data>
+  <data name="btnPickShading.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickShading.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;btnPickShading.Name" xml:space="preserve">
+    <value>btnPickShading</value>
+  </data>
+  <data name="&gt;&gt;btnPickShading.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickShading.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickShading.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btnPickRainbow.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickRainbow.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickRainbow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickRainbow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 371</value>
+  </data>
+  <data name="btnPickRainbow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickRainbow.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;btnPickRainbow.Name" xml:space="preserve">
+    <value>btnPickRainbow</value>
+  </data>
+  <data name="&gt;&gt;btnPickRainbow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickRainbow.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickRainbow.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnPickPipe.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickPipe.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickPipe.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickPipe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 321</value>
+  </data>
+  <data name="btnPickPipe.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickPipe.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="&gt;&gt;btnPickPipe.Name" xml:space="preserve">
+    <value>btnPickPipe</value>
+  </data>
+  <data name="&gt;&gt;btnPickPipe.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickPipe.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickPipe.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btnPickLight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickLight.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickLight.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickLight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 271</value>
+  </data>
+  <data name="btnPickLight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickLight.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;btnPickLight.Name" xml:space="preserve">
+    <value>btnPickLight</value>
+  </data>
+  <data name="&gt;&gt;btnPickLight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickLight.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickLight.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btnPickLColor.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickLColor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickLColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickLColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 221</value>
+  </data>
+  <data name="btnPickLColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickLColor.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;btnPickLColor.Name" xml:space="preserve">
+    <value>btnPickLColor</value>
+  </data>
+  <data name="&gt;&gt;btnPickLColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickLColor.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickLColor.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="btnPickIndex.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickIndex.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickIndex.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickIndex.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 171</value>
+  </data>
+  <data name="btnPickIndex.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickIndex.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;btnPickIndex.Name" xml:space="preserve">
+    <value>btnPickIndex</value>
+  </data>
+  <data name="&gt;&gt;btnPickIndex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickIndex.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickIndex.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="btnPickEColor.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnPickEColor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnPickEColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPickEColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 121</value>
+  </data>
+  <data name="btnPickEColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 43</value>
+  </data>
+  <data name="btnPickEColor.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;btnPickEColor.Name" xml:space="preserve">
+    <value>btnPickEColor</value>
+  </data>
+  <data name="&gt;&gt;btnPickEColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPickEColor.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnPickEColor.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
   <data name="btnDecompose.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
@@ -137,7 +405,6 @@
   <data name="btnDecompose.Size" type="System.Drawing.Size, System.Drawing">
     <value>238, 49</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnDecompose.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
   </data>
@@ -163,7 +430,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnDecompose.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>9</value>
   </data>
   <data name="btnColorPicker.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -196,7 +463,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnColorPicker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>680, 709</value>
+    <value>762, 531</value>
   </data>
   <data name="btnColorPicker.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 64</value>
@@ -214,7 +481,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnColorPicker.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>10</value>
   </data>
   <data name="btnRendered.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -241,7 +508,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnRendered.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>11</value>
   </data>
   <data name="txtRendered.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -265,7 +532,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtRendered.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>12</value>
   </data>
   <data name="lblRendered.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -298,7 +565,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;lblRendered.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>13</value>
   </data>
   <data name="btnCompose.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -331,7 +598,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnCompose.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>14</value>
   </data>
   <data name="btnSky.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -358,7 +625,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnSky.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>15</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -391,7 +658,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>16</value>
   </data>
   <data name="btnShading.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -418,7 +685,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnShading.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>17</value>
   </data>
   <data name="lblDepth.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -451,7 +718,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;lblDepth.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>18</value>
   </data>
   <data name="btnRainbow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -478,7 +745,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnRainbow.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>19</value>
   </data>
   <data name="txtDepth.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -502,7 +769,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtDepth.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>20</value>
   </data>
   <data name="btnPipe.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -529,7 +796,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPipe.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>21</value>
   </data>
   <data name="btnLight.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -556,7 +823,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnLight.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>22</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -592,7 +859,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>23</value>
   </data>
   <data name="btnLColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -619,7 +886,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnLColor.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>24</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -652,7 +919,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>25</value>
   </data>
   <data name="btnIndex.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -679,7 +946,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnIndex.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>26</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -712,7 +979,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>27</value>
   </data>
   <data name="btnEColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -739,7 +1006,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnEColor.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>28</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -772,7 +1039,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>29</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -805,7 +1072,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>30</value>
   </data>
   <data name="btnDepth.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -832,7 +1099,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnDepth.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>31</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -865,7 +1132,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>32</value>
   </data>
   <data name="txtSky.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -889,7 +1156,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtSky.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>33</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -922,7 +1189,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>34</value>
   </data>
   <data name="txtShading.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -946,7 +1213,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtShading.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>35</value>
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -979,7 +1246,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>36</value>
   </data>
   <data name="txtRainbow.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1003,7 +1270,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtRainbow.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>37</value>
   </data>
   <data name="txtPipe.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1027,7 +1294,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtPipe.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>38</value>
   </data>
   <data name="txtEColor.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1051,7 +1318,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtEColor.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>39</value>
   </data>
   <data name="txtLight.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1075,7 +1342,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtLight.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>40</value>
   </data>
   <data name="txtIndex.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1099,7 +1366,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtIndex.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>41</value>
   </data>
   <data name="txtLColor.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1123,7 +1390,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtLColor.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>42</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -1139,6 +1406,97 @@
   </data>
   <data name="splitContainer1.Panel2.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="btnShowRendered.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="btnShowRendered.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnShowRendered.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnShowRendered.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1066, 6</value>
+  </data>
+  <data name="btnShowRendered.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 64</value>
+  </data>
+  <data name="btnShowRendered.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="btnShowRendered.ToolTip" xml:space="preserve">
+    <value>Sky</value>
+  </data>
+  <data name="&gt;&gt;btnShowRendered.Name" xml:space="preserve">
+    <value>btnShowRendered</value>
+  </data>
+  <data name="&gt;&gt;btnShowRendered.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnShowRendered.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;btnShowRendered.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="pbxWorkspace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1189,7 +1547,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;pnlWorkspace.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="lblCursorCoords.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1201,7 +1559,7 @@
     <value>NoControl</value>
   </data>
   <data name="lblCursorCoords.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1094, 18</value>
+    <value>1211, 20</value>
   </data>
   <data name="lblCursorCoords.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 31</value>
@@ -1222,7 +1580,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;lblCursorCoords.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnEditSky.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1320,7 +1678,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditSky.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btnEditShading.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1417,7 +1775,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditShading.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="btnEditRainbow.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1517,7 +1875,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditRainbow.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="btnEditPipe.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1605,7 +1963,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditPipe.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="btnEditLight.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1700,7 +2058,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditLight.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="btnEditLColor.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1801,7 +2159,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditLColor.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="btnEditIndex.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1898,7 +2256,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditIndex.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="btnEditEColor.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1991,7 +2349,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditEColor.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btnEditDepth.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2088,7 +2446,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;btnEditDepth.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="lblMaxLayer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2121,7 +2479,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;lblMaxLayer.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="lblMinLayer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2154,7 +2512,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;lblMinLayer.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="nudMaxLayer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8pt</value>
@@ -2178,7 +2536,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;nudMaxLayer.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="nudMinLayer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8pt</value>
@@ -2202,7 +2560,7 @@
     <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;nudMinLayer.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -2271,25 +2629,25 @@
     <value>Save A Copy</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 38</value>
+    <value>72, 40</value>
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 38</value>
+    <value>75, 40</value>
   </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 38</value>
+    <value>86, 40</value>
   </data>
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>View</value>
   </data>
   <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 38</value>
+    <value>85, 40</value>
   </data>
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>Help</value>
@@ -2298,7 +2656,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>2270, 42</value>
+    <value>2270, 48</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>

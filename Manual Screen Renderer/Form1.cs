@@ -37,6 +37,7 @@ namespace Manual_Screen_Renderer
         static Bitmap imgRendered = null;
         static int intMode = 0;//0-8
         static Color colCursor = Color.FromArgb(0,0,0,0);
+        static CursorColors ccPaint = null;
 
         public Form1()
         {
@@ -51,6 +52,7 @@ namespace Manual_Screen_Renderer
             iiShading = new ImgInterface(txtShading, btnShading);
             iiSky = new ImgInterface(txtSky, btnSky);
             iiRendered = new ImgInterface(txtRendered, btnRendered);
+            ccPaint = new CursorColors();
             //pbxWorkspace.SizeMode = PictureBoxSizeMode.AutoSize;
             //splitContainer1.Panel2.AutoScroll = true;
             pnlWorkspace.AutoScroll = true;
@@ -59,7 +61,7 @@ namespace Manual_Screen_Renderer
             pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
             int R = 180;
-
+            ccPaint.EColor = CursorColors.NoEffectColor;
             int Light = R > 90 ? 1 : 0;// 0 or 1
             R = R - 90 * Light;
             int LColor = Math.Min(Math.Max((R - 1) / 30, 0), 2);//0-2
@@ -564,6 +566,195 @@ namespace Manual_Screen_Renderer
 
 
             lblMessages.Text = "Ready";
+        }
+
+        private void btnPickIndex_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            Color colSelection = colorDialog1.Color;
+            ccPaint.index = colSelection;
+            btnPickIndex.BackColor = colSelection;
+        }
+
+        private void btnPickEColor_Click(object sender, EventArgs e)
+        {
+            int colInitial = ccPaint.EColor;//btnPickEColor.BackColor;
+            Color EffectA = Color.FromArgb(255, 0, 255);
+            Color EffectB = Color.FromArgb(0, 255, 255);
+            Color EffectC = Color.FromArgb(255, 255, 255);
+            Color Off = Color.FromArgb(0, 0, 0);
+            if (colInitial == CursorColors.EffectColorA)
+            {
+                btnPickEColor.BackColor = EffectB;
+                ccPaint.EColor = CursorColors.EffectColorB;
+            }
+            else if (colInitial == CursorColors.EffectColorB)
+            {
+                btnPickEColor.BackColor = EffectC;
+                ccPaint.EColor = CursorColors.EffectColorC;
+            }
+            else if (colInitial == CursorColors.EffectColorC)
+            {
+                btnPickEColor.BackColor = Off;
+                ccPaint.EColor = CursorColors.NoEffectColor;
+            }
+            else if (colInitial == CursorColors.NoEffectColor)
+            {
+                btnPickEColor.BackColor = EffectA;
+                ccPaint.EColor = CursorColors.EffectColorA;
+            }
+            else
+            {
+                btnPickEColor.BackColor = Off;
+                ccPaint.EColor = CursorColors.NoEffectColor;
+            }
+        }
+
+        private void btnPickLColor_Click(object sender, EventArgs e)
+        {
+            int colInitial = ccPaint.LColor;//btnPickLColor.BackColor;
+            Color Light = Color.FromArgb(0, 0, 255);
+            Color Neutral = Color.FromArgb(0, 255, 0);
+            Color Dark = Color.FromArgb(255, 0, 0);
+            if (colInitial == CursorColors.GeometryLight)
+            {
+                btnPickLColor.BackColor = Neutral;
+                ccPaint.LColor = CursorColors.GeometryNeutral;
+            }
+            else if (colInitial == CursorColors.GeometryNeutral)
+            {
+                btnPickLColor.BackColor = Dark;
+                ccPaint.LColor = CursorColors.GeometryDark;
+            }
+            else if (colInitial == CursorColors.GeometryDark)
+            {
+                btnPickLColor.BackColor = Light;
+                ccPaint.LColor = CursorColors.GeometryLight;
+            }
+            else
+            {
+                btnPickLColor.BackColor = Neutral;
+                ccPaint.LColor = CursorColors.GeometryNeutral;
+            }
+        }
+
+        private void btnPickLight_Click(object sender, EventArgs e)
+        {
+            int colInitial = ccPaint.Light;//btnPickLight.BackColor;
+            Color Light = Color.FromArgb(255, 255, 255);
+            Color Dark = Color.FromArgb(0, 0, 0);
+            if (colInitial == CursorColors.LightOn)
+            {
+                ccPaint.Light = CursorColors.LightOff;
+                btnPickLight.BackColor = Dark;
+            }
+            else if (colInitial == CursorColors.LightOff)
+            {
+                btnPickLight.BackColor = Light;
+                ccPaint.Light = CursorColors.LightOn;
+            }
+            else
+            {
+                btnPickLight.BackColor = Light;
+                ccPaint.Light = CursorColors.LightOn;
+            }
+        }
+
+        private void btnPickPipe_Click(object sender, EventArgs e)
+        {
+            int colInitial = ccPaint.Pipe;//btnPickPipe.BackColor;
+            Color L1 = Color.FromArgb(255, 0, 0);
+            Color L2 = Color.FromArgb(0, 255, 0);
+            Color L3 = Color.FromArgb(0, 0, 255);
+            Color Off = Color.FromArgb(0, 0, 0);
+            if (colInitial == CursorColors.PipeL1)
+            {
+                ccPaint.Pipe = CursorColors.PipeL2;
+                btnPickPipe.BackColor = L2;
+            }
+            else if (colInitial == CursorColors.PipeL2)
+            {
+                ccPaint.Pipe = CursorColors.PipeL3;
+                btnPickPipe.BackColor = L3;
+            }
+            else if (colInitial == CursorColors.PipeL3)
+            {
+                ccPaint.Pipe = CursorColors.NoPipe;
+                btnPickPipe.BackColor = Off;
+            }
+            else if (colInitial == CursorColors.NoPipe)
+            {
+                ccPaint.Pipe = CursorColors.PipeL1;
+                btnPickPipe.BackColor = L1;
+            }
+            else
+            {
+                ccPaint.Pipe = CursorColors.NoPipe;
+                btnPickPipe.BackColor = Off;
+            }
+        }
+
+        private void btnPickRainbow_Click(object sender, EventArgs e)
+        {
+            int colInitial = ccPaint.Grime;//btnPickRainbow.BackColor;
+            Color On = Color.FromArgb(255, 255, 255);
+            Color Off = Color.FromArgb(0, 0, 0);
+            if (colInitial == CursorColors.GrimeOn)
+            {
+                ccPaint.Grime = CursorColors.GrimeOff;
+                btnPickRainbow.BackColor = Off;
+            }
+            else if (colInitial == CursorColors.GrimeOff)
+            {
+                ccPaint.Grime = CursorColors.GrimeOn;
+                btnPickRainbow.BackColor = On;
+            }
+            else
+            {
+                ccPaint.Grime = CursorColors.GrimeOff;
+                btnPickRainbow.BackColor = Off;
+            }
+        }
+
+        private void btnPickShading_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            Color colSelection = colorDialog1.Color;
+            ccPaint.Shading = (int)(colSelection.GetBrightness()*255);
+            btnPickShading.BackColor = Color.FromArgb(ccPaint.Shading, ccPaint.Shading, ccPaint.Shading);
+            colorDialog1.Color = btnPickShading.BackColor;
+        }
+
+        private void btnPickSky_Click(object sender, EventArgs e)
+        {
+            int colInitial = ccPaint.Sky;//btnPickSky.BackColor;
+            Color Sky = Color.FromArgb(255, 255, 255);
+            Color Geometry = Color.FromArgb(0, 0, 0);
+            if (colInitial == CursorColors.SkyOn)
+            {
+                ccPaint.Sky = CursorColors.SkyOff;
+                btnPickSky.BackColor = Geometry;
+            }
+            else if (colInitial == CursorColors.SkyOff)
+            {
+                ccPaint.Sky = CursorColors.SkyOn;
+                btnPickSky.BackColor = Sky;
+            }
+            else
+            {
+                ccPaint.Sky = CursorColors.SkyOff;
+                btnPickSky.BackColor = Geometry;
+            }
+        }
+
+        private void btnPickDepth_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnShowRendered_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

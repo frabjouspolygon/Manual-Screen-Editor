@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CursorColors.cs" />
     <Compile Include="ScrollingPanel.cs">
       <SubType>Component</SubType>
     </Compile>

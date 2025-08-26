@@ -32,6 +32,13 @@ namespace Manual_Screen_Renderer
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnPickSky = new System.Windows.Forms.Button();
+            this.btnPickRainbow = new System.Windows.Forms.Button();
+            this.btnPickPipe = new System.Windows.Forms.Button();
+            this.btnPickLight = new System.Windows.Forms.Button();
+            this.btnPickLColor = new System.Windows.Forms.Button();
+            this.btnPickIndex = new System.Windows.Forms.Button();
+            this.btnPickEColor = new System.Windows.Forms.Button();
             this.btnDecompose = new System.Windows.Forms.Button();
             this.btnColorPicker = new System.Windows.Forms.Button();
             this.btnRendered = new System.Windows.Forms.Button();
@@ -95,6 +102,9 @@ namespace Manual_Screen_Renderer
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
+            this.nudDepth = new System.Windows.Forms.NumericUpDown();
+            this.btnPickShading = new System.Windows.Forms.Button();
+            this.btnShowRendered = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -104,6 +114,7 @@ namespace Manual_Screen_Renderer
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -114,6 +125,15 @@ namespace Manual_Screen_Renderer
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.nudDepth);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickSky);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickShading);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickRainbow);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickPipe);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickLight);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickLColor);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickIndex);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPickEColor);
             this.splitContainer1.Panel1.Controls.Add(this.btnDecompose);
             this.splitContainer1.Panel1.Controls.Add(this.btnColorPicker);
             this.splitContainer1.Panel1.Controls.Add(this.btnRendered);
@@ -152,6 +172,7 @@ namespace Manual_Screen_Renderer
             // splitContainer1.Panel2
             // 
             resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
+            this.splitContainer1.Panel2.Controls.Add(this.btnShowRendered);
             this.splitContainer1.Panel2.Controls.Add(this.pnlWorkspace);
             this.splitContainer1.Panel2.Controls.Add(this.lblCursorCoords);
             this.splitContainer1.Panel2.Controls.Add(this.btnEditSky);
@@ -168,6 +189,69 @@ namespace Manual_Screen_Renderer
             this.splitContainer1.Panel2.Controls.Add(this.nudMaxLayer);
             this.splitContainer1.Panel2.Controls.Add(this.nudMinLayer);
             this.splitContainer1.TabStop = false;
+            // 
+            // btnPickSky
+            // 
+            this.btnPickSky.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickSky, "btnPickSky");
+            this.btnPickSky.Name = "btnPickSky";
+            this.btnPickSky.TabStop = false;
+            this.btnPickSky.UseVisualStyleBackColor = false;
+            this.btnPickSky.Click += new System.EventHandler(this.btnPickSky_Click);
+            // 
+            // btnPickRainbow
+            // 
+            this.btnPickRainbow.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickRainbow, "btnPickRainbow");
+            this.btnPickRainbow.Name = "btnPickRainbow";
+            this.btnPickRainbow.TabStop = false;
+            this.btnPickRainbow.UseVisualStyleBackColor = false;
+            this.btnPickRainbow.Click += new System.EventHandler(this.btnPickRainbow_Click);
+            // 
+            // btnPickPipe
+            // 
+            this.btnPickPipe.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickPipe, "btnPickPipe");
+            this.btnPickPipe.Name = "btnPickPipe";
+            this.btnPickPipe.TabStop = false;
+            this.btnPickPipe.UseVisualStyleBackColor = false;
+            this.btnPickPipe.Click += new System.EventHandler(this.btnPickPipe_Click);
+            // 
+            // btnPickLight
+            // 
+            this.btnPickLight.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickLight, "btnPickLight");
+            this.btnPickLight.Name = "btnPickLight";
+            this.btnPickLight.TabStop = false;
+            this.btnPickLight.UseVisualStyleBackColor = false;
+            this.btnPickLight.Click += new System.EventHandler(this.btnPickLight_Click);
+            // 
+            // btnPickLColor
+            // 
+            this.btnPickLColor.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.btnPickLColor, "btnPickLColor");
+            this.btnPickLColor.Name = "btnPickLColor";
+            this.btnPickLColor.TabStop = false;
+            this.btnPickLColor.UseVisualStyleBackColor = false;
+            this.btnPickLColor.Click += new System.EventHandler(this.btnPickLColor_Click);
+            // 
+            // btnPickIndex
+            // 
+            this.btnPickIndex.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickIndex, "btnPickIndex");
+            this.btnPickIndex.Name = "btnPickIndex";
+            this.btnPickIndex.TabStop = false;
+            this.btnPickIndex.UseVisualStyleBackColor = false;
+            this.btnPickIndex.Click += new System.EventHandler(this.btnPickIndex_Click);
+            // 
+            // btnPickEColor
+            // 
+            this.btnPickEColor.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickEColor, "btnPickEColor");
+            this.btnPickEColor.Name = "btnPickEColor";
+            this.btnPickEColor.TabStop = false;
+            this.btnPickEColor.UseVisualStyleBackColor = false;
+            this.btnPickEColor.Click += new System.EventHandler(this.btnPickEColor_Click);
             // 
             // btnDecompose
             // 
@@ -552,6 +636,7 @@ namespace Manual_Screen_Renderer
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -612,10 +697,54 @@ namespace Manual_Screen_Renderer
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             // 
+            // colorDialog1
+            // 
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.FullOpen = true;
+            this.colorDialog1.SolidColorOnly = true;
+            // 
             // lblMessages
             // 
             resources.ApplyResources(this.lblMessages, "lblMessages");
             this.lblMessages.Name = "lblMessages";
+            // 
+            // nudDepth
+            // 
+            resources.ApplyResources(this.nudDepth, "nudDepth");
+            this.nudDepth.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudDepth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudDepth.Name = "nudDepth";
+            this.nudDepth.TabStop = false;
+            this.nudDepth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnPickShading
+            // 
+            this.btnPickShading.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPickShading, "btnPickShading");
+            this.btnPickShading.Name = "btnPickShading";
+            this.btnPickShading.TabStop = false;
+            this.btnPickShading.UseVisualStyleBackColor = false;
+            this.btnPickShading.Click += new System.EventHandler(this.btnPickShading_Click);
+            // 
+            // btnShowRendered
+            // 
+            resources.ApplyResources(this.btnShowRendered, "btnShowRendered");
+            this.btnShowRendered.Name = "btnShowRendered";
+            this.toolTip.SetToolTip(this.btnShowRendered, resources.GetString("btnShowRendered.ToolTip"));
+            this.btnShowRendered.UseVisualStyleBackColor = true;
+            this.btnShowRendered.Click += new System.EventHandler(this.btnShowRendered_Click);
             // 
             // Form1
             // 
@@ -638,6 +767,7 @@ namespace Manual_Screen_Renderer
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -709,6 +839,16 @@ namespace Manual_Screen_Renderer
         private System.Windows.Forms.ToolStripMenuItem saveACopyToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label lblMessages;
+        private System.Windows.Forms.Button btnPickSky;
+        private System.Windows.Forms.Button btnPickRainbow;
+        private System.Windows.Forms.Button btnPickPipe;
+        private System.Windows.Forms.Button btnPickLight;
+        private System.Windows.Forms.Button btnPickLColor;
+        private System.Windows.Forms.Button btnPickIndex;
+        private System.Windows.Forms.Button btnPickEColor;
+        private System.Windows.Forms.NumericUpDown nudDepth;
+        private System.Windows.Forms.Button btnPickShading;
+        private System.Windows.Forms.Button btnShowRendered;
     }
 }
 
