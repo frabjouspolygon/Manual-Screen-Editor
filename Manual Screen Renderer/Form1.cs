@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Windows.Media.Imaging;
 using System.IO;
 using Manual_Screen_Renderer;
 
@@ -64,15 +65,23 @@ namespace Manual_Screen_Renderer
             iiRendered = new ImgInterface(txtRendered, btnRendered);
             ccPaint = new CursorColors();
             imgDepth = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
-            imgEColor = imgDepth;
-            imgIndex = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0, 0));
+            imgEColor = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            //imgIndex = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0, 0));
+            imgIndex = new Bitmap(1400, 800, PixelFormat.Format8bppIndexed);
+            ccPaint.IndexPalette = imgIndex.Palette;
+            for (int i = 0; i < 256; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;
+            }
+            imgIndex.Palette = ccPaint.IndexPalette;
+            
             imgLColor = SolidBitmap(1400, 800, Color.FromArgb(255, 0, 0)); ;
-            imgLight = imgDepth;
-            imgPipe = imgDepth;
-            imgRainbow = imgDepth;
-            imgShading = imgDepth;
-            imgSky = imgDepth;
-            imgRendered = imgDepth;
+            imgLight = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            imgPipe = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            imgRainbow = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            imgShading = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            imgSky = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            imgRendered = SolidBitmap(1400, 800, Color.FromArgb(1, 0, 0));
             //pbxWorkspace.SizeMode = PictureBoxSizeMode.AutoSize;
             //splitContainer1.Panel2.AutoScroll = true;
             pnlWorkspace.AutoScroll = true;
@@ -91,6 +100,7 @@ namespace Manual_Screen_Renderer
             Console.WriteLine(Light);
             Console.WriteLine(LColor);
             Console.WriteLine(R);
+            Console.WriteLine(imgIndex.Palette.Entries[0].A);
         }
 
         static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
@@ -360,56 +370,161 @@ namespace Manual_Screen_Renderer
         private void btnEditDepth_Click(object sender, EventArgs e)
         {
             intMode = 0;
-            pbxWorkspace.Image = imgDepth;
-
+            if (blnDepth)
+            {
+                blnDepth = false;
+                btnEditDepth.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgDepth;
+                blnDepth = true;
+                btnEditDepth.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditEColor_Click(object sender, EventArgs e)
         {
             intMode = 1;
-            pbxWorkspace.Image = imgEColor;
+            if (blnEColor)
+            {
+                blnEColor = false;
+                btnEditEColor.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgEColor;
+                blnEColor = true;
+                btnEditEColor.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditIndex_Click(object sender, EventArgs e)
         {
             intMode = 2;
-            pbxWorkspace.Image = imgIndex;
+            if (blnIndex)
+            {
+                blnIndex = false;
+                btnEditIndex.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgIndex;
+                blnIndex = true;
+                btnEditIndex.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditLColor_Click(object sender, EventArgs e)
         {
             intMode = 3;
-            pbxWorkspace.Image = imgLColor;
+            if (blnLColor)
+            {
+                blnLColor = false;
+                btnEditLColor.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgLColor;
+                blnLColor = true;
+                btnEditLColor.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditLight_Click(object sender, EventArgs e)
         {
             intMode = 4;
-            pbxWorkspace.Image = imgLight;
+            if ( blnLight)
+            {
+                blnLight = false;
+                btnEditLight.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgLight;
+                blnLight = true;
+                btnEditLight.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditPipe_Click(object sender, EventArgs e)
         {
             intMode = 5;
-            pbxWorkspace.Image = imgPipe;
+            if (blnPipe)
+            {
+                blnPipe = false;
+                btnEditPipe.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgPipe;
+                blnPipe = true;
+                btnEditPipe.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditRainbow_Click(object sender, EventArgs e)
         {
             intMode = 6;
-            pbxWorkspace.Image = imgRainbow;
+            if (blnRainbow)
+            {
+                blnRainbow = false;
+                btnEditRainbow.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgRainbow;
+                blnRainbow = true;
+                btnEditRainbow.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditShading_Click(object sender, EventArgs e)
         {
             intMode = 7;
-            pbxWorkspace.Image = imgShading;
+            if (blnShading)
+            {
+                blnShading = false;
+                btnEditShading.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgShading;
+                blnShading = true;
+                btnEditShading.BackColor = Color.LightGray;
+            }
         }
 
         private void btnEditSky_Click(object sender, EventArgs e)
         {
             intMode = 8;
-            pbxWorkspace.Image = imgSky;
+            if (blnSky)
+            {
+                blnSky = false;
+                btnEditSky.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgSky;
+                blnSky = true;
+                btnEditSky.BackColor = Color.LightGray;
+            }
+        }
+
+        private void btnShowRendered_Click(object sender, EventArgs e)
+        {
+            intMode = 9;
+            if (blnRendered)
+            {
+                blnRendered = false;
+                btnShowRendered.BackColor = Color.White;
+            }
+            else
+            {
+                pbxWorkspace.Image = imgRendered;
+                blnRendered = true;
+                btnShowRendered.BackColor = Color.LightGray;
+            }
         }
 
         private void btnColorPicker_Click(object sender, EventArgs e)
@@ -474,9 +589,9 @@ namespace Manual_Screen_Renderer
                 {
                     Bitmap imgWorking = (Bitmap)pbxWorkspace.Image;
                     //Graphics graphic = Graphics.FromImage(imgWorking);
-                    intY = Math.Max(Math.Min(intY, imgWorking.Size.Height - 1), 0);
-                    intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1), 0);
-                    imgWorking.SetPixel(intX, intY, colCursor);
+                    intY = Math.Max(Math.Min(intY, imgWorking.Size.Height - 1+2), 0);
+                    intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1+2), 0);
+                    //imgWorking.SetPixel(intX, intY, colCursor);
                     CursorColors.Features features =  CursorColors.FeaturesRendered( imgRendered.GetPixel(intX, intY) );
                     int tDepth = features.ThisDepth; Color tIndex = features.ThisIndex;int tEColor = features.ThisEColor;int tLColor = features.ThisLColor;
                     int tLight = features.ThisLight;int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading; 
@@ -484,7 +599,8 @@ namespace Manual_Screen_Renderer
                     
                     if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
                     if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
-                    if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
+                    //if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
+                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexColorID(ccPaint.Index), intX, intY); tIndex = ccPaint.Index; }
                     if (blnLColor) { imgLColor.SetPixel(intX, intY, ccPaint.ColorLColor()); tLColor = ccPaint.LColor; }
                     if (blnLight) { imgLight.SetPixel(intX, intY, ccPaint.ColorLight()); tLight = ccPaint.Light; }
                     if (blnPipe) {imgPipe.SetPixel(intX, intY, ccPaint.ColorPipe()); tPipe = ccPaint.Pipe; }
@@ -492,9 +608,43 @@ namespace Manual_Screen_Renderer
                     if (blnShading) {imgShading.SetPixel(intX, intY, ccPaint.ColorShading()); tShading = ccPaint.Shading; }
                     if (blnSky) {imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
                     //decompose original rendered pixel and update with only what is enabled
+                    Console.WriteLine("depth " + tDepth.ToString());
                     imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
 
-                    pbxWorkspace.Image = imgWorking;
+                    //pbxWorkspace.Image = imgWorking;
+                    switch (intMode)
+                    {
+                        case 0:
+                            pbxWorkspace.Image = imgDepth;
+                            break;
+                        case 1:
+                            pbxWorkspace.Image = imgEColor;
+                            break;
+                        case 2:
+                            pbxWorkspace.Image = imgIndex;
+                            break;
+                        case 3:
+                            pbxWorkspace.Image = imgLColor;
+                            break;
+                        case 4:
+                            pbxWorkspace.Image = imgLight;
+                            break;
+                        case 5:
+                            pbxWorkspace.Image = imgPipe;
+                            break;
+                        case 6:
+                            pbxWorkspace.Image = imgRainbow;
+                            break;
+                        case 7:
+                            pbxWorkspace.Image = imgShading;
+                            break;
+                        case 8:
+                            pbxWorkspace.Image = imgSky;
+                            break;
+                        case 9:
+                            pbxWorkspace.Image = imgRendered;
+                            break;
+                    }
                 }
             }
         }
@@ -802,9 +952,9 @@ namespace Manual_Screen_Renderer
 
         }
 
-        private void btnShowRendered_Click(object sender, EventArgs e)
+        private void nudDepth_ValueChanged(object sender, EventArgs e)
         {
-
+            ccPaint.Depth = (int)(nudDepth.Value - 1);
         }
     }
 }

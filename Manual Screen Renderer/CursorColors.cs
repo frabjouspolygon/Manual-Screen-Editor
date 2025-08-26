@@ -30,7 +30,7 @@ namespace Manual_Screen_Renderer
         public static int SkyOff = 0;
         public static int SkyOn = 1;
 
-        public int Depth { get; set; }//1-29
+        public int Depth { get; set; }//0-29
         public int EColor { get; set; }//0-3
         public Color Index { get; set; }//a:0?1,r,g,b
         public int LColor { get; set; }//0-2
@@ -39,11 +39,12 @@ namespace Manual_Screen_Renderer
         public int Grime { get; set; }//0?1
         public int Shading { get; set; }//0-255
         public int Sky { get; set; }//0?1
-        public List<Color> IndexPalette { get; set; }
+        //public List<Color> IndexPalette { get; set; }
 
+        public ColorPalette IndexPalette { get; set; }
         public CursorColors()
         {
-            IndexPalette = new List<Color>(256);
+            //IndexPalette = new List<Color>(256);
         }
 
         public Color ColorDepth()
@@ -147,7 +148,7 @@ namespace Manual_Screen_Renderer
                 {
                     valBlue = tShading;
                 }
-                valRed = tDepth + tLColor * 30 + tLight * 90;
+                valRed = 1+tDepth + tLColor * 30 + tLight * 90;
                 valGreen = tEColor + tGrime * 4 + useIndex * 8 + tLight * 16;
                 return Color.FromArgb(valRed, valGreen, valBlue);
             }
@@ -183,24 +184,108 @@ namespace Manual_Screen_Renderer
 
         public int IndexColorID(Color colInput)
         {
-            return IndexPalette.FindIndex(a => a == colInput);
+            //return IndexPalette.FindIndex(a => a == colInput);
+            return Array.FindIndex(IndexPalette.Entries, a => a == colInput);
         }
 
-        public void AddIndexColor(Color colInput)
+        public void AddIndexColor(Color colInput, int slot = -1)
         {
             int id = IndexColorID(colInput);
             if ( id < 0)
             {
-                for (int i = 0; i < 256; i++)
+                if (slot == -1 || slot >255)
                 {
-                    if (IndexPalette[i] == null)
+                    for (int i = 0; i < 256; i++)
                     {
-                        IndexPalette[i] = colInput;
+                        if (IndexPalette.Entries[i] == null)
+                        {
+                            IndexPalette.Entries[i] = colInput;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    IndexPalette.Entries[slot] = colInput;
+                }
+            }
+        }
+
+        public void RemoveIndexColor( int slot)
+        {
+            if (slot >= 0 && slot <=255 )
+            {
+                IndexPalette.Entries[slot] = Color.Transparent;
+            }
+        }
+
+        public void ReplaceIndexColor(Bitmap image,int initial, int final)
+        {
+            if (initial >= 0 && initial <= 255 && final >= 0 && final <= 255 && image != null)
+            {
+                for (int i = 0; i < image.Height; i++)
+                {
+                    for (int j = 0; j < image.Width; j++)
+                    {
+                        if (GetPixelIndexedBitmap(image,j, i) != initial)
+                        {
+                            continue;
+                        }
+                        
+
+
+                        Color colPixel = image.GetPixel(j, i);
+                        int R = colPixel.R;
+                        int G = colPixel.G;
+                        int B = colPixel.B;
+
                     }
                 }
             }
         }
 
+
+        public static unsafe Bitmap SetPixelIndexedBitmap(Bitmap bitmap, int slot,int x, int y)
+        {
+            BitmapData data = bitmap.LockBits(new Rectangle(Point.Empty, bitmap.Size), ImageLockMode.ReadWrite, bitmap.PixelFormat);
+            byte* line = (byte*)data.Scan0;
+            for (int i = 0; i < y+1; i++)// scanning through the lines
+            {
+                line += data.Stride;
+            }
+            line[x] = (byte)slot;
+            bitmap.UnlockBits(data);
+            return bitmap;
+        }
+
+        public static unsafe void ChangeColorIndexedBitmap(Bitmap bitmap, int from, int to)
+        {
+            if (from == to)
+                return;
+            BitmapData data = bitmap.LockBits( new Rectangle(Point.Empty, bitmap.Size), ImageLockMode.ReadWrite, bitmap.PixelFormat);
+            byte* line = (byte*)data.Scan0;
+            for (int y = 0; y < data.Height; y++)// scanning through the lines
+            {
+                for (int x = 0; x < data.Width; x++)// scanning through the pixels within the line
+                {
+                    if (line[x] == from)
+                    line[x] = (byte)to;
+                }
+                line += data.Stride;
+            }
+            bitmap.UnlockBits(data);
+        }
+
+        public static int GetPixelIndexedBitmap(Bitmap bmp, int x, int y)
+        {
+            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
+            IntPtr ptr = bmpData.Scan0;
+            byte[] pixels = new byte[bmpData.Stride * bmp.Height];
+            System.Runtime.InteropServices.Marshal.Copy(ptr, pixels, 0, pixels.Length);
+            int idx = pixels[y * bmpData.Stride + x];
+            bmp.UnlockBits(bmpData);
+            return idx;
+        }
 
         public static Features FeaturesRendered(Color tRendered)
         {
@@ -225,21 +310,19 @@ namespace Manual_Screen_Renderer
             else//not sky
             {
                 if (R > 180)
-                {
                     R = 150;
-                }
+                else if (R < 1)
+                    R = 1;
                 if (G > 31)
-                {
                     G = 0;
-                }
                 tSky = 0;
                 
 
                 tLight = R > 90 ? 1 : 0;// 0 or 1
                 R = R - 90 * tLight;
                 tLColor = Math.Min(Math.Max((R - 1) / 30, 0), 2);//0-2
-                R = R - tLColor * 30;
-                tDepth = (int)(R * 8.8);//1-30
+                R = R - tLColor * 30-1;
+                tDepth = R;//(int)(R * 8.8);//0-29
                 tPipe = (G == 8 ? 1 : 0 + G == 9 ? 2 : 0 + G == 10 ? 3 : 0) * B == 0 ? 1 : 0;//0-3 the B==0 is for of index colors, change this later to only index
                 
                 G = G % 16; //0-15
