@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
                                                                                                                                                                                                                                                                                                                                                                                                                               
 namespace Manual_Screen_Renderer
 {
@@ -29,21 +30,231 @@ namespace Manual_Screen_Renderer
         public static int SkyOff = 0;
         public static int SkyOn = 1;
 
-        public int depth { get; set; }
-        public int EColor { get; set; }
-        public Color index { get; set; }
-        public int LColor { get; set; }
-
-        public int Light { get; set; }
-        public int Pipe { get; set; }
-        public int Grime { get; set; }
-        public int Shading { get; set; }
-        public int Sky { get; set; }
-
+        public int Depth { get; set; }//1-29
+        public int EColor { get; set; }//0-3
+        public Color Index { get; set; }//a:0?1,r,g,b
+        public int LColor { get; set; }//0-2
+        public int Light { get; set; }//0?1
+        public int Pipe { get; set; }//0-3
+        public int Grime { get; set; }//0?1
+        public int Shading { get; set; }//0-255
+        public int Sky { get; set; }//0?1
+        public List<Color> IndexPalette { get; set; }
 
         public CursorColors()
         {
-            
+            IndexPalette = new List<Color>(256);
         }
+
+        public Color ColorDepth()
+        {
+            int val = (int)(Depth * 8.8);
+            return Color.FromArgb(val, val, val);
+        }
+        public Color ColorEColor()
+        {
+            if(EColor==EffectColorA)
+            {
+                return Color.FromArgb(255, 0, 255);
+            }
+            else if (EColor == EffectColorB)
+            {
+                return Color.FromArgb(0, 255, 255);
+            }
+            else if (EColor == EffectColorC)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public Color ColorLColor()
+        {
+            if (LColor == GeometryDark)
+            {
+                return Color.FromArgb(255, 0, 0);
+            }
+            else if (LColor == GeometryNeutral)
+            {
+                return Color.FromArgb(0, 255, 0);
+            }
+            else if (LColor == GeometryLight)
+            {
+                return Color.FromArgb(0, 0, 255);
+            }
+            return Color.FromArgb(255, 0, 0);
+        }
+        public Color ColorLight()
+        {
+            if (Light == LightOn)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public Color ColorPipe()
+        {
+            if (Pipe == PipeL1)
+            {
+                return Color.FromArgb(255, 0, 0);
+            }
+            else if (Pipe == PipeL2)
+            {
+                return Color.FromArgb(0, 255, 0);
+            }
+            else if (Pipe == PipeL3)
+            {
+                return Color.FromArgb(0, 0, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public Color ColorGrime()
+        {
+            if (Grime == GrimeOn)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public Color ColorShading()
+        {
+            return Color.FromArgb(Shading, Shading, Shading);
+        }
+        public Color ColorSky()
+        {
+            if (Sky == SkyOn)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public static Color ColorRendered(int tDepth, Color tIndex, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
+        {
+            int valRed = 0;
+            int valGreen = 0;
+            int valBlue = 0;
+            int useIndex = tIndex.A == 0 ? 1 : 0;
+            
+            if (tSky==1)
+                return Color.FromArgb(255, 255, 255);
+            else
+            {
+                if (useIndex==1)
+                {
+                    //find color from list
+                    valBlue = 255;//for now just say it's the 1st color. Come back to finish this code later
+                }
+                else
+                {
+                    valBlue = tShading;
+                }
+                valRed = tDepth + tLColor * 30 + tLight * 90;
+                valGreen = tEColor + tGrime * 4 + useIndex * 8 + tLight * 16;
+                return Color.FromArgb(valRed, valGreen, valBlue);
+            }
+        }
+
+        public struct Features
+        {
+            public Features(int tDepth, Color tIndex, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
+            {
+                ThisDepth = tDepth;
+                ThisIndex = tIndex;
+                ThisEColor = tEColor;
+                ThisLColor = tLColor;
+                ThisLight = tLight;
+                ThisPipe = tPipe;
+                ThisGrime = tGrime;
+                ThisShading = tShading;
+                ThisSky = tSky;
+            }
+
+            public int ThisDepth { get; }
+            public Color ThisIndex { get; }
+            public int ThisEColor { get; }
+            public int ThisLColor { get; }
+            public int ThisLight { get; }
+            public int ThisPipe { get; }
+            public int ThisGrime { get; }
+            public int ThisShading { get; }
+            public int ThisSky { get; }
+
+            public override string ToString() => $"({ThisDepth}, {ThisIndex}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
+        }
+
+        public int IndexColorID(Color colInput)
+        {
+            return IndexPalette.FindIndex(a => a == colInput);
+        }
+
+        public void AddIndexColor(Color colInput)
+        {
+            int id = IndexColorID(colInput);
+            if ( id < 0)
+            {
+                for (int i = 0; i < 256; i++)
+                {
+                    if (IndexPalette[i] == null)
+                    {
+                        IndexPalette[i] = colInput;
+                    }
+                }
+            }
+        }
+
+
+        public static Features FeaturesRendered(Color tRendered)
+        {
+            
+            int R = tRendered.R;
+            int G = tRendered.G;
+            int B = tRendered.B;
+            int tDepth; Color tIndex; int tEColor; int tLColor; int tLight; int tPipe; int tGrime; int tShading; int tSky;
+
+            if (R == 255 && G == 255 && B == 255)//if sky
+            {
+                tDepth = 30;
+                tIndex = Color.Transparent;
+                tEColor = 0;
+                tLColor = 0; 
+                tLight = 0; 
+                tPipe = 0; 
+                tGrime=0; 
+                tShading=0;
+                tSky = 1;
+            }
+            else//not sky
+            {
+                if (R > 180)
+                {
+                    R = 150;
+                }
+                if (G > 31)
+                {
+                    G = 0;
+                }
+                tSky = 0;
+                
+
+                tLight = R > 90 ? 1 : 0;// 0 or 1
+                R = R - 90 * tLight;
+                tLColor = Math.Min(Math.Max((R - 1) / 30, 0), 2);//0-2
+                R = R - tLColor * 30;
+                tDepth = (int)(R * 8.8);//1-30
+                tPipe = (G == 8 ? 1 : 0 + G == 9 ? 2 : 0 + G == 10 ? 3 : 0) * B == 0 ? 1 : 0;//0-3 the B==0 is for of index colors, change this later to only index
+                
+                G = G % 16; //0-15
+                int HasIndex = Math.Min(G / 8, 1); //0 or 1
+                HasIndex = HasIndex * (B == 0 ? 1 : 0);
+                G = G % 8; //0-7
+                tGrime = G / 4;//0 or 1
+                tEColor = G % 4;//0-3
+                tShading = (1 - HasIndex) * (tEColor > 0 ? 1 : 0) * B; //0-255
+                tIndex = Color.Transparent;//for now no index support
+            }//end not sky
+            var output = new Features(tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+            return output;
+        }
+
+
     }
 }

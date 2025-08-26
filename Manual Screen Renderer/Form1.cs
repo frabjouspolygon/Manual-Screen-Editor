@@ -38,6 +38,16 @@ namespace Manual_Screen_Renderer
         static int intMode = 0;//0-8
         static Color colCursor = Color.FromArgb(0,0,0,0);
         static CursorColors ccPaint = null;
+        static bool blnDepth = false;
+        static bool blnEColor = false;
+        static bool blnIndex = false;
+        static bool blnLColor = false;
+        static bool blnLight = false;
+        static bool blnPipe = false;
+        static bool blnRainbow = false;
+        static bool blnShading = false;
+        static bool blnSky = false;
+        static bool blnRendered = false;
 
         public Form1()
         {
@@ -53,6 +63,16 @@ namespace Manual_Screen_Renderer
             iiSky = new ImgInterface(txtSky, btnSky);
             iiRendered = new ImgInterface(txtRendered, btnRendered);
             ccPaint = new CursorColors();
+            imgDepth = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
+            imgEColor = imgDepth;
+            imgIndex = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0, 0));
+            imgLColor = SolidBitmap(1400, 800, Color.FromArgb(255, 0, 0)); ;
+            imgLight = imgDepth;
+            imgPipe = imgDepth;
+            imgRainbow = imgDepth;
+            imgShading = imgDepth;
+            imgSky = imgDepth;
+            imgRendered = imgDepth;
             //pbxWorkspace.SizeMode = PictureBoxSizeMode.AutoSize;
             //splitContainer1.Panel2.AutoScroll = true;
             pnlWorkspace.AutoScroll = true;
@@ -74,6 +94,19 @@ namespace Manual_Screen_Renderer
         }
 
         static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
+
+        public Bitmap SolidBitmap(int width, int height, Color colFill)
+        {
+            Bitmap Bmp = new Bitmap(width, height);
+            using (Graphics gfx = Graphics.FromImage(Bmp))
+            using (SolidBrush brush = new SolidBrush(colFill))
+            {
+                gfx.FillRectangle(brush, 0, 0, width, height);
+            }
+            return Bmp;
+        }
+
+
 
         private void pbxWorkspace_Click(object sender, EventArgs e)
         {
@@ -444,6 +477,23 @@ namespace Manual_Screen_Renderer
                     intY = Math.Max(Math.Min(intY, imgWorking.Size.Height - 1), 0);
                     intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1), 0);
                     imgWorking.SetPixel(intX, intY, colCursor);
+                    CursorColors.Features features =  CursorColors.FeaturesRendered( imgRendered.GetPixel(intX, intY) );
+                    int tDepth = features.ThisDepth; Color tIndex = features.ThisIndex;int tEColor = features.ThisEColor;int tLColor = features.ThisLColor;
+                    int tLight = features.ThisLight;int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading; 
+                    int tSky = features.ThisSky;
+                    
+                    if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
+                    if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
+                    if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
+                    if (blnLColor) { imgLColor.SetPixel(intX, intY, ccPaint.ColorLColor()); tLColor = ccPaint.LColor; }
+                    if (blnLight) { imgLight.SetPixel(intX, intY, ccPaint.ColorLight()); tLight = ccPaint.Light; }
+                    if (blnPipe) {imgPipe.SetPixel(intX, intY, ccPaint.ColorPipe()); tPipe = ccPaint.Pipe; }
+                    if (blnRainbow) { imgRainbow.SetPixel(intX, intY, ccPaint.ColorGrime()); tGrime = ccPaint.Grime; }
+                    if (blnShading) {imgShading.SetPixel(intX, intY, ccPaint.ColorShading()); tShading = ccPaint.Shading; }
+                    if (blnSky) {imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
+                    //decompose original rendered pixel and update with only what is enabled
+                    imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
+
                     pbxWorkspace.Image = imgWorking;
                 }
             }
@@ -572,7 +622,7 @@ namespace Manual_Screen_Renderer
         {
             colorDialog1.ShowDialog();
             Color colSelection = colorDialog1.Color;
-            ccPaint.index = colSelection;
+            ccPaint.Index = colSelection;
             btnPickIndex.BackColor = colSelection;
         }
 
