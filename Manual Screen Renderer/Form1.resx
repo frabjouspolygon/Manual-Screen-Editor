@@ -125,6 +125,46 @@
   <data name="splitContainer1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
+  <data name="btnEraser.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btnEraser.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnEraser.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 7.875pt, style=Bold</value>
+  </data>
+  <data name="btnEraser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnEraser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 110</value>
+  </data>
+  <data name="btnEraser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="btnEraser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 27</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnEraser.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="btnEraser.Text" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="&gt;&gt;btnEraser.Name" xml:space="preserve">
+    <value>btnEraser</value>
+  </data>
+  <data name="&gt;&gt;btnEraser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnEraser.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnEraser.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="nudDepth.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
@@ -137,7 +177,6 @@
   <data name="nudDepth.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 26</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="nudDepth.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
   </data>
@@ -151,7 +190,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;nudDepth.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btnPickSky.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -184,7 +223,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickSky.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnPickShading.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -220,7 +259,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickShading.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btnPickRainbow.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -253,7 +292,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickRainbow.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="btnPickPipe.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -286,7 +325,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickPipe.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="btnPickLight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -319,7 +358,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickLight.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="btnPickLColor.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -352,7 +391,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickLColor.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="btnPickIndex.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -385,7 +424,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickIndex.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="btnPickEColor.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -418,7 +457,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPickEColor.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="btnDecompose.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -460,7 +499,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnDecompose.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btnColorPicker.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -513,7 +552,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnColorPicker.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="btnRendered.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -543,7 +582,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnRendered.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="txtRendered.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -570,7 +609,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtRendered.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="lblRendered.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -603,7 +642,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;lblRendered.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="btnCompose.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -639,7 +678,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnCompose.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="btnSky.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -669,7 +708,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnSky.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -702,7 +741,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="btnShading.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -732,7 +771,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnShading.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="lblDepth.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -765,7 +804,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;lblDepth.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="btnRainbow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -795,7 +834,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnRainbow.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="txtDepth.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -822,7 +861,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtDepth.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="btnPipe.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -852,7 +891,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnPipe.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>22</value>
   </data>
   <data name="btnLight.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -882,7 +921,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnLight.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>23</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -918,7 +957,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>24</value>
   </data>
   <data name="btnLColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -948,7 +987,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnLColor.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>25</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -981,7 +1020,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>26</value>
   </data>
   <data name="btnIndex.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1011,7 +1050,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnIndex.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>27</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1044,7 +1083,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>28</value>
   </data>
   <data name="btnEColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1074,7 +1113,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnEColor.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>29</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1107,7 +1146,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>30</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1140,7 +1179,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>31</value>
   </data>
   <data name="btnDepth.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1170,7 +1209,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;btnDepth.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>32</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1203,7 +1242,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>33</value>
   </data>
   <data name="txtSky.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1230,7 +1269,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtSky.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>34</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1263,7 +1302,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>34</value>
+    <value>35</value>
   </data>
   <data name="txtShading.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1290,7 +1329,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtShading.ZOrder" xml:space="preserve">
-    <value>35</value>
+    <value>36</value>
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1323,7 +1362,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>36</value>
+    <value>37</value>
   </data>
   <data name="txtRainbow.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1350,7 +1389,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtRainbow.ZOrder" xml:space="preserve">
-    <value>37</value>
+    <value>38</value>
   </data>
   <data name="txtPipe.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1377,7 +1416,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtPipe.ZOrder" xml:space="preserve">
-    <value>38</value>
+    <value>39</value>
   </data>
   <data name="txtEColor.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1404,7 +1443,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtEColor.ZOrder" xml:space="preserve">
-    <value>39</value>
+    <value>40</value>
   </data>
   <data name="txtLight.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1431,7 +1470,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtLight.ZOrder" xml:space="preserve">
-    <value>40</value>
+    <value>41</value>
   </data>
   <data name="txtIndex.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1458,7 +1497,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtIndex.ZOrder" xml:space="preserve">
-    <value>41</value>
+    <value>42</value>
   </data>
   <data name="txtLColor.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -1485,7 +1524,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtLColor.ZOrder" xml:space="preserve">
-    <value>42</value>
+    <value>43</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -2767,25 +2806,25 @@
     <value>Save A Copy</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 28</value>
+    <value>46, 24</value>
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 28</value>
+    <value>49, 24</value>
   </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 28</value>
+    <value>55, 24</value>
   </data>
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>View</value>
   </data>
   <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 28</value>
+    <value>55, 24</value>
   </data>
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>Help</value>
@@ -2797,7 +2836,7 @@
     <value>4, 1, 0, 1</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1521, 30</value>
+    <value>1521, 26</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -2943,9 +2982,6 @@
         wAP/4MAD//BAA//4P////B//+OIP//hhB//4YYP/+GHB//hh4P/4YfD/+AH5//gB///4Q///+EP///hD
         ///4Q///+EP///gD///4A/////////////8=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>

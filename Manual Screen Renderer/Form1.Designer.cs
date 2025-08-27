@@ -75,6 +75,8 @@
             this.txtIndex = new System.Windows.Forms.TextBox();
             this.txtLColor = new System.Windows.Forms.TextBox();
             this.btnShowRendered = new System.Windows.Forms.Button();
+            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
+            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             this.lblCursorCoords = new System.Windows.Forms.Label();
             this.btnEditSky = new System.Windows.Forms.Button();
             this.btnEditShading = new System.Windows.Forms.Button();
@@ -102,18 +104,17 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
-            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
-            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
+            this.btnEraser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
+            this.pnlWorkspace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.pnlWorkspace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -124,6 +125,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnEraser);
             this.splitContainer1.Panel1.Controls.Add(this.nudDepth);
             this.splitContainer1.Panel1.Controls.Add(this.btnPickSky);
             this.splitContainer1.Panel1.Controls.Add(this.btnPickShading);
@@ -525,6 +527,25 @@
             this.btnShowRendered.UseVisualStyleBackColor = false;
             this.btnShowRendered.Click += new System.EventHandler(this.btnShowRendered_Click);
             // 
+            // pnlWorkspace
+            // 
+            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
+            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
+            this.pnlWorkspace.Name = "pnlWorkspace";
+            // 
+            // pbxWorkspace
+            // 
+            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
+            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
+            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
+            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pbxWorkspace.Name = "pbxWorkspace";
+            this.pbxWorkspace.TabStop = false;
+            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
+            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
+            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
+            // 
             // lblCursorCoords
             // 
             resources.ApplyResources(this.lblCursorCoords, "lblCursorCoords");
@@ -736,24 +757,13 @@
             resources.ApplyResources(this.lblMessages, "lblMessages");
             this.lblMessages.Name = "lblMessages";
             // 
-            // pnlWorkspace
+            // btnEraser
             // 
-            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
-            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
-            this.pnlWorkspace.Name = "pnlWorkspace";
-            // 
-            // pbxWorkspace
-            // 
-            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
-            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
-            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
-            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pbxWorkspace.Name = "pbxWorkspace";
-            this.pbxWorkspace.TabStop = false;
-            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
-            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
-            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
+            this.btnEraser.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.btnEraser, "btnEraser");
+            this.btnEraser.Name = "btnEraser";
+            this.btnEraser.TabStop = false;
+            this.btnEraser.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -771,12 +781,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
+            this.pnlWorkspace.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.pnlWorkspace.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -858,6 +868,7 @@
         private System.Windows.Forms.NumericUpDown nudDepth;
         private System.Windows.Forms.Button btnPickShading;
         private System.Windows.Forms.Button btnShowRendered;
+        private System.Windows.Forms.Button btnEraser;
     }
 }
 

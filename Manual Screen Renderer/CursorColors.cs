@@ -133,7 +133,7 @@ namespace Manual_Screen_Renderer
             int valRed = 0;
             int valGreen = 0;
             int valBlue = 0;
-            int useIndex = tIndex.A == 0 ? 1 : 0;
+            int useIndex = tIndex.A == 255 ? 1 : 0;
             
             if (tSky==1)
                 return Color.FromArgb(255, 255, 255);

@@ -51,6 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CursorColors.cs" />
+    <Compile Include="IndexPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexPopup.Designer.cs">
+      <DependentUpon>IndexPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScrollingPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexPopup.resx">
+      <DependentUpon>IndexPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

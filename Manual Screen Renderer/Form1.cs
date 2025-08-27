@@ -103,9 +103,9 @@ namespace Manual_Screen_Renderer
             Console.WriteLine(imgIndex.Palette.Entries[0].A);
         }
 
-        static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
+        public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
 
-        public Bitmap SolidBitmap(int width, int height, Color colFill)
+        public static Bitmap SolidBitmap(int width, int height, Color colFill)
         {
             Bitmap Bmp = new Bitmap(width, height);
             using (Graphics gfx = Graphics.FromImage(Bmp))
@@ -412,6 +412,10 @@ namespace Manual_Screen_Renderer
                 pbxWorkspace.Image = imgIndex;
                 blnIndex = true;
                 btnEditIndex.BackColor = Color.LightGray;
+                for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
+                {
+                    Console.WriteLine((imgIndex.Palette.Entries[i].R).ToString()+" "+(imgIndex.Palette.Entries[i].G+" "+(imgIndex.Palette.Entries[i].B).ToString()));
+                }
             }
         }
 
@@ -608,7 +612,7 @@ namespace Manual_Screen_Renderer
                     if (blnShading) {imgShading.SetPixel(intX, intY, ccPaint.ColorShading()); tShading = ccPaint.Shading; }
                     if (blnSky) {imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
                     //decompose original rendered pixel and update with only what is enabled
-                    Console.WriteLine("depth " + tDepth.ToString());
+                    Console.WriteLine("Index " + tIndex.ToString());
                     imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
 
                     //pbxWorkspace.Image = imgWorking;
@@ -770,10 +774,12 @@ namespace Manual_Screen_Renderer
 
         private void btnPickIndex_Click(object sender, EventArgs e)
         {
-            colorDialog1.ShowDialog();
-            Color colSelection = colorDialog1.Color;
-            ccPaint.Index = colSelection;
-            btnPickIndex.BackColor = colSelection;
+            IndexPopup stuff = new IndexPopup(ccPaint.IndexPalette);
+            stuff.Show();
+            //colorDialog1.ShowDialog();
+            //Color colSelection = colorDialog1.Color;
+            //ccPaint.Index = colSelection;
+            //btnPickIndex.BackColor = colSelection;
         }
 
         private void btnPickEColor_Click(object sender, EventArgs e)
