@@ -30,7 +30,9 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnDelCol = new System.Windows.Forms.Button();
-            this.btnReplace = new System.Windows.Forms.Button();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,35 +42,53 @@
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(510, 450);
+            this.pictureBox1.Size = new System.Drawing.Size(550, 450);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // btnDelCol
             // 
-            this.btnDelCol.Location = new System.Drawing.Point(515, 12);
+            this.btnDelCol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelCol.Location = new System.Drawing.Point(89, 462);
             this.btnDelCol.Name = "btnDelCol";
-            this.btnDelCol.Size = new System.Drawing.Size(185, 26);
+            this.btnDelCol.Size = new System.Drawing.Size(71, 26);
             this.btnDelCol.TabIndex = 1;
             this.btnDelCol.Text = "Delete";
             this.btnDelCol.UseVisualStyleBackColor = true;
+            this.btnDelCol.Click += new System.EventHandler(this.btnDelCol_Click);
             // 
-            // btnReplace
+            // btnOk
             // 
-            this.btnReplace.Location = new System.Drawing.Point(515, 44);
-            this.btnReplace.Name = "btnReplace";
-            this.btnReplace.Size = new System.Drawing.Size(185, 26);
-            this.btnReplace.TabIndex = 2;
-            this.btnReplace.Text = "Replace";
-            this.btnReplace.UseVisualStyleBackColor = true;
+            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOk.Location = new System.Drawing.Point(12, 462);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(71, 26);
+            this.btnOk.TabIndex = 2;
+            this.btnOk.Text = "OK";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(455, 462);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(71, 26);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // IndexPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(731, 476);
-            this.Controls.Add(this.btnReplace);
+            this.ClientSize = new System.Drawing.Size(551, 527);
+            this.ControlBox = false;
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnDelCol);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -83,6 +103,8 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnDelCol;
-        private System.Windows.Forms.Button btnReplace;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

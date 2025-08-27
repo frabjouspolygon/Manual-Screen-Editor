@@ -33,6 +33,7 @@ namespace Manual_Screen_Renderer
         public int Depth { get; set; }//0-29
         public int EColor { get; set; }//0-3
         public Color Index { get; set; }//a:0?1,r,g,b
+        public int IndexID { get; set; }//a:0?1,r,g,b
         public int LColor { get; set; }//0-2
         public int Light { get; set; }//0?1
         public int Pipe { get; set; }//0-3

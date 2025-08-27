@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Manual_Screen_Renderer;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
-using System.IO;
-using Manual_Screen_Renderer;
 
 namespace Manual_Screen_Renderer
 {
@@ -604,7 +605,7 @@ namespace Manual_Screen_Renderer
                     if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
                     if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
                     //if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
-                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexColorID(ccPaint.Index), intX, intY); tIndex = ccPaint.Index; }
+                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexID, intX, intY); tIndex = ccPaint.IndexPalette.Entries[ccPaint.IndexID]; }
                     if (blnLColor) { imgLColor.SetPixel(intX, intY, ccPaint.ColorLColor()); tLColor = ccPaint.LColor; }
                     if (blnLight) { imgLight.SetPixel(intX, intY, ccPaint.ColorLight()); tLight = ccPaint.Light; }
                     if (blnPipe) {imgPipe.SetPixel(intX, intY, ccPaint.ColorPipe()); tPipe = ccPaint.Pipe; }
@@ -774,8 +775,22 @@ namespace Manual_Screen_Renderer
 
         private void btnPickIndex_Click(object sender, EventArgs e)
         {
-            IndexPopup stuff = new IndexPopup(ccPaint.IndexPalette);
-            stuff.Show();
+            //IndexPopup stuff = new IndexPopup(ccPaint.IndexPalette);
+            //stuff.Show();
+
+            using (var form = new IndexPopup(ccPaint.IndexPalette,ccPaint.IndexID))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    ColorPalette val = form.IndexPalette;
+                    int val2 = form.selectedColorID;
+                    ccPaint.IndexPalette = val;
+                    imgIndex.Palette = val;
+                    ccPaint.IndexID = 254-val2;
+                    btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
+                }
+            }
             //colorDialog1.ShowDialog();
             //Color colSelection = colorDialog1.Color;
             //ccPaint.Index = colSelection;
@@ -961,6 +976,11 @@ namespace Manual_Screen_Renderer
         private void nudDepth_ValueChanged(object sender, EventArgs e)
         {
             ccPaint.Depth = (int)(nudDepth.Value - 1);
+        }
+
+        private void btnEraser_Click(object sender, EventArgs e)
+        {
+            ccPaint.IndexID = 0;
         }
     }
 }
