@@ -598,14 +598,14 @@ namespace Manual_Screen_Renderer
                     intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1+2), 0);
                     //imgWorking.SetPixel(intX, intY, colCursor);
                     CursorColors.Features features =  CursorColors.FeaturesRendered( imgRendered.GetPixel(intX, intY) );
-                    int tDepth = features.ThisDepth; Color tIndex = features.ThisIndex;int tEColor = features.ThisEColor;int tLColor = features.ThisLColor;
+                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID;int tEColor = features.ThisEColor;int tLColor = features.ThisLColor;
                     int tLight = features.ThisLight;int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading; 
                     int tSky = features.ThisSky;
                     
                     if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
                     if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
                     //if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
-                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexID, intX, intY); tIndex = ccPaint.IndexPalette.Entries[ccPaint.IndexID]; }
+                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexID, intX, intY); tIndexID= ccPaint.IndexID; }
                     if (blnLColor) { imgLColor.SetPixel(intX, intY, ccPaint.ColorLColor()); tLColor = ccPaint.LColor; }
                     if (blnLight) { imgLight.SetPixel(intX, intY, ccPaint.ColorLight()); tLight = ccPaint.Light; }
                     if (blnPipe) {imgPipe.SetPixel(intX, intY, ccPaint.ColorPipe()); tPipe = ccPaint.Pipe; }
@@ -613,8 +613,8 @@ namespace Manual_Screen_Renderer
                     if (blnShading) {imgShading.SetPixel(intX, intY, ccPaint.ColorShading()); tShading = ccPaint.Shading; }
                     if (blnSky) {imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
                     //decompose original rendered pixel and update with only what is enabled
-                    Console.WriteLine("Index " + tIndex.ToString());
-                    imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
+                    //Console.WriteLine("Index " + tIndex.ToString());
+                    imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
 
                     //pbxWorkspace.Image = imgWorking;
                     switch (intMode)
@@ -787,7 +787,7 @@ namespace Manual_Screen_Renderer
                     int val2 = form.selectedColorID;
                     ccPaint.IndexPalette = val;
                     imgIndex.Palette = val;
-                    ccPaint.IndexID = 254-val2;
+                    ccPaint.IndexID = val2;
                     btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
                 }
             }
