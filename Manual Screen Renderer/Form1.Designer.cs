@@ -99,6 +99,7 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveACopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +107,6 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.exportLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -697,11 +697,13 @@
             0});
             this.nudMaxLayer.Name = "nudMaxLayer";
             this.nudMaxLayer.TabStop = false;
+            this.toolTip.SetToolTip(this.nudMaxLayer, resources.GetString("nudMaxLayer.ToolTip"));
             this.nudMaxLayer.Value = new decimal(new int[] {
             30,
             0,
             0,
             0});
+            this.nudMaxLayer.ValueChanged += new System.EventHandler(this.nudMaxLayer_ValueChanged);
             // 
             // nudMinLayer
             // 
@@ -718,11 +720,13 @@
             0});
             this.nudMinLayer.Name = "nudMinLayer";
             this.nudMinLayer.TabStop = false;
+            this.toolTip.SetToolTip(this.nudMinLayer, resources.GetString("nudMinLayer.ToolTip"));
             this.nudMinLayer.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.nudMinLayer.ValueChanged += new System.EventHandler(this.nudMinLayer_ValueChanged);
             // 
             // menuStrip1
             // 
@@ -775,6 +779,12 @@
             resources.ApplyResources(this.saveACopyToolStripMenuItem, "saveACopyToolStripMenuItem");
             this.saveACopyToolStripMenuItem.Click += new System.EventHandler(this.saveACopyToolStripMenuItem_Click);
             // 
+            // exportLayersToolStripMenuItem
+            // 
+            this.exportLayersToolStripMenuItem.Name = "exportLayersToolStripMenuItem";
+            resources.ApplyResources(this.exportLayersToolStripMenuItem, "exportLayersToolStripMenuItem");
+            this.exportLayersToolStripMenuItem.Click += new System.EventHandler(this.exportLayersToolStripMenuItem_Click);
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
@@ -806,12 +816,6 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Name = "label1";
-            // 
-            // exportLayersToolStripMenuItem
-            // 
-            this.exportLayersToolStripMenuItem.Name = "exportLayersToolStripMenuItem";
-            resources.ApplyResources(this.exportLayersToolStripMenuItem, "exportLayersToolStripMenuItem");
-            this.exportLayersToolStripMenuItem.Click += new System.EventHandler(this.exportLayersToolStripMenuItem_Click);
             // 
             // Form1
             // 

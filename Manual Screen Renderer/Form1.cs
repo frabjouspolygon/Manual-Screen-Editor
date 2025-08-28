@@ -546,7 +546,9 @@ namespace Manual_Screen_Renderer
                     int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID;int tEColor = features.ThisEColor;int tLColor = features.ThisLColor;
                     int tLight = features.ThisLight;int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading; 
                     int tSky = features.ThisSky;
-                    
+
+                    if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
+                        return;
                     if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
                     if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
                     //if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
@@ -981,6 +983,22 @@ namespace Manual_Screen_Renderer
                     }
 
                 }
+            }
+        }
+
+        private void nudMinLayer_ValueChanged(object sender, EventArgs e)
+        {
+            if(nudMinLayer.Value > nudMaxLayer.Value)
+            {
+                nudMinLayer.Value=nudMaxLayer.Value;
+            }
+        }
+
+        private void nudMaxLayer_ValueChanged(object sender, EventArgs e)
+        {
+            if (nudMaxLayer.Value < nudMinLayer.Value)
+            {
+                nudMaxLayer.Value = nudMinLayer.Value;
             }
         }
     }
