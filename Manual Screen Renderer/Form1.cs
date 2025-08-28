@@ -121,52 +121,7 @@ namespace Manual_Screen_Renderer
 
 
 
-        private void pbxWorkspace_Click(object sender, EventArgs e)
-        {
-            /*Point clientPoint = PointToClient(Cursor.Position);
-            var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Size.Width, clientPoint.X) + 0.5d);
-            var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Size.Height, clientPoint.Y) + 0.5d);
-            //lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
-            Bitmap imgWorking = (Bitmap)pbxWorkspace.Image;
-            Graphics graphic = Graphics.FromImage(imgWorking);
-            intY = Math.Max(Math.Min(intY, imgWorking.Size.Height-1),0);
-            intX = Math.Max(Math.Min(intX, imgWorking.Size.Width-1), 0);
-            //imgWorking.SetPixel(intX,intY,colCursor);
-            //pbxWorkspace.Image = imgWorking;
-            switch(intMode)
-            {
-                case 0://Depth mode
-                    imgDepth = imgWorking;
-                    break;
-                case 1://EColor mode
-                    imgEColor = imgWorking;
-                    break;
-                case 2://Index mode
-                    imgIndex = imgWorking;
-                    break;
-                case 3://LColor mode
-                    imgLColor = imgWorking;
-                    break;
-                case 4://Light mode
-                    imgLight = imgWorking;
-                    break;
-                case 5://Pipe mode
-                    imgPipe = imgWorking;
-                    break;
-                case 6://Rainbow mode
-                    imgRainbow = imgWorking;
-                    break;
-                case 7://Shading mode
-                    imgShading = imgWorking;
-                    break;
-                case 8://Sky mode
-                    imgSky = imgWorking;
-                    break;
-            }*/
-            
-
-
-        }
+        
 
         public string ImageDialogue()
         {
@@ -527,6 +482,13 @@ namespace Manual_Screen_Renderer
             
         }
 
+        private void pbxWorkspace_Click(object sender, EventArgs e)
+        {
+            PaintWorkspace();
+
+
+        }
+
         private void pbxWorkspace_MouseMove(object sender, MouseEventArgs e)
         {
             if (pbxWorkspace.Image != null)
@@ -535,18 +497,31 @@ namespace Manual_Screen_Renderer
                 var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
                 var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
                 lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
+                if (MouseButtons == MouseButtons.Left)
+                    PaintWorkspace();
+            }
+        }
+
+        private void PaintWorkspace()
+        {
+            if (pbxWorkspace.Image != null)
+            {
+                Point clientPoint = PointToClient(Cursor.Position);
+                var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+                var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+                //lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
                 //lblCursorCoords.Text = pbxWorkspace.Image.HorizontalResolution.ToString();
 
-                if (MouseButtons == MouseButtons.Left)
+                if (true) // MouseButtons == MouseButtons.Left)
                 {
                     Bitmap imgWorking = (Bitmap)pbxWorkspace.Image;
                     //Graphics graphic = Graphics.FromImage(imgWorking);
-                    intY = Math.Max(Math.Min(intY, imgWorking.Size.Height - 1+2), 0);
-                    intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1+2), 0);
+                    intY = Math.Max(Math.Min(intY, imgWorking.Size.Height - 1 + 2), 0);
+                    intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1 + 2), 0);
                     //imgWorking.SetPixel(intX, intY, colCursor);
-                    CursorColors.Features features =  CursorColors.FeaturesRendered( imgRendered.GetPixel(intX, intY) );
-                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID;int tEColor = features.ThisEColor;int tLColor = features.ThisLColor;
-                    int tLight = features.ThisLight;int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading; 
+                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
+                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
                     int tSky = features.ThisSky;
 
 
@@ -562,7 +537,7 @@ namespace Manual_Screen_Renderer
                         ccPaint.Shading = tShading;
                         ccPaint.Sky = tSky;
                         pickerMode = false;
-                        nudDepth.Value = ccPaint.Depth+1;
+                        nudDepth.Value = ccPaint.Depth + 1;
                         btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
                         btnPickEColor.BackColor = ccPaint.ColorEColor();
                         btnPickLColor.BackColor = ccPaint.ColorLColor();
@@ -576,20 +551,20 @@ namespace Manual_Screen_Renderer
                     }
                     if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
                         return;
-                    
+
                     if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
                     if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
                     //if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
-                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexID, intX, intY); tIndexID= ccPaint.IndexID; }
+                    if (blnIndex) { imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexID, intX, intY); tIndexID = ccPaint.IndexID; }
                     if (blnLColor) { imgLColor.SetPixel(intX, intY, ccPaint.ColorLColor()); tLColor = ccPaint.LColor; }
                     if (blnLight) { imgLight.SetPixel(intX, intY, ccPaint.ColorLight()); tLight = ccPaint.Light; }
-                    if (blnPipe) {imgPipe.SetPixel(intX, intY, ccPaint.ColorPipe()); tPipe = ccPaint.Pipe; }
+                    if (blnPipe) { imgPipe.SetPixel(intX, intY, ccPaint.ColorPipe()); tPipe = ccPaint.Pipe; }
                     if (blnRainbow) { imgRainbow.SetPixel(intX, intY, ccPaint.ColorGrime()); tGrime = ccPaint.Grime; }
-                    if (blnShading) {imgShading.SetPixel(intX, intY, ccPaint.ColorShading()); tShading = ccPaint.Shading; }
-                    if (blnSky) {imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
+                    if (blnShading) { imgShading.SetPixel(intX, intY, ccPaint.ColorShading()); tShading = ccPaint.Shading; }
+                    if (blnSky) { imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
                     //decompose original rendered pixel and update with only what is enabled
                     //Console.WriteLine("Index " + tIndex.ToString());
-                    imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
+                    imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
 
                     //pbxWorkspace.Image = imgWorking;
                     RefreshWorkspace();
