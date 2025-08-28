@@ -75,7 +75,7 @@ namespace Manual_Screen_Renderer
                 ccPaint.IndexPalette.Entries[i] = Color.Transparent;
             }
             imgIndex.Palette = ccPaint.IndexPalette;
-            
+            ccPaint.IndexID = 255;
             imgLColor = SolidBitmap(1400, 800, Color.FromArgb(255, 0, 0)); ;
             imgLight = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             imgPipe = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
@@ -737,8 +737,11 @@ namespace Manual_Screen_Renderer
                     imgIndex.Palette = val;
                     ccPaint.IndexID = val2;
                     btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
+                    Console.WriteLine("IndexID "+val2.ToString());
+                    toolTip.SetToolTip(btnPickIndex, val2.ToString());
                 }
             }
+
             //colorDialog1.ShowDialog();
             //Color colSelection = colorDialog1.Color;
             //ccPaint.Index = colSelection;
@@ -756,26 +759,31 @@ namespace Manual_Screen_Renderer
             {
                 btnPickEColor.BackColor = EffectB;
                 ccPaint.EColor = CursorColors.EffectColorB;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color B");
             }
             else if (colInitial == CursorColors.EffectColorB)
             {
                 btnPickEColor.BackColor = EffectC;
                 ccPaint.EColor = CursorColors.EffectColorC;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive");
             }
             else if (colInitial == CursorColors.EffectColorC)
             {
                 btnPickEColor.BackColor = Off;
                 ccPaint.EColor = CursorColors.NoEffectColor;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Off");
             }
             else if (colInitial == CursorColors.NoEffectColor)
             {
                 btnPickEColor.BackColor = EffectA;
                 ccPaint.EColor = CursorColors.EffectColorA;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color A");
             }
             else
             {
                 btnPickEColor.BackColor = Off;
                 ccPaint.EColor = CursorColors.NoEffectColor;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Off");
             }
         }
 
@@ -789,21 +797,25 @@ namespace Manual_Screen_Renderer
             {
                 btnPickLColor.BackColor = Neutral;
                 ccPaint.LColor = CursorColors.GeometryNeutral;
+                toolTip.SetToolTip(btnPickLColor, "Neutral");
             }
             else if (colInitial == CursorColors.GeometryNeutral)
             {
                 btnPickLColor.BackColor = Dark;
                 ccPaint.LColor = CursorColors.GeometryDark;
+                toolTip.SetToolTip(btnPickLColor, "Dark");
             }
             else if (colInitial == CursorColors.GeometryDark)
             {
                 btnPickLColor.BackColor = Light;
                 ccPaint.LColor = CursorColors.GeometryLight;
+                toolTip.SetToolTip(btnPickLColor, "Light");
             }
             else
             {
                 btnPickLColor.BackColor = Neutral;
                 ccPaint.LColor = CursorColors.GeometryNeutral;
+                toolTip.SetToolTip(btnPickLColor, "Neutral");
             }
         }
 
@@ -816,16 +828,20 @@ namespace Manual_Screen_Renderer
             {
                 ccPaint.Light = CursorColors.LightOff;
                 btnPickLight.BackColor = Dark;
+                toolTip.SetToolTip(btnPickLight, "Shadow");
             }
             else if (colInitial == CursorColors.LightOff)
             {
                 btnPickLight.BackColor = Light;
                 ccPaint.Light = CursorColors.LightOn;
+                toolTip.SetToolTip(btnPickLight, "Sunlight");
             }
             else
             {
                 btnPickLight.BackColor = Light;
                 ccPaint.Light = CursorColors.LightOn;
+                toolTip.SetToolTip(btnPickLight, "Sunlight");
+
             }
         }
 
@@ -840,26 +856,31 @@ namespace Manual_Screen_Renderer
             {
                 ccPaint.Pipe = CursorColors.PipeL2;
                 btnPickPipe.BackColor = L2;
+                toolTip.SetToolTip(btnPickPipe, "Pipe Layer 2");
             }
             else if (colInitial == CursorColors.PipeL2)
             {
                 ccPaint.Pipe = CursorColors.PipeL3;
                 btnPickPipe.BackColor = L3;
+                toolTip.SetToolTip(btnPickPipe, "Pipe Layer 3");
             }
             else if (colInitial == CursorColors.PipeL3)
             {
                 ccPaint.Pipe = CursorColors.NoPipe;
                 btnPickPipe.BackColor = Off;
+                toolTip.SetToolTip(btnPickPipe, "No Pipes");
             }
             else if (colInitial == CursorColors.NoPipe)
             {
                 ccPaint.Pipe = CursorColors.PipeL1;
                 btnPickPipe.BackColor = L1;
+                toolTip.SetToolTip(btnPickPipe, "Pipe Layer 1");
             }
             else
             {
                 ccPaint.Pipe = CursorColors.NoPipe;
                 btnPickPipe.BackColor = Off;
+                toolTip.SetToolTip(btnPickPipe, "No Pipes");
             }
         }
 
@@ -872,16 +893,19 @@ namespace Manual_Screen_Renderer
             {
                 ccPaint.Grime = CursorColors.GrimeOff;
                 btnPickRainbow.BackColor = Off;
+                toolTip.SetToolTip(btnPickRainbow, "Grime Off");
             }
             else if (colInitial == CursorColors.GrimeOff)
             {
                 ccPaint.Grime = CursorColors.GrimeOn;
                 btnPickRainbow.BackColor = On;
+                toolTip.SetToolTip(btnPickRainbow, "Grime On");
             }
             else
             {
                 ccPaint.Grime = CursorColors.GrimeOff;
                 btnPickRainbow.BackColor = Off;
+                toolTip.SetToolTip(btnPickRainbow, "Grime Off");
             }
         }
 
@@ -892,6 +916,7 @@ namespace Manual_Screen_Renderer
             ccPaint.Shading = (int)(colSelection.GetBrightness()*255);
             btnPickShading.BackColor = Color.FromArgb(ccPaint.Shading, ccPaint.Shading, ccPaint.Shading);
             colorDialog1.Color = btnPickShading.BackColor;
+            toolTip.SetToolTip(btnPickShading, ccPaint.Shading.ToString());
         }
 
         private void btnPickSky_Click(object sender, EventArgs e)
@@ -903,16 +928,19 @@ namespace Manual_Screen_Renderer
             {
                 ccPaint.Sky = CursorColors.SkyOff;
                 btnPickSky.BackColor = Geometry;
+                toolTip.SetToolTip(btnPickSky, "Geometry");
             }
             else if (colInitial == CursorColors.SkyOff)
             {
                 ccPaint.Sky = CursorColors.SkyOn;
                 btnPickSky.BackColor = Sky;
+                toolTip.SetToolTip(btnPickSky, "Sky");
             }
             else
             {
                 ccPaint.Sky = CursorColors.SkyOff;
                 btnPickSky.BackColor = Geometry;
+                toolTip.SetToolTip(btnPickSky, "Geometry");
             }
         }
 
@@ -929,6 +957,17 @@ namespace Manual_Screen_Renderer
         private void btnEraser_Click(object sender, EventArgs e)
         {
             ccPaint.IndexID = 0;
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png";
+            ImageFormat format = ImageFormat.Png;
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                imgRendered.Save(sfd.FileName, format);
+            }
         }
     }
 }

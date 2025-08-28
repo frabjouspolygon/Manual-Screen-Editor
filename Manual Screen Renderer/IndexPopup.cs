@@ -76,6 +76,9 @@ namespace Manual_Screen_Renderer
                 }
                 else
                 {
+                    Color color = IndexPalette.Entries[colorID];
+                    if (color == Color.Transparent) color = Color.White;
+                    colorDialog1.Color = color;
                     var result = colorDialog1.ShowDialog();
                     if (result == DialogResult.OK)
                     {
@@ -118,7 +121,7 @@ namespace Manual_Screen_Renderer
 
         private void InitializeSwatches()
         {
-            for (int colorID = 0; colorID < 256-1; colorID++)
+            for (int colorID = 1; colorID < 256; colorID++)
             {
                 var (celX, celY) = GetCellFromID(colorID);
                 Color color = IndexPalette.Entries[colorID];
@@ -182,11 +185,19 @@ namespace Manual_Screen_Renderer
 
         private Bitmap DrawSwatch(Bitmap bitmap, int celX, int celY, Color color)
         {
+            if(celX==0 && celY==0)
+            {
+                Console.WriteLine("swatch at cell 0,0");
+            }
+            if (celX == 0 && celY == 1)
+            {
+                Console.WriteLine("swatch at cell 0,1");
+            }
             int x = celX * (pictureBox1.Image.Width / w);
             int y = celY * (pictureBox1.Image.Height / h);
             if (color.A <255)
             {
-                color = Color.Transparent;
+                color = Color.White;
             }
             using (Graphics g = Graphics.FromImage(bitmap))
             {

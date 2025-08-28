@@ -105,6 +105,7 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -197,6 +198,7 @@
             resources.ApplyResources(this.btnEraser, "btnEraser");
             this.btnEraser.Name = "btnEraser";
             this.btnEraser.TabStop = false;
+            this.toolTip.SetToolTip(this.btnEraser, resources.GetString("btnEraser.ToolTip"));
             this.btnEraser.UseVisualStyleBackColor = false;
             this.btnEraser.Click += new System.EventHandler(this.btnEraser_Click);
             // 
@@ -228,6 +230,7 @@
             resources.ApplyResources(this.btnPickSky, "btnPickSky");
             this.btnPickSky.Name = "btnPickSky";
             this.btnPickSky.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickSky, resources.GetString("btnPickSky.ToolTip"));
             this.btnPickSky.UseVisualStyleBackColor = false;
             this.btnPickSky.Click += new System.EventHandler(this.btnPickSky_Click);
             // 
@@ -237,6 +240,7 @@
             resources.ApplyResources(this.btnPickShading, "btnPickShading");
             this.btnPickShading.Name = "btnPickShading";
             this.btnPickShading.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickShading, resources.GetString("btnPickShading.ToolTip"));
             this.btnPickShading.UseVisualStyleBackColor = false;
             this.btnPickShading.Click += new System.EventHandler(this.btnPickShading_Click);
             // 
@@ -246,6 +250,7 @@
             resources.ApplyResources(this.btnPickRainbow, "btnPickRainbow");
             this.btnPickRainbow.Name = "btnPickRainbow";
             this.btnPickRainbow.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickRainbow, resources.GetString("btnPickRainbow.ToolTip"));
             this.btnPickRainbow.UseVisualStyleBackColor = false;
             this.btnPickRainbow.Click += new System.EventHandler(this.btnPickRainbow_Click);
             // 
@@ -255,6 +260,7 @@
             resources.ApplyResources(this.btnPickPipe, "btnPickPipe");
             this.btnPickPipe.Name = "btnPickPipe";
             this.btnPickPipe.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickPipe, resources.GetString("btnPickPipe.ToolTip"));
             this.btnPickPipe.UseVisualStyleBackColor = false;
             this.btnPickPipe.Click += new System.EventHandler(this.btnPickPipe_Click);
             // 
@@ -264,6 +270,7 @@
             resources.ApplyResources(this.btnPickLight, "btnPickLight");
             this.btnPickLight.Name = "btnPickLight";
             this.btnPickLight.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickLight, resources.GetString("btnPickLight.ToolTip"));
             this.btnPickLight.UseVisualStyleBackColor = false;
             this.btnPickLight.Click += new System.EventHandler(this.btnPickLight_Click);
             // 
@@ -273,6 +280,7 @@
             resources.ApplyResources(this.btnPickLColor, "btnPickLColor");
             this.btnPickLColor.Name = "btnPickLColor";
             this.btnPickLColor.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickLColor, resources.GetString("btnPickLColor.ToolTip"));
             this.btnPickLColor.UseVisualStyleBackColor = false;
             this.btnPickLColor.Click += new System.EventHandler(this.btnPickLColor_Click);
             // 
@@ -282,6 +290,7 @@
             resources.ApplyResources(this.btnPickIndex, "btnPickIndex");
             this.btnPickIndex.Name = "btnPickIndex";
             this.btnPickIndex.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickIndex, resources.GetString("btnPickIndex.ToolTip"));
             this.btnPickIndex.UseVisualStyleBackColor = false;
             this.btnPickIndex.Click += new System.EventHandler(this.btnPickIndex_Click);
             // 
@@ -291,6 +300,7 @@
             resources.ApplyResources(this.btnPickEColor, "btnPickEColor");
             this.btnPickEColor.Name = "btnPickEColor";
             this.btnPickEColor.TabStop = false;
+            this.toolTip.SetToolTip(this.btnPickEColor, resources.GetString("btnPickEColor.ToolTip"));
             this.btnPickEColor.UseVisualStyleBackColor = false;
             this.btnPickEColor.Click += new System.EventHandler(this.btnPickEColor_Click);
             // 
@@ -754,6 +764,7 @@
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             resources.ApplyResources(this.saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // saveACopyToolStripMenuItem
             // 
@@ -786,10 +797,17 @@
             resources.ApplyResources(this.lblMessages, "lblMessages");
             this.lblMessages.Name = "lblMessages";
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Name = "label1";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMessages);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer1);
@@ -890,6 +908,7 @@
         private System.Windows.Forms.Button btnPickShading;
         private System.Windows.Forms.Button btnShowRendered;
         private System.Windows.Forms.Button btnEraser;
+        private System.Windows.Forms.Label label1;
     }
 }
 

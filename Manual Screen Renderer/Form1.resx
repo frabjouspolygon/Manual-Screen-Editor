@@ -125,6 +125,9 @@
   <data name="splitContainer1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>426, 17</value>
+  </metadata>
   <data name="btnEraser.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="btnEraser.Text" xml:space="preserve">
     <value>E</value>
+  </data>
+  <data name="btnEraser.ToolTip" xml:space="preserve">
+    <value>Index Color Eraser</value>
   </data>
   <data name="&gt;&gt;btnEraser.Name" xml:space="preserve">
     <value>btnEraser</value>
@@ -213,6 +219,9 @@
   <data name="btnPickSky.TabIndex" type="System.Int32, mscorlib">
     <value>45</value>
   </data>
+  <data name="btnPickSky.ToolTip" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
   <data name="&gt;&gt;btnPickSky.Name" xml:space="preserve">
     <value>btnPickSky</value>
   </data>
@@ -249,6 +258,9 @@
   <data name="btnPickShading.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
   </data>
+  <data name="btnPickShading.ToolTip" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;btnPickShading.Name" xml:space="preserve">
     <value>btnPickShading</value>
   </data>
@@ -281,6 +293,9 @@
   </data>
   <data name="btnPickRainbow.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
+  </data>
+  <data name="btnPickRainbow.ToolTip" xml:space="preserve">
+    <value>Grime off</value>
   </data>
   <data name="&gt;&gt;btnPickRainbow.Name" xml:space="preserve">
     <value>btnPickRainbow</value>
@@ -315,6 +330,9 @@
   <data name="btnPickPipe.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
+  <data name="btnPickPipe.ToolTip" xml:space="preserve">
+    <value>No Pipes</value>
+  </data>
   <data name="&gt;&gt;btnPickPipe.Name" xml:space="preserve">
     <value>btnPickPipe</value>
   </data>
@@ -347,6 +365,9 @@
   </data>
   <data name="btnPickLight.TabIndex" type="System.Int32, mscorlib">
     <value>41</value>
+  </data>
+  <data name="btnPickLight.ToolTip" xml:space="preserve">
+    <value>Shadow</value>
   </data>
   <data name="&gt;&gt;btnPickLight.Name" xml:space="preserve">
     <value>btnPickLight</value>
@@ -381,6 +402,9 @@
   <data name="btnPickLColor.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
   </data>
+  <data name="btnPickLColor.ToolTip" xml:space="preserve">
+    <value>Dark</value>
+  </data>
   <data name="&gt;&gt;btnPickLColor.Name" xml:space="preserve">
     <value>btnPickLColor</value>
   </data>
@@ -414,6 +438,9 @@
   <data name="btnPickIndex.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
   </data>
+  <data name="btnPickIndex.ToolTip" xml:space="preserve">
+    <value>Index Colors</value>
+  </data>
   <data name="&gt;&gt;btnPickIndex.Name" xml:space="preserve">
     <value>btnPickIndex</value>
   </data>
@@ -446,6 +473,9 @@
   </data>
   <data name="btnPickEColor.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
+  </data>
+  <data name="btnPickEColor.ToolTip" xml:space="preserve">
+    <value>Effect Color Off</value>
   </data>
   <data name="&gt;&gt;btnPickEColor.Name" xml:space="preserve">
     <value>btnPickEColor</value>
@@ -483,9 +513,6 @@
   <data name="btnDecompose.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>TextAboveImage</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>426, 17</value>
-  </metadata>
   <data name="btnDecompose.ToolTip" xml:space="preserve">
     <value>Create components from rendered screen</value>
   </data>
@@ -1638,24 +1665,6 @@
   <data name="&gt;&gt;btnShowRendered.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="pbxWorkspace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="pbxWorkspace.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pbxWorkspace.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="pbxWorkspace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>874, 691</value>
-  </data>
-  <data name="pbxWorkspace.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="pbxWorkspace.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;pbxWorkspace.Name" xml:space="preserve">
     <value>pbxWorkspace</value>
   </data>
@@ -2800,7 +2809,37 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
+  </data>
+  <data name="pbxWorkspace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pbxWorkspace.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pbxWorkspace.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="pbxWorkspace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>874, 691</value>
+  </data>
+  <data name="pbxWorkspace.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pbxWorkspace.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.Name" xml:space="preserve">
+    <value>pbxWorkspace</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, Manual Screen Renderer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
+    <value>pnlWorkspace</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -2824,7 +2863,7 @@
     <value>Save</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Save As</value>
@@ -2884,11 +2923,17 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>215, 17</value>
   </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>426, 17</value>
+  </metadata>
+  <data name="lblMessages.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="lblMessages.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2920,6 +2965,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblMessages.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>604, 791</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>364, 20</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>View layer (M1), Toggle layer editing (Shift+M1)</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

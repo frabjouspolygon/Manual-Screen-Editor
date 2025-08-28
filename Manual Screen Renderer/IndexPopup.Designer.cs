@@ -33,6 +33,7 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,9 +52,9 @@
             // btnDelCol
             // 
             this.btnDelCol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelCol.Location = new System.Drawing.Point(89, 462);
+            this.btnDelCol.Location = new System.Drawing.Point(78, 462);
             this.btnDelCol.Name = "btnDelCol";
-            this.btnDelCol.Size = new System.Drawing.Size(71, 26);
+            this.btnDelCol.Size = new System.Drawing.Size(63, 26);
             this.btnDelCol.TabIndex = 1;
             this.btnDelCol.Text = "Delete";
             this.btnDelCol.UseVisualStyleBackColor = true;
@@ -64,7 +65,7 @@
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOk.Location = new System.Drawing.Point(12, 462);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(71, 26);
+            this.btnOk.Size = new System.Drawing.Size(60, 26);
             this.btnOk.TabIndex = 2;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -81,12 +82,29 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // colorDialog1
+            // 
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.FullOpen = true;
+            this.colorDialog1.SolidColorOnly = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(140, 467);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(312, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Modify (Left Mouse), Select (Shift), Set Brush (CTRL)";
+            // 
             // IndexPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 527);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnDelCol);
@@ -96,6 +114,7 @@
             this.Text = "Index Colors";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -106,5 +125,6 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Label label1;
     }
 }
