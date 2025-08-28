@@ -76,6 +76,8 @@
             this.txtIndex = new System.Windows.Forms.TextBox();
             this.txtLColor = new System.Windows.Forms.TextBox();
             this.btnShowRendered = new System.Windows.Forms.Button();
+            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
+            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             this.lblCursorCoords = new System.Windows.Forms.Label();
             this.btnEditSky = new System.Windows.Forms.Button();
             this.btnEditShading = new System.Windows.Forms.Button();
@@ -103,18 +105,16 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
-            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
-            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
+            this.pnlWorkspace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.pnlWorkspace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -531,10 +531,31 @@
             // 
             this.btnShowRendered.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnShowRendered, "btnShowRendered");
+            this.btnShowRendered.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnShowRendered.FlatAppearance.BorderSize = 0;
             this.btnShowRendered.Name = "btnShowRendered";
             this.toolTip.SetToolTip(this.btnShowRendered, resources.GetString("btnShowRendered.ToolTip"));
             this.btnShowRendered.UseVisualStyleBackColor = false;
             this.btnShowRendered.Click += new System.EventHandler(this.btnShowRendered_Click);
+            // 
+            // pnlWorkspace
+            // 
+            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
+            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
+            this.pnlWorkspace.Name = "pnlWorkspace";
+            // 
+            // pbxWorkspace
+            // 
+            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
+            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
+            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
+            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pbxWorkspace.Name = "pbxWorkspace";
+            this.pbxWorkspace.TabStop = false;
+            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
+            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
+            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             // 
             // lblCursorCoords
             // 
@@ -545,6 +566,8 @@
             // 
             this.btnEditSky.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditSky, "btnEditSky");
+            this.btnEditSky.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditSky.FlatAppearance.BorderSize = 0;
             this.btnEditSky.Name = "btnEditSky";
             this.toolTip.SetToolTip(this.btnEditSky, resources.GetString("btnEditSky.ToolTip"));
             this.btnEditSky.UseVisualStyleBackColor = false;
@@ -554,6 +577,8 @@
             // 
             this.btnEditShading.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditShading, "btnEditShading");
+            this.btnEditShading.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditShading.FlatAppearance.BorderSize = 0;
             this.btnEditShading.Name = "btnEditShading";
             this.toolTip.SetToolTip(this.btnEditShading, resources.GetString("btnEditShading.ToolTip"));
             this.btnEditShading.UseVisualStyleBackColor = false;
@@ -563,6 +588,8 @@
             // 
             this.btnEditRainbow.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditRainbow, "btnEditRainbow");
+            this.btnEditRainbow.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditRainbow.FlatAppearance.BorderSize = 0;
             this.btnEditRainbow.Name = "btnEditRainbow";
             this.toolTip.SetToolTip(this.btnEditRainbow, resources.GetString("btnEditRainbow.ToolTip"));
             this.btnEditRainbow.UseVisualStyleBackColor = false;
@@ -572,6 +599,8 @@
             // 
             this.btnEditPipe.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditPipe, "btnEditPipe");
+            this.btnEditPipe.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditPipe.FlatAppearance.BorderSize = 0;
             this.btnEditPipe.Name = "btnEditPipe";
             this.toolTip.SetToolTip(this.btnEditPipe, resources.GetString("btnEditPipe.ToolTip"));
             this.btnEditPipe.UseVisualStyleBackColor = false;
@@ -581,6 +610,8 @@
             // 
             this.btnEditLight.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditLight, "btnEditLight");
+            this.btnEditLight.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditLight.FlatAppearance.BorderSize = 0;
             this.btnEditLight.Name = "btnEditLight";
             this.toolTip.SetToolTip(this.btnEditLight, resources.GetString("btnEditLight.ToolTip"));
             this.btnEditLight.UseVisualStyleBackColor = false;
@@ -590,6 +621,8 @@
             // 
             this.btnEditLColor.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditLColor, "btnEditLColor");
+            this.btnEditLColor.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditLColor.FlatAppearance.BorderSize = 0;
             this.btnEditLColor.Name = "btnEditLColor";
             this.toolTip.SetToolTip(this.btnEditLColor, resources.GetString("btnEditLColor.ToolTip"));
             this.btnEditLColor.UseVisualStyleBackColor = false;
@@ -599,6 +632,8 @@
             // 
             this.btnEditIndex.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditIndex, "btnEditIndex");
+            this.btnEditIndex.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditIndex.FlatAppearance.BorderSize = 0;
             this.btnEditIndex.Name = "btnEditIndex";
             this.toolTip.SetToolTip(this.btnEditIndex, resources.GetString("btnEditIndex.ToolTip"));
             this.btnEditIndex.UseVisualStyleBackColor = false;
@@ -608,6 +643,8 @@
             // 
             this.btnEditEColor.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditEColor, "btnEditEColor");
+            this.btnEditEColor.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditEColor.FlatAppearance.BorderSize = 0;
             this.btnEditEColor.Name = "btnEditEColor";
             this.toolTip.SetToolTip(this.btnEditEColor, resources.GetString("btnEditEColor.ToolTip"));
             this.btnEditEColor.UseVisualStyleBackColor = false;
@@ -617,6 +654,8 @@
             // 
             this.btnEditDepth.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnEditDepth, "btnEditDepth");
+            this.btnEditDepth.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnEditDepth.FlatAppearance.BorderSize = 0;
             this.btnEditDepth.Name = "btnEditDepth";
             this.toolTip.SetToolTip(this.btnEditDepth, resources.GetString("btnEditDepth.ToolTip"));
             this.btnEditDepth.UseVisualStyleBackColor = false;
@@ -747,25 +786,6 @@
             resources.ApplyResources(this.lblMessages, "lblMessages");
             this.lblMessages.Name = "lblMessages";
             // 
-            // pnlWorkspace
-            // 
-            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
-            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
-            this.pnlWorkspace.Name = "pnlWorkspace";
-            // 
-            // pbxWorkspace
-            // 
-            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
-            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
-            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
-            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pbxWorkspace.Name = "pbxWorkspace";
-            this.pbxWorkspace.TabStop = false;
-            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
-            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
-            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -782,12 +802,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
+            this.pnlWorkspace.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.pnlWorkspace.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

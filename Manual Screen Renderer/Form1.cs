@@ -368,168 +368,111 @@ namespace Manual_Screen_Renderer
             }
         }
 
-        private void btnEditDepth_Click(object sender, EventArgs e)
-        {
-            intMode = 0;
-            if (blnDepth)
-            {
-                blnDepth = false;
-                btnEditDepth.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgDepth;
-                blnDepth = true;
-                btnEditDepth.BackColor = Color.LightGray;
-            }
-        }
 
-        private void btnEditEColor_Click(object sender, EventArgs e)
+        private void LayerButtons(Button button)
         {
-            intMode = 1;
-            if (blnEColor)
-            {
-                blnEColor = false;
-                btnEditEColor.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgEColor;
-                blnEColor = true;
-                btnEditEColor.BackColor = Color.LightGray;
-            }
-        }
+            int mode;
+            bool toggle;
+            if (button == btnEditDepth){mode = 0;toggle = blnDepth;}
+            else if (button == btnEditEColor){mode = 1;toggle = blnEColor;}
+            else if (button == btnEditIndex){mode = 2;toggle = blnIndex;}
+            else if (button == btnEditLColor){mode = 3;toggle = blnLColor;}
+            else if (button == btnEditLight){mode = 4;toggle = blnLight;}
+            else if (button == btnEditPipe){mode = 5;toggle = blnPipe;}
+            else if (button == btnEditRainbow){mode = 6;toggle = blnRainbow;}
+            else if (button == btnEditShading){mode = 7;toggle = blnShading;}
+            else if (button == btnEditSky){mode = 8;toggle = blnSky;}
+            else{mode = 9;toggle = blnRendered;}
 
-        private void btnEditIndex_Click(object sender, EventArgs e)
-        {
-            intMode = 2;
-            if (blnIndex)
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
-                blnIndex = false;
-                btnEditIndex.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgIndex;
-                blnIndex = true;
-                btnEditIndex.BackColor = Color.LightGray;
-                for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
+                if (mode != 9)
                 {
-                    Console.WriteLine((imgIndex.Palette.Entries[i].R).ToString()+" "+(imgIndex.Palette.Entries[i].G+" "+(imgIndex.Palette.Entries[i].B).ToString()));
+                    if (toggle)
+                    {
+                        toggle = false;
+                        button.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        toggle = true;
+                        button.BackColor = Color.LightGray;
+                    }
+                    if (button == btnEditDepth) { blnDepth = toggle; }
+                    else if (button == btnEditEColor) { blnEColor = toggle; }
+                    else if (button == btnEditIndex) { blnIndex = toggle; }
+                    else if (button == btnEditLColor) { blnLColor = toggle; }
+                    else if (button == btnEditLight) { blnLight = toggle; }
+                    else if (button == btnEditPipe) { blnPipe = toggle; }
+                    else if (button == btnEditRainbow) { blnRainbow = toggle; }
+                    else if (button == btnEditShading) { blnShading = toggle; }
+                    else if (button == btnEditSky) { blnSky = toggle; }
+                }
+            }
+            else
+            {
+                if (intMode != mode)
+                {
+                    intMode = mode;
+                    RefreshWorkspace();
+                    List<Button> buttons = new List<Button> { btnEditDepth, btnEditEColor, btnEditIndex, btnEditLColor, btnEditLight, btnEditPipe, btnEditRainbow, btnEditShading, btnEditSky, btnShowRendered };
+                    foreach (Button btn in buttons)
+                    {
+                        btn.FlatAppearance.BorderSize = 0;
+                    }
+                    button.FlatAppearance.BorderSize = 1;
                 }
             }
         }
 
+        private void btnEditDepth_Click(object sender, EventArgs e)
+        {
+            LayerButtons(btnEditDepth);
+        }
+
+        private void btnEditEColor_Click(object sender, EventArgs e)
+        {
+            LayerButtons(btnEditEColor);
+        }
+
+        private void btnEditIndex_Click(object sender, EventArgs e)
+        {
+            LayerButtons(btnEditIndex);
+        }
+
         private void btnEditLColor_Click(object sender, EventArgs e)
         {
-            intMode = 3;
-            if (blnLColor)
-            {
-                blnLColor = false;
-                btnEditLColor.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgLColor;
-                blnLColor = true;
-                btnEditLColor.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnEditLColor);
         }
 
         private void btnEditLight_Click(object sender, EventArgs e)
         {
-            intMode = 4;
-            if ( blnLight)
-            {
-                blnLight = false;
-                btnEditLight.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgLight;
-                blnLight = true;
-                btnEditLight.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnEditLight);
         }
 
         private void btnEditPipe_Click(object sender, EventArgs e)
         {
-            intMode = 5;
-            if (blnPipe)
-            {
-                blnPipe = false;
-                btnEditPipe.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgPipe;
-                blnPipe = true;
-                btnEditPipe.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnEditPipe);
         }
 
         private void btnEditRainbow_Click(object sender, EventArgs e)
         {
-            intMode = 6;
-            if (blnRainbow)
-            {
-                blnRainbow = false;
-                btnEditRainbow.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgRainbow;
-                blnRainbow = true;
-                btnEditRainbow.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnEditRainbow);
         }
 
         private void btnEditShading_Click(object sender, EventArgs e)
         {
-            intMode = 7;
-            if (blnShading)
-            {
-                blnShading = false;
-                btnEditShading.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgShading;
-                blnShading = true;
-                btnEditShading.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnEditShading);
         }
 
         private void btnEditSky_Click(object sender, EventArgs e)
         {
-            intMode = 8;
-            if (blnSky)
-            {
-                blnSky = false;
-                btnEditSky.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgSky;
-                blnSky = true;
-                btnEditSky.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnEditSky);
         }
 
         private void btnShowRendered_Click(object sender, EventArgs e)
         {
-            intMode = 9;
-            if (blnRendered)
-            {
-                blnRendered = false;
-                btnShowRendered.BackColor = Color.White;
-            }
-            else
-            {
-                pbxWorkspace.Image = imgRendered;
-                blnRendered = true;
-                btnShowRendered.BackColor = Color.LightGray;
-            }
+            LayerButtons(btnShowRendered);
         }
 
         private void btnColorPicker_Click(object sender, EventArgs e)
@@ -617,40 +560,45 @@ namespace Manual_Screen_Renderer
                     imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered( tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
 
                     //pbxWorkspace.Image = imgWorking;
-                    switch (intMode)
-                    {
-                        case 0:
-                            pbxWorkspace.Image = imgDepth;
-                            break;
-                        case 1:
-                            pbxWorkspace.Image = imgEColor;
-                            break;
-                        case 2:
-                            pbxWorkspace.Image = imgIndex;
-                            break;
-                        case 3:
-                            pbxWorkspace.Image = imgLColor;
-                            break;
-                        case 4:
-                            pbxWorkspace.Image = imgLight;
-                            break;
-                        case 5:
-                            pbxWorkspace.Image = imgPipe;
-                            break;
-                        case 6:
-                            pbxWorkspace.Image = imgRainbow;
-                            break;
-                        case 7:
-                            pbxWorkspace.Image = imgShading;
-                            break;
-                        case 8:
-                            pbxWorkspace.Image = imgSky;
-                            break;
-                        case 9:
-                            pbxWorkspace.Image = imgRendered;
-                            break;
-                    }
+                    RefreshWorkspace();
                 }
+            }
+        }
+
+        private void RefreshWorkspace()
+        {
+            switch (intMode)
+            {
+                case 0:
+                    pbxWorkspace.Image = imgDepth;
+                    break;
+                case 1:
+                    pbxWorkspace.Image = imgEColor;
+                    break;
+                case 2:
+                    pbxWorkspace.Image = imgIndex;
+                    break;
+                case 3:
+                    pbxWorkspace.Image = imgLColor;
+                    break;
+                case 4:
+                    pbxWorkspace.Image = imgLight;
+                    break;
+                case 5:
+                    pbxWorkspace.Image = imgPipe;
+                    break;
+                case 6:
+                    pbxWorkspace.Image = imgRainbow;
+                    break;
+                case 7:
+                    pbxWorkspace.Image = imgShading;
+                    break;
+                case 8:
+                    pbxWorkspace.Image = imgSky;
+                    break;
+                case 9:
+                    pbxWorkspace.Image = imgRendered;
+                    break;
             }
         }
 
