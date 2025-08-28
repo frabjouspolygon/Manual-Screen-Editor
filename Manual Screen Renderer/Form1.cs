@@ -638,7 +638,6 @@ namespace Manual_Screen_Renderer
             {
                 ccPaint.IndexPalette.Entries[j] = imgRendered.GetPixel(j, 0);
             }
-            int MinIndex = 0;
             for (int i = 0; i<imgRendered.Height; i++)
             {
                 for (int j = 0; j< imgRendered.Width; j++)
@@ -658,9 +657,6 @@ namespace Manual_Screen_Renderer
                     ccPaint.Grime = tGrime;
                     ccPaint.Shading = tShading;
                     ccPaint.Sky = tSky;
-                    int R = colPixel.R;
-                    int G = colPixel.G;
-                    int B = colPixel.B;
                     if(tIndexID != 0)
                     {
                         ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255- tIndexID, 0);
@@ -922,13 +918,23 @@ namespace Manual_Screen_Renderer
             ccPaint.IndexID = 0;
         }
 
-        
+        private Bitmap StampIndexes(Bitmap bitmap)
+        {
+            for (int i = Math.Min(255, bitmap.Width); i > 0; i--)
+            {
+                if (ccPaint.IndexPalette.Entries[i] != Color.Transparent)
+                {
+                    bitmap.SetPixel(i, 0, ccPaint.IndexPalette.Entries[i]);
+                }
+            }
+            return bitmap;
+        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(strFileName != null && strFilePath != null)
             {
-                imgRendered.Save(strFilePath+@"\"+strFileName+".png", ImageFormat.Png);
+                StampIndexes(imgRendered).Save(strFilePath+@"\"+strFileName+".png", ImageFormat.Png);
             }
             else
             {
@@ -942,7 +948,7 @@ namespace Manual_Screen_Renderer
             sfd.Filter = "Images|*.png";
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                imgRendered.Save(sfd.FileName, ImageFormat.Png);
+                StampIndexes(imgRendered).Save(sfd.FileName, ImageFormat.Png);
                 strFileName = Path.GetFileNameWithoutExtension(sfd.FileName);
                 strFilePath = Path.GetDirectoryName(sfd.FileName);
             }
@@ -954,7 +960,7 @@ namespace Manual_Screen_Renderer
             sfd.Filter = "Images|*.png";
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                imgRendered.Save(sfd.FileName, ImageFormat.Png);
+                StampIndexes(imgRendered).Save(sfd.FileName, ImageFormat.Png);
             }
         }
 
@@ -975,14 +981,6 @@ namespace Manual_Screen_Renderer
                     }
 
                 }
-            }
-
-
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Images|*.png";
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                imgRendered.Save(sfd.FileName, ImageFormat.Png);
             }
         }
     }
