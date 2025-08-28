@@ -2857,7 +2857,7 @@
     <value>Open</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
@@ -2869,10 +2869,16 @@
     <value>Save As</value>
   </data>
   <data name="saveACopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="saveACopyToolStripMenuItem.Text" xml:space="preserve">
     <value>Save A Copy</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export Layers</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 24</value>
@@ -3162,6 +3168,12 @@
   </data>
   <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportLayersToolStripMenuItem.Name" xml:space="preserve">
+    <value>exportLayersToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exportLayersToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

@@ -332,7 +332,7 @@ namespace Manual_Screen_Renderer
                 
                 G = G % 16; //0-15
                 int HasIndex = Math.Min(G / 8, 1); //0 or 1
-                HasIndex = HasIndex * (B == 0 ? 1 : 0);
+                HasIndex = HasIndex * ( (B != 0 && tPipe == 0) ? 1 : 0);
                 G = G % 8; //0-7
                 tGrime = G / 4;//0 or 1
                 tEColor = G % 4;//0-3

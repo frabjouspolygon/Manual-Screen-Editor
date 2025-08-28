@@ -106,6 +106,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.exportLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -741,7 +742,8 @@
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
-            this.saveACopyToolStripMenuItem});
+            this.saveACopyToolStripMenuItem,
+            this.exportLayersToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
@@ -759,6 +761,7 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -770,6 +773,7 @@
             // 
             this.saveACopyToolStripMenuItem.Name = "saveACopyToolStripMenuItem";
             resources.ApplyResources(this.saveACopyToolStripMenuItem, "saveACopyToolStripMenuItem");
+            this.saveACopyToolStripMenuItem.Click += new System.EventHandler(this.saveACopyToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -802,6 +806,12 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Name = "label1";
+            // 
+            // exportLayersToolStripMenuItem
+            // 
+            this.exportLayersToolStripMenuItem.Name = "exportLayersToolStripMenuItem";
+            resources.ApplyResources(this.exportLayersToolStripMenuItem, "exportLayersToolStripMenuItem");
+            this.exportLayersToolStripMenuItem.Click += new System.EventHandler(this.exportLayersToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -909,6 +919,7 @@
         private System.Windows.Forms.Button btnShowRendered;
         private System.Windows.Forms.Button btnEraser;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem exportLayersToolStripMenuItem;
     }
 }
 

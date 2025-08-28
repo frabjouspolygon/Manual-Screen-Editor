@@ -50,6 +50,8 @@ namespace Manual_Screen_Renderer
         static bool blnShading = false;
         static bool blnSky = false;
         static bool blnRendered = false;
+        static string strFileName = null;
+        static string strFilePath = null;
 
         public Form1()
         {
@@ -630,90 +632,51 @@ namespace Manual_Screen_Renderer
             imgRainbow = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
             imgShading = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
             imgSky = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppPArgb);
+            imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format8bppIndexed);
+
+            for (int j = Math.Min(255, imgRendered.Width); j > 0; j--)
+            {
+                ccPaint.IndexPalette.Entries[j] = imgRendered.GetPixel(j, 0);
+            }
             int MinIndex = 0;
             for (int i = 0; i<imgRendered.Height; i++)
             {
                 for (int j = 0; j< imgRendered.Width; j++)
                 {
                     Color colPixel = imgRendered.GetPixel(j,i);
+                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(j, i));
+                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+                    int tSky = features.ThisSky;
+
+                    ccPaint.Depth = tDepth;
+                    ccPaint.IndexID = tIndexID;
+                    ccPaint.EColor = tEColor;
+                    ccPaint.LColor = tLColor;
+                    ccPaint.Light = tLight;
+                    ccPaint.Pipe = tPipe;
+                    ccPaint.Grime = tGrime;
+                    ccPaint.Shading = tShading;
+                    ccPaint.Sky = tSky;
                     int R = colPixel.R;
                     int G = colPixel.G;
                     int B = colPixel.B;
-
-                    if ( (R==0 || (180<R && R<255) ) || (G>31) )
+                    if(tIndexID != 0)
                     {
-                    //Error or index color
+                        ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255- tIndexID, 0);
+                        imgIndex.SetPixel(j, i, ccPaint.IndexPalette.Entries[tIndexID]);
                     }
-                    if (R==255 && G==255 && B==255)//if sky
+                    else
                     {
-                        imgSky.SetPixel(j, i, Color.FromArgb(255, 255, 255));
-                        imgLight.SetPixel(j, i, Color.FromArgb(0, 0, 0));
-                        imgLColor.SetPixel(j, i, Color.FromArgb(0,0,0));
-                        imgDepth.SetPixel(j, i, Color.FromArgb(255, 255, 255));
-                        imgRainbow.SetPixel(j, i, Color.FromArgb(0, 0, 0));
-                        imgEColor.SetPixel(j, i, Color.FromArgb(0,0,0));
-                        imgShading.SetPixel(j, i, Color.FromArgb(0, 0, 0));
                         imgIndex.SetPixel(j, i, Color.Transparent);
-
                     }
-                    else//not sky
-                    {
-                        if(R>180)
-                        {
-                            R = 150;
-                        }
-                        if(G>31)
-                        {
-                            G = 0;
-                        }
-                        imgSky.SetPixel(j,i, Color.FromArgb(0, 0, 0) );
-                        int Light = R>90?1:0;// 0 or 1
-                        R=R-90*Light;
-                        Light = Light*255;
-                        imgLight.SetPixel(j, i, Color.FromArgb(Light, Light, Light)); 
-                        int LColor = Math.Min(Math.Max((R - 1) / 30, 0),2);//0-2
-                        imgLColor.SetPixel(j, i, Color.FromArgb((LColor==0?1:0)*255, (LColor==1?1:0)*255, (LColor==2?1:0)*255) );
-                        R=R-LColor*30 -1;
-                        int Depth = Math.Min(Math.Max(R, 0),30);//0-29
-                        Depth = Math.Min( (int)(Depth*8.79) ,255);
-                        imgDepth.SetPixel(j, i, Color.FromArgb(Depth, Depth, Depth));
-                        int Pipe = (G==8?1:0+G==9?2:0+G==10?3:0) * B==0?1:0;//0-3
-                        if ((G==8 || G==9 || G==10) && B==0)
-                        {
-                            imgPipe.SetPixel(j, i, Color.FromArgb(G == 8 ? 255 : 0, G == 10 ? 255 : 0, G == 9 ? 255 : 0));
-                        }
-                        else
-                        {
-                            imgPipe.SetPixel(j, i, Color.FromArgb(0,0,0));
-                        }
-                        //imgPipe.SetPixel(j, i, Color.FromArgb(Pipe == 1 ? 255 : 0, Pipe == 2 ? 255 : 0, Pipe == 3 ? 255 : 0));
-                        G =G%16; //0-15
-                        int HasIndex = Math.Min(G/8,1); //0 or 1
-                        HasIndex = HasIndex * (B==0?1:0);
-                        G=G%8; //0-7
-                        int Rainbow = G/4;//0 or 1
-                        Rainbow = Math.Min(Math.Max(Rainbow, 0), 1) * 255;
-                        imgRainbow.SetPixel(j, i, Color.FromArgb(Rainbow, Rainbow, Rainbow));
-                        int EColor = G%4;//0-3
-                        EColor = Math.Min(Math.Max(EColor, 0), 3);
-                        imgEColor.SetPixel(j, i, Color.FromArgb(EColor==1||EColor==3 ? 255:0, EColor == 2 || EColor == 3 ? 255 : 0, EColor != 0 ? 255 : 0));
-                        int Shading=(1-HasIndex)*(EColor>0 ? 1:0)*B; //0-255
-                        imgShading.SetPixel(j, i, Color.FromArgb(Shading, Shading, Shading));
-
-                        if (HasIndex ==1)
-                        {
-                            if (B<MinIndex)
-                            {
-                                MinIndex = B;
-                            }
-                            imgIndex.SetPixel(j, i, imgRendered.GetPixel(255-B,0));
-                        }
-                        else
-                        {
-                            imgIndex.SetPixel(j, i, Color.Transparent);
-                        }
-                    }//end not sky
+                    imgSky.SetPixel(j, i, ccPaint.ColorSky());
+                    imgLight.SetPixel(j, i, ccPaint.ColorLight());
+                    imgLColor.SetPixel(j, i, ccPaint.ColorLColor());
+                    imgDepth.SetPixel(j, i, ccPaint.ColorDepth());
+                    imgRainbow.SetPixel(j, i, ccPaint.ColorGrime());
+                    imgEColor.SetPixel(j, i, ccPaint.ColorEColor());
+                    imgShading.SetPixel(j, i, ccPaint.ColorShading());
                 }//end for width
             }//end for height
 
@@ -959,14 +922,67 @@ namespace Manual_Screen_Renderer
             ccPaint.IndexID = 0;
         }
 
+        
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(strFileName != null && strFilePath != null)
+            {
+                imgRendered.Save(strFilePath+@"\"+strFileName+".png", ImageFormat.Png);
+            }
+            else
+            {
+                MessageBox.Show("No file name", "error", MessageBoxButtons.OK);
+            }
+        }
+
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Images|*.png";
-            ImageFormat format = ImageFormat.Png;
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                imgRendered.Save(sfd.FileName, format);
+                imgRendered.Save(sfd.FileName, ImageFormat.Png);
+                strFileName = Path.GetFileNameWithoutExtension(sfd.FileName);
+                strFilePath = Path.GetDirectoryName(sfd.FileName);
+            }
+        }
+
+        private void saveACopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png";
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                imgRendered.Save(sfd.FileName, ImageFormat.Png);
+            }
+        }
+
+        private void exportLayersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(strFileName != null && strFilePath != null)
+            {
+                var folderBrowserDialog1 = new FolderBrowserDialog();
+                DialogResult result = folderBrowserDialog1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string folderName = folderBrowserDialog1.SelectedPath;
+                    List<Image> images = new List<Image> { imgDepth, imgEColor, imgIndex, imgLColor, imgLight, imgPipe, imgRainbow, imgShading, imgSky };
+                    List<string> subnames = new List<string> { "_depth", "_ecolor", "_index", "_lcolor", "_light", "_pipe", "_grime", "_shading", "_sky" };
+                    for (int i = 0; i < images.Count; i++)
+                    {
+                        images[i].Save(strFilePath + @"\" + strFileName + subnames[i] + ".png", ImageFormat.Png);
+                    }
+
+                }
+            }
+
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png";
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                imgRendered.Save(sfd.FileName, ImageFormat.Png);
             }
         }
     }
