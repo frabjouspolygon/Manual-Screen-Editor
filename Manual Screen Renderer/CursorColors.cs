@@ -129,12 +129,12 @@ namespace Manual_Screen_Renderer
             }
             return Color.FromArgb(0, 0, 0);
         }
-        public static Color ColorRendered(int tDepth, Color tIndex, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
+        public static Color ColorRendered(int tDepth, int tIndexID, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
         {
             int valRed = 0;
             int valGreen = 0;
             int valBlue = 0;
-            int useIndex = tIndex.A == 255 ? 1 : 0;
+            int useIndex = tIndexID == 0 ? 0 : 1;
             
             if (tSky==1)
                 return Color.FromArgb(255, 255, 255);
@@ -143,7 +143,8 @@ namespace Manual_Screen_Renderer
                 if (useIndex==1)
                 {
                     //find color from list
-                    valBlue = 255;//for now just say it's the 1st color. Come back to finish this code later
+                    //valBlue = 255;//for now just say it's the 1st color. Come back to finish this code later
+                    valBlue = tIndexID;
                 }
                 else
                 {
@@ -157,10 +158,11 @@ namespace Manual_Screen_Renderer
 
         public struct Features
         {
-            public Features(int tDepth, Color tIndex, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
+            public Features(int tDepth, int tIndexID, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
             {
                 ThisDepth = tDepth;
-                ThisIndex = tIndex;
+                //ThisIndex = tIndex;
+                ThisIndexID = tIndexID;
                 ThisEColor = tEColor;
                 ThisLColor = tLColor;
                 ThisLight = tLight;
@@ -171,7 +173,8 @@ namespace Manual_Screen_Renderer
             }
 
             public int ThisDepth { get; }
-            public Color ThisIndex { get; }
+            //public Color ThisIndex { get; }
+            public int ThisIndexID { get; }
             public int ThisEColor { get; }
             public int ThisLColor { get; }
             public int ThisLight { get; }
@@ -180,7 +183,7 @@ namespace Manual_Screen_Renderer
             public int ThisShading { get; }
             public int ThisSky { get; }
 
-            public override string ToString() => $"({ThisDepth}, {ThisIndex}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
+            public override string ToString() => $"({ThisDepth}, {ThisIndexID}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
         }
 
         public int IndexColorID(Color colInput)
@@ -294,14 +297,15 @@ namespace Manual_Screen_Renderer
             int R = tRendered.R;
             int G = tRendered.G;
             int B = tRendered.B;
-            int tDepth; Color tIndex; int tEColor; int tLColor; int tLight; int tPipe; int tGrime; int tShading; int tSky;
+            int tDepth; Color tIndex; int tIndexID; int tEColor; int tLColor; int tLight; int tPipe; int tGrime; int tShading; int tSky;
 
             if (R == 255 && G == 255 && B == 255)//if sky
             {
                 tDepth = 30;
                 tIndex = Color.Transparent;
+                tIndexID = 0;
                 tEColor = 0;
-                tLColor = 0; 
+                tLColor = 0;
                 tLight = 0; 
                 tPipe = 0; 
                 tGrime=0; 
@@ -333,9 +337,19 @@ namespace Manual_Screen_Renderer
                 tGrime = G / 4;//0 or 1
                 tEColor = G % 4;//0-3
                 tShading = (1 - HasIndex) * (tEColor > 0 ? 1 : 0) * B; //0-255
-                tIndex = Color.Transparent;//for now no index support
+                if(HasIndex>0)
+                {
+                    tIndexID = B;
+                    //tIndex = ;//for now no index support
+                }
+                else
+                {
+                    //tIndex = Color.Transparent;//for now no index support
+                    tIndexID = 0;
+                }
+                
             }//end not sky
-            var output = new Features(tDepth, tIndex, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+            var output = new Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
             return output;
         }
 
