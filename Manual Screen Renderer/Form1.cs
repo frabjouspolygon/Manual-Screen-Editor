@@ -11,7 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Windows.Media;
+
+//using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
+using static Manual_Screen_Renderer.CursorColors;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Manual_Screen_Renderer
 {
@@ -53,6 +59,8 @@ namespace Manual_Screen_Renderer
         static string strFileName = null;
         static string strFilePath = null;
         static bool pickerMode = false;
+
+        
         public Form1()
         {
             InitializeComponent();
@@ -118,8 +126,6 @@ namespace Manual_Screen_Renderer
             }
             return Bmp;
         }
-
-
 
         
 
@@ -485,8 +491,6 @@ namespace Manual_Screen_Renderer
         private void pbxWorkspace_Click(object sender, EventArgs e)
         {
             PaintWorkspace();
-
-
         }
 
         private void pbxWorkspace_MouseMove(object sender, MouseEventArgs e)
@@ -518,12 +522,13 @@ namespace Manual_Screen_Renderer
                     //Graphics graphic = Graphics.FromImage(imgWorking);
                     intY = Math.Max(Math.Min(intY, imgWorking.Size.Height - 1 + 2), 0);
                     intX = Math.Max(Math.Min(intX, imgWorking.Size.Width - 1 + 2), 0);
+                    Console.WriteLine(imgRendered.GetPixel(intX, intY));
                     //imgWorking.SetPixel(intX, intY, colCursor);
                     CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
                     int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
                     int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
                     int tSky = features.ThisSky;
-
+                    
 
                     if (pickerMode)
                     {
@@ -564,12 +569,21 @@ namespace Manual_Screen_Renderer
                     if (blnSky) { imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
                     //decompose original rendered pixel and update with only what is enabled
                     //Console.WriteLine("Index " + tIndex.ToString());
+                    //var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+                    ccPaint.AddToUndoBuffer(intX, intY, features);
                     imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
-
+                    
                     //pbxWorkspace.Image = imgWorking;
                     RefreshWorkspace();
                 }
             }
+        }
+
+        private void WorkspaceSetPixel(int intX, int intY, CursorColors.Features features)
+        {
+            //var (intX, intY, features) = (act.X, act.Y, act.Components);
+            imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(features));
+            RefreshWorkspace();
         }
 
         private void RefreshWorkspace()
@@ -1003,6 +1017,28 @@ namespace Manual_Screen_Renderer
             {
                 nudMaxLayer.Value = nudMinLayer.Value;
             }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CursorColors.BufferAction act = ccPaint.undoBuffer[ccPaint.undoBuffer.Count - 1];
+            var (x, y, features) = (act.X, act.Y, act.Components);
+            CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
+            var oldState = new CursorColors.BufferAction(x,y, features2);
+            ccPaint.AddToRedoBuffer(oldState);
+            WorkspaceSetPixel(x,y,features);
+            ccPaint.RemoveFromUndoBuffer();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CursorColors.BufferAction act = ccPaint.redoBuffer[ccPaint.redoBuffer.Count - 1];
+            var (x, y, features) = (act.X, act.Y, act.Components);
+            CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
+            var oldState = new CursorColors.BufferAction(x, y, features2);
+            //ccPaint.AddToUndoBuffer(oldState);
+            //WorkspaceSetPixel(x, y, features2);
+            //ccPaint.RemoveFromRedoBuffer();
         }
     }
 }

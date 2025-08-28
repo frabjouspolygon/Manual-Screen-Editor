@@ -42,6 +42,9 @@ namespace Manual_Screen_Renderer
         public int Sky { get; set; }//0?1
         //public List<Color> IndexPalette { get; set; }
 
+        public List<CursorColors.BufferAction> undoBuffer = new List<CursorColors.BufferAction>();
+        public List<CursorColors.BufferAction> redoBuffer = new List<CursorColors.BufferAction>();
+
         public ColorPalette IndexPalette { get; set; }
         public CursorColors()
         {
@@ -129,6 +132,61 @@ namespace Manual_Screen_Renderer
             }
             return Color.FromArgb(0, 0, 0);
         }
+
+        public struct BufferAction
+        {
+            public BufferAction(int x, int y, CursorColors.Features components)
+            {
+                X = x;
+                Y = y;
+                Components = components;
+            }
+            public int X { get; }
+            public int Y { get; }
+            public CursorColors.Features Components { get; }
+            public override string ToString() => $"({X}, {Y}, {Components})";
+        }
+        public void AddToUndoBuffer(int x, int y, Features features)
+        {
+            var act = new BufferAction(x, y, features);
+            if (undoBuffer.Count >= 100)
+            {
+                undoBuffer.RemoveAt(0);
+                undoBuffer.Add(act);
+                //AddToRedoBuffer(act);
+            }
+            else
+            {
+                undoBuffer.Add(act);
+                //AddToRedoBuffer(act);
+            }
+        }
+        public void RemoveFromUndoBuffer()
+        {
+            AddToRedoBuffer(undoBuffer[undoBuffer.Count - 1]);
+            undoBuffer.RemoveAt(undoBuffer.Count - 1);
+        }
+        public void AddToRedoBuffer(BufferAction act)
+        {
+            if (redoBuffer.Count >= 100)
+            {
+                redoBuffer.RemoveAt(0);
+                redoBuffer.Add(act);
+            }
+            else
+            {
+                redoBuffer.Add(act);
+            }
+        }
+
+        public static Color ColorRendered(Features features)
+        {
+            int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+            int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+            int tSky = features.ThisSky;
+            return ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+        }
+
         public static Color ColorRendered(int tDepth, int tIndexID, int tEColor, int tLColor, int tLight, int tPipe, int tGrime, int tShading, int tSky)
         {
             int valRed = 0;
@@ -152,6 +210,18 @@ namespace Manual_Screen_Renderer
                 }
                 valRed = 1+tDepth + tLColor * 30 + tLight * 90;
                 valGreen = tEColor + tGrime * 4 + useIndex * 8 + tLight * 16;
+                if(tPipe==1)
+                {
+                    valGreen = 8;
+                }
+                if (tPipe == 2)
+                {
+                    valGreen = 9;
+                }
+                if (tPipe == 3)
+                {
+                    valGreen = 10;
+                }
                 return Color.FromArgb(valRed, valGreen, valBlue);
             }
         }
@@ -185,6 +255,8 @@ namespace Manual_Screen_Renderer
 
             public override string ToString() => $"({ThisDepth}, {ThisIndexID}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
         }
+
+        
 
         public int IndexColorID(Color colInput)
         {
@@ -328,8 +400,11 @@ namespace Manual_Screen_Renderer
                 tLColor = Math.Min(Math.Max((R - 1) / 30, 0), 2);//0-2
                 R = R - tLColor * 30-1;
                 tDepth = R;//(int)(R * 8.8);//0-29
-                tPipe = (G == 8 ? 1 : 0 + G == 9 ? 2 : 0 + G == 10 ? 3 : 0) * B == 0 ? 1 : 0;//0-3 the B==0 is for of index colors, change this later to only index
-                
+                //tPipe = (G == 8 ? 1 : 0 + G == 9 ? 2 : 0 + G == 10 ? 3 : 0) * B == 0 ? 1 : 0;//0-3 the B==0 is for of index colors, change this later to only index
+                if (G == 8 && B == 0) tPipe = 1;
+                else if (G == 9 && B == 0) tPipe = 2;
+                else if (G == 10 && B == 0) tPipe = 3;
+                else tPipe = 0;
                 G = G % 16; //0-15
                 int HasIndex = Math.Min(G / 8, 1); //0 or 1
                 HasIndex = HasIndex * ( (B != 0 && tPipe == 0) ? 1 : 0);
@@ -346,6 +421,13 @@ namespace Manual_Screen_Renderer
                 {
                     //tIndex = Color.Transparent;//for now no index support
                     tIndexID = 0;
+                }
+                if(tPipe!=0)
+                {
+                    tEColor = 0;
+                    tIndexID = 0;
+                    tGrime = 0;
+                    tShading = 0;
                 }
                 
             }//end not sky
