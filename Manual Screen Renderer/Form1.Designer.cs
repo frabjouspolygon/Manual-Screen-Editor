@@ -287,7 +287,7 @@
             // 
             // btnPickIndex
             // 
-            this.btnPickIndex.BackColor = System.Drawing.Color.Black;
+            this.btnPickIndex.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.btnPickIndex, "btnPickIndex");
             this.btnPickIndex.Name = "btnPickIndex";
             this.btnPickIndex.TabStop = false;
@@ -318,6 +318,7 @@
             // 
             this.btnColorPicker.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnColorPicker, "btnColorPicker");
+            this.btnColorPicker.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnColorPicker.Name = "btnColorPicker";
             this.btnColorPicker.TabStop = false;
             this.btnColorPicker.UseVisualStyleBackColor = false;

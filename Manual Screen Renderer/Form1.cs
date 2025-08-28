@@ -52,7 +52,7 @@ namespace Manual_Screen_Renderer
         static bool blnRendered = false;
         static string strFileName = null;
         static string strFilePath = null;
-
+        static bool pickerMode = false;
         public Form1()
         {
             InitializeComponent();
@@ -479,10 +479,12 @@ namespace Manual_Screen_Renderer
 
         private void btnColorPicker_Click(object sender, EventArgs e)
         {
-            colorDialog1.ShowDialog();
-            Color colSelection = colorDialog1.Color;
-            colCursor = colSelection;
-            btnColorPicker.BackColor = colorDialog1.Color;
+            pickerMode = true;
+            btnColorPicker.FlatAppearance.BorderColor = Color.Blue;
+            //colorDialog1.ShowDialog();
+            //Color colSelection = colorDialog1.Color;
+            //colCursor = colSelection;
+            //btnColorPicker.BackColor = colorDialog1.Color;
         }
 
         private void pbxWorkspace_MouseWheel(object sender, MouseEventArgs e)
@@ -547,8 +549,34 @@ namespace Manual_Screen_Renderer
                     int tLight = features.ThisLight;int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading; 
                     int tSky = features.ThisSky;
 
+
+                    if (pickerMode)
+                    {
+                        ccPaint.Depth = tDepth;
+                        ccPaint.IndexID = tIndexID;
+                        ccPaint.EColor = tEColor;
+                        ccPaint.LColor = tLColor;
+                        ccPaint.Light = tLight;
+                        ccPaint.Pipe = tPipe;
+                        ccPaint.Grime = tGrime;
+                        ccPaint.Shading = tShading;
+                        ccPaint.Sky = tSky;
+                        pickerMode = false;
+                        nudDepth.Value = ccPaint.Depth+1;
+                        btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
+                        btnPickEColor.BackColor = ccPaint.ColorEColor();
+                        btnPickLColor.BackColor = ccPaint.ColorLColor();
+                        btnPickLight.BackColor = ccPaint.ColorLight();
+                        btnPickPipe.BackColor = ccPaint.ColorPipe();
+                        btnPickRainbow.BackColor = ccPaint.ColorGrime();
+                        btnPickShading.BackColor = ccPaint.ColorShading();
+                        btnPickSky.BackColor = ccPaint.ColorSky();
+                        btnColorPicker.FlatAppearance.BorderColor = Color.Black;
+                        return;
+                    }
                     if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
                         return;
+                    
                     if (blnDepth) { imgDepth.SetPixel(intX, intY, ccPaint.ColorDepth()); tDepth = ccPaint.Depth; }
                     if (blnEColor) { imgEColor.SetPixel(intX, intY, ccPaint.ColorEColor()); tEColor = ccPaint.EColor; }
                     //if (blnIndex) {imgIndex.SetPixel(intX, intY, ccPaint.Index); tIndex = ccPaint.Index; }
