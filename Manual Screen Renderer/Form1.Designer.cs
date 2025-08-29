@@ -46,7 +46,6 @@
             this.btnRendered = new System.Windows.Forms.Button();
             this.txtRendered = new System.Windows.Forms.TextBox();
             this.lblRendered = new System.Windows.Forms.Label();
-            this.btnCompose = new System.Windows.Forms.Button();
             this.btnSky = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.btnShading = new System.Windows.Forms.Button();
@@ -76,8 +75,6 @@
             this.txtIndex = new System.Windows.Forms.TextBox();
             this.txtLColor = new System.Windows.Forms.TextBox();
             this.btnShowRendered = new System.Windows.Forms.Button();
-            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
-            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             this.lblCursorCoords = new System.Windows.Forms.Label();
             this.btnEditSky = new System.Windows.Forms.Button();
             this.btnEditShading = new System.Windows.Forms.Button();
@@ -94,31 +91,29 @@
             this.nudMinLayer = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveACopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportLayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
+            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
-            this.pnlWorkspace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.pnlWorkspace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -144,7 +139,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnRendered);
             this.splitContainer1.Panel1.Controls.Add(this.txtRendered);
             this.splitContainer1.Panel1.Controls.Add(this.lblRendered);
-            this.splitContainer1.Panel1.Controls.Add(this.btnCompose);
             this.splitContainer1.Panel1.Controls.Add(this.btnSky);
             this.splitContainer1.Panel1.Controls.Add(this.label10);
             this.splitContainer1.Panel1.Controls.Add(this.btnShading);
@@ -346,15 +340,6 @@
             resources.ApplyResources(this.lblRendered, "lblRendered");
             this.lblRendered.Name = "lblRendered";
             // 
-            // btnCompose
-            // 
-            resources.ApplyResources(this.btnCompose, "btnCompose");
-            this.btnCompose.Name = "btnCompose";
-            this.btnCompose.TabStop = false;
-            this.toolTip.SetToolTip(this.btnCompose, resources.GetString("btnCompose.ToolTip"));
-            this.btnCompose.UseVisualStyleBackColor = true;
-            this.btnCompose.Click += new System.EventHandler(this.btnCompose_Click);
-            // 
             // btnSky
             // 
             resources.ApplyResources(this.btnSky, "btnSky");
@@ -546,30 +531,10 @@
             this.btnShowRendered.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnShowRendered, "btnShowRendered");
             this.btnShowRendered.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
-            this.btnShowRendered.FlatAppearance.BorderSize = 0;
             this.btnShowRendered.Name = "btnShowRendered";
             this.toolTip.SetToolTip(this.btnShowRendered, resources.GetString("btnShowRendered.ToolTip"));
             this.btnShowRendered.UseVisualStyleBackColor = false;
             this.btnShowRendered.Click += new System.EventHandler(this.btnShowRendered_Click);
-            // 
-            // pnlWorkspace
-            // 
-            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
-            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
-            this.pnlWorkspace.Name = "pnlWorkspace";
-            // 
-            // pbxWorkspace
-            // 
-            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
-            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
-            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
-            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pbxWorkspace.Name = "pbxWorkspace";
-            this.pbxWorkspace.TabStop = false;
-            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
-            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
-            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             // 
             // lblCursorCoords
             // 
@@ -736,33 +701,19 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.editToolStripMenuItem});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.saveACopyToolStripMenuItem,
             this.exportLayersToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            resources.ApplyResources(this.newToolStripMenuItem, "newToolStripMenuItem");
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             // 
             // saveToolStripMenuItem
             // 
@@ -796,15 +747,17 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             // 
-            // viewToolStripMenuItem
+            // undoToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            resources.ApplyResources(this.undoToolStripMenuItem, "undoToolStripMenuItem");
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
+            // redoToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            resources.ApplyResources(this.redoToolStripMenuItem, "redoToolStripMenuItem");
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // colorDialog1
             // 
@@ -823,17 +776,24 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Name = "label1";
             // 
-            // undoToolStripMenuItem
+            // pnlWorkspace
             // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            resources.ApplyResources(this.undoToolStripMenuItem, "undoToolStripMenuItem");
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
+            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
+            this.pnlWorkspace.Name = "pnlWorkspace";
             // 
-            // redoToolStripMenuItem
+            // pbxWorkspace
             // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            resources.ApplyResources(this.redoToolStripMenuItem, "redoToolStripMenuItem");
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
+            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
+            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
+            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pbxWorkspace.Name = "pbxWorkspace";
+            this.pbxWorkspace.TabStop = false;
+            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
+            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
+            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             // 
             // Form1
             // 
@@ -852,12 +812,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
-            this.pnlWorkspace.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.pnlWorkspace.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -865,7 +825,6 @@
 
         #endregion
         private System.Windows.Forms.Label lblDepth;
-        private System.Windows.Forms.Button btnCompose;
         private System.Windows.Forms.TextBox txtDepth;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -896,8 +855,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnRendered;
         private System.Windows.Forms.TextBox txtRendered;
@@ -922,8 +879,6 @@
         private ScrollingPanel pnlWorkspace;
         private System.Windows.Forms.Button btnColorPicker;
         private System.Windows.Forms.Button btnDecompose;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveACopyToolStripMenuItem;

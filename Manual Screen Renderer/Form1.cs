@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using static Manual_Screen_Renderer.CursorColors;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+//using MediaColor = System.Windows.Media.Color;
+//using Color = System.Drawing.Color;
 
 namespace Manual_Screen_Renderer
 {
@@ -43,7 +45,7 @@ namespace Manual_Screen_Renderer
         static Bitmap imgShading = null;
         static Bitmap imgSky = null;
         static Bitmap imgRendered = null;
-        static int intMode = 0;//0-8
+        static int intMode = 9;//0-9
         static Color colCursor = Color.FromArgb(0,0,0,0);
         static CursorColors ccPaint = null;
         static bool blnDepth = false;
@@ -112,6 +114,7 @@ namespace Manual_Screen_Renderer
             Console.WriteLine(LColor);
             Console.WriteLine(R);
             Console.WriteLine(imgIndex.Palette.Entries[0].A);
+            RefreshWorkspace();
         }
 
         public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
@@ -146,6 +149,27 @@ namespace Manual_Screen_Renderer
             return filePath;
         }
 
+        public (string,string,string) ImageDialogue2()
+        {
+            var filePath = string.Empty;
+            var fileName = string.Empty;
+            var fileFull = string.Empty;
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "C:/Users/tytro/Pictures/";
+                openFileDialog.Filter = "png files (*.png)|*.png";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                    filePath = Path.GetDirectoryName(openFileDialog.FileName);
+                    fileFull = openFileDialog.FileName;
+                }
+            }//end using
+            return (filePath, fileName,fileFull);
+        }
+
         private void btnDepth_Click(object sender, EventArgs e)
         {
             string filePath = ImageDialogue();
@@ -166,6 +190,12 @@ namespace Manual_Screen_Renderer
             {
                 txtDepth.Text = filePath;
                 imgDepth = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
         }
         private void btnEColor_Click(object sender, EventArgs e)
@@ -176,6 +206,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtEColor.Text = filePath;
                 imgEColor = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -201,14 +237,57 @@ namespace Manual_Screen_Renderer
             try
             {
                 var myBitmap = new Bitmap(filePath);
+                Bitmap orig = new Bitmap(@"c:\temp\24bpp.bmp");
+                imgIndex = new Bitmap(myBitmap.Width, myBitmap.Height,System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+                using (Graphics gr = Graphics.FromImage(imgIndex))
+                {
+                    gr.DrawImage(myBitmap, new Rectangle(0, 0, imgIndex.Width, imgIndex.Height));
+                }
                 txtIndex.Text = filePath;
-                imgIndex = myBitmap;
+                //imgIndex = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    LoadIndexFromRGBBitmap();
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtIndex.Text = "";
                 imgIndex = null;
+            }
+        }
+
+
+        private void LoadIndexFromRGBBitmap()
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;
+            int slot = 1;
+            for (int i = 0; i < imgRendered.Height; i++)
+            {
+                for (int j = 0; j < imgRendered.Width; j++)
+                {
+                    Color color = imgIndex.Palette.Entries[GetPixelIndexedBitmap(imgIndex, j, i)];
+                    if (slot < 255 && color.A == 255)
+                    {
+                        bool claimed = false;
+                        for (int k = 0; k < ccPaint.IndexPalette.Entries.Length; k++)
+                        {
+                            if (color == ccPaint.IndexPalette.Entries[k])
+                                claimed = true;
+                        }
+                        if (!claimed)
+                        {
+                            ccPaint.IndexPalette.Entries[slot] = color;
+                            slot++;
+                        }
+
+                    }
+                }
             }
         }
 
@@ -220,6 +299,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtLColor.Text = filePath;
                 imgLColor = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -237,6 +322,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtLight.Text = filePath;
                 imgLight = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -254,6 +345,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtPipe.Text = filePath;
                 imgPipe = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -271,6 +368,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtRainbow.Text = filePath;
                 imgRainbow = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -288,6 +391,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtShading.Text = filePath;
                 imgShading = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -305,6 +414,12 @@ namespace Manual_Screen_Renderer
                 var myBitmap = new Bitmap(filePath);
                 txtSky.Text = filePath;
                 imgSky = myBitmap;
+                lblMessages.Text = "Composing components to rendered screen.";
+                //Task.Run(() => {
+                    RenderFromComponenets();
+                    RefreshWorkspace();
+                //});
+                lblMessages.Text = "Ready";
             }
             catch
             {
@@ -316,12 +431,16 @@ namespace Manual_Screen_Renderer
 
         private void btnRendered_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            //string filePath = ImageDialogue();
+            var (filePath, fileName, fileFull) = ImageDialogue2();
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                var myBitmap = new Bitmap(fileFull);
                 txtRendered.Text = filePath;
                 imgRendered = myBitmap;
+                strFileName = fileName;
+                strFilePath = filePath;
+                RefreshWorkspace();
             }
             catch
             {
@@ -471,7 +590,7 @@ namespace Manual_Screen_Renderer
                         }
                         else if (Math.Sign(e.Delta)<=0 && pbxWorkspace.Image.Height/newHeight  < 4)
                         {
-                            lblMessages.Text = (newHeight).ToString() + "," + (pbxWorkspace.Image.Height).ToString();
+                            //lblMessages.Text = (newHeight).ToString() + "," + (pbxWorkspace.Image.Height).ToString();
                             pbxWorkspace.Size = new Size(newWidth, newHeight);
                             pbxWorkspace.Refresh();
                         }
@@ -569,8 +688,11 @@ namespace Manual_Screen_Renderer
                     if (blnSky) { imgSky.SetPixel(intX, intY, ccPaint.ColorSky()); tSky = ccPaint.Sky; }
                     //decompose original rendered pixel and update with only what is enabled
                     //Console.WriteLine("Index " + tIndex.ToString());
-                    //var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
-                    ccPaint.AddToUndoBuffer(intX, intY, features);
+                    var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+                    if (features != newfeatures)
+                    {
+                        ccPaint.AddToUndoBuffer(new BufferAction(intX, intY, features));
+                    }
                     imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
                     
                     //pbxWorkspace.Image = imgWorking;
@@ -581,13 +703,46 @@ namespace Manual_Screen_Renderer
 
         private void WorkspaceSetPixel(int intX, int intY, CursorColors.Features features)
         {
-            //var (intX, intY, features) = (act.X, act.Y, act.Components);
+            imgDepth.SetPixel(intX, intY, CursorColors.ToDepth(features.ThisDepth));
+            imgEColor.SetPixel(intX, intY, CursorColors.ToEColor(features.ThisEColor));
+            imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, features.ThisIndexID, intX, intY);
+            imgLColor.SetPixel(intX, intY, CursorColors.ToLColor(features.ThisLColor));
+            imgLight.SetPixel(intX, intY, CursorColors.ToLight(features.ThisLight));
+            imgPipe.SetPixel(intX, intY, CursorColors.ToPipe(features.ThisPipe));
+            imgRainbow.SetPixel(intX, intY, CursorColors.ToGrime(features.ThisGrime));
+            imgShading.SetPixel(intX, intY, CursorColors.ToShading(features.ThisSky));
+            imgSky.SetPixel(intX, intY, CursorColors.ToSky(features.ThisSky));
             imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(features));
             RefreshWorkspace();
         }
 
+
+        private void RenderFromComponenets()
+        {
+            for (int i = 0; i < imgRendered.Height; i++)
+            {
+                for (int j = 0; j < imgRendered.Width; j++)
+                {
+                    Color colPixel = imgRendered.GetPixel(j, i);
+                    CursorColors.Features features = FeaturesFromColors(
+                        imgDepth.GetPixel(j, i),
+                        GetPixelIndexedBitmap(imgIndex, j, i),
+                        imgEColor.GetPixel(j, i),
+                        imgLColor.GetPixel(j, i),
+                        imgLight.GetPixel(j, i),
+                        imgPipe.GetPixel(j, i),
+                        imgRainbow.GetPixel(j, i),
+                        imgShading.GetPixel(j, i),
+                        imgSky.GetPixel(j, i)
+                    );
+                    imgRendered.SetPixel(j, i, CursorColors.ColorRendered(features));
+                }
+            }
+        }
+
         private void RefreshWorkspace()
         {
+
             switch (intMode)
             {
                 case 0:
@@ -643,59 +798,65 @@ namespace Manual_Screen_Renderer
                 }
             }
             lblMessages.Text = "Decomposing rendered screen into components.";
-            imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgEColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgLColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgLight = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgPipe = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgRainbow = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgShading = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgSky = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format8bppIndexed);
 
-            for (int j = Math.Min(255, imgRendered.Width); j > 0; j--)
-            {
-                ccPaint.IndexPalette.Entries[j] = imgRendered.GetPixel(j, 0);
-            }
-            for (int i = 0; i<imgRendered.Height; i++)
-            {
-                for (int j = 0; j< imgRendered.Width; j++)
+            //Task.Run(() => {
+                imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgEColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgLColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgLight = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgPipe = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgRainbow = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgShading = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgSky = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+                imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format8bppIndexed);
+
+                /*for (int j = Math.Min(255, imgRendered.Width); j > 0; j--)
                 {
-                    Color colPixel = imgRendered.GetPixel(j,i);
-                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(j, i));
-                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
-                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
-                    int tSky = features.ThisSky;
-
-                    ccPaint.Depth = tDepth;
-                    ccPaint.IndexID = tIndexID;
-                    ccPaint.EColor = tEColor;
-                    ccPaint.LColor = tLColor;
-                    ccPaint.Light = tLight;
-                    ccPaint.Pipe = tPipe;
-                    ccPaint.Grime = tGrime;
-                    ccPaint.Shading = tShading;
-                    ccPaint.Sky = tSky;
-                    if(tIndexID != 0)
+                    ccPaint.IndexPalette.Entries[j] = imgRendered.GetPixel(j, 0);
+                }*/
+                for (int i = 0; i < imgRendered.Height; i++)
+                {
+                    for (int j = 0; j < imgRendered.Width; j++)
                     {
-                        ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255- tIndexID, 0);
-                        imgIndex.SetPixel(j, i, ccPaint.IndexPalette.Entries[tIndexID]);
-                    }
-                    else
-                    {
-                        imgIndex.SetPixel(j, i, Color.Transparent);
-                    }
-                    imgSky.SetPixel(j, i, ccPaint.ColorSky());
-                    imgLight.SetPixel(j, i, ccPaint.ColorLight());
-                    imgLColor.SetPixel(j, i, ccPaint.ColorLColor());
-                    imgDepth.SetPixel(j, i, ccPaint.ColorDepth());
-                    imgRainbow.SetPixel(j, i, ccPaint.ColorGrime());
-                    imgEColor.SetPixel(j, i, ccPaint.ColorEColor());
-                    imgShading.SetPixel(j, i, ccPaint.ColorShading());
-                }//end for width
-            }//end for height
+                        Color colPixel = imgRendered.GetPixel(j, i);
+                        CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(j, i));
+                        int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+                        int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+                        int tSky = features.ThisSky;
 
+                        ccPaint.Depth = tDepth;
+                        ccPaint.IndexID = tIndexID;
+                        ccPaint.EColor = tEColor;
+                        ccPaint.LColor = tLColor;
+                        ccPaint.Light = tLight;
+                        ccPaint.Pipe = tPipe;
+                        ccPaint.Grime = tGrime;
+                        ccPaint.Shading = tShading;
+                        ccPaint.Sky = tSky;
+                        if (tIndexID != 0)
+                        {
+                            ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255 - tIndexID, 0);
+                            //imgIndex.SetPixel(j, i, ccPaint.IndexPalette.Entries[tIndexID]);
+                            imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, tIndexID, j, i);
+                        }
+                        else
+                        {
+                            //imgIndex.SetPixel(j, i, Color.Transparent);
+                            imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, 0, j, i);
+                        }
+                        imgSky.SetPixel(j, i, ccPaint.ColorSky());
+                        imgLight.SetPixel(j, i, ccPaint.ColorLight());
+                        imgLColor.SetPixel(j, i, ccPaint.ColorLColor());
+                        imgPipe.SetPixel(j, i, ccPaint.ColorPipe());
+                        imgDepth.SetPixel(j, i, ccPaint.ColorDepth());
+                        imgRainbow.SetPixel(j, i, ccPaint.ColorGrime());
+                        imgEColor.SetPixel(j, i, ccPaint.ColorEColor());
+                        imgShading.SetPixel(j, i, ccPaint.ColorShading());
+                    }//end for width
+                }//end for height
 
+                RefreshWorkspace();
+            //});
             lblMessages.Text = "Ready";
         }
 
@@ -987,18 +1148,20 @@ namespace Manual_Screen_Renderer
         {
             if(strFileName != null && strFilePath != null)
             {
-                var folderBrowserDialog1 = new FolderBrowserDialog();
-                DialogResult result = folderBrowserDialog1.ShowDialog();
-                if (result == DialogResult.OK)
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "Images|*.png";
+                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string folderName = folderBrowserDialog1.SelectedPath;
+                    //StampIndexes(imgRendered).Save(sfd.FileName, ImageFormat.Png);
+                    //string folderName = strFilePath;//folderBrowserDialog1.SelectedPath;
                     List<Image> images = new List<Image> { imgDepth, imgEColor, imgIndex, imgLColor, imgLight, imgPipe, imgRainbow, imgShading, imgSky };
                     List<string> subnames = new List<string> { "_depth", "_ecolor", "_index", "_lcolor", "_light", "_pipe", "_grime", "_shading", "_sky" };
                     for (int i = 0; i < images.Count; i++)
                     {
-                        images[i].Save(strFilePath + @"\" + strFileName + subnames[i] + ".png", ImageFormat.Png);
+                        string nameOut = strFilePath + @"\" + strFileName + subnames[i] + ".png";
+                        images[i].Save(nameOut, ImageFormat.Png);
+                        Console.WriteLine(nameOut);
                     }
-
                 }
             }
         }
@@ -1019,26 +1182,63 @@ namespace Manual_Screen_Renderer
             }
         }
 
+        /*protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                Undo();
+                //MessageBox.Show("What the Ctrl+F?");
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.Shift | Keys.Z))
+            {
+                Redo();
+                //MessageBox.Show("What the Ctrl+F?");
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }*/
+
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CursorColors.BufferAction act = ccPaint.undoBuffer[ccPaint.undoBuffer.Count - 1];
-            var (x, y, features) = (act.X, act.Y, act.Components);
-            CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
-            var oldState = new CursorColors.BufferAction(x,y, features2);
-            ccPaint.AddToRedoBuffer(oldState);
-            WorkspaceSetPixel(x,y,features);
-            ccPaint.RemoveFromUndoBuffer();
+            Undo();
         }
+
+        private void Undo()
+        {
+            if (ccPaint.undoBuffer.Count > 0)
+            {
+                CursorColors.BufferAction act = ccPaint.undoBuffer[ccPaint.undoBuffer.Count - 1];
+                var (x, y, features) = (act.X, act.Y, act.Components);
+                //Console.WriteLine("buffer coord"+x.ToString(),y.ToString());
+                CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
+                var oldState = new CursorColors.BufferAction(x, y, features2);
+                //Console.WriteLine("Undo at (" + x.ToString() + ", " + y.ToString() + ") from " + features2.ToString() + " to " + features.ToString());
+                ccPaint.AddToRedoBuffer(oldState);
+                WorkspaceSetPixel(x, y, features);
+                ccPaint.RemoveFromUndoBuffer();
+            }
+        }
+
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CursorColors.BufferAction act = ccPaint.redoBuffer[ccPaint.redoBuffer.Count - 1];
-            var (x, y, features) = (act.X, act.Y, act.Components);
-            CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
-            var oldState = new CursorColors.BufferAction(x, y, features2);
-            //ccPaint.AddToUndoBuffer(oldState);
-            //WorkspaceSetPixel(x, y, features2);
-            //ccPaint.RemoveFromRedoBuffer();
+            Redo();
+        }
+
+        private void Redo()
+        {
+            if(ccPaint.redoBuffer.Count > 0)
+            {
+                CursorColors.BufferAction act = ccPaint.redoBuffer[ccPaint.redoBuffer.Count - 1];
+                var (x, y, features) = (act.X, act.Y, act.Components);
+                CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
+                var oldState = new CursorColors.BufferAction(x, y, features2);
+                //Console.WriteLine("Redo at (" + x.ToString() + ", " + y.ToString() + ") from " + features2.ToString() + " to " + features.ToString());
+                ccPaint.AddToUndoBuffer(oldState);
+                WorkspaceSetPixel(x, y, features);
+                ccPaint.RemoveFromRedoBuffer();
+            }
         }
     }
 }

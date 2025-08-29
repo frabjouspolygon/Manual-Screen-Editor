@@ -7,7 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+
 namespace Manual_Screen_Renderer
 {
     class CursorColors
@@ -51,9 +52,93 @@ namespace Manual_Screen_Renderer
             //IndexPalette = new List<Color>(256);
         }
 
+        public static Color ToDepth(int tDepth)
+        {
+            int val = (int)(tDepth * 8.8);
+            return Color.FromArgb(val, val, val);
+        }
+
+        public static Color ToEColor(int tEColor)
+        {
+            if (tEColor == EffectColorA)
+            {
+                return Color.FromArgb(255, 0, 255);
+            }
+            else if (tEColor == EffectColorB)
+            {
+                return Color.FromArgb(0, 255, 255);
+            }
+            else if (tEColor == EffectColorC)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public static Color ToLColor(int tLColor)
+        {
+            if (tLColor == GeometryDark)
+            {
+                return Color.FromArgb(255, 0, 0);
+            }
+            else if (tLColor == GeometryNeutral)
+            {
+                return Color.FromArgb(0, 255, 0);
+            }
+            else if (tLColor == GeometryLight)
+            {
+                return Color.FromArgb(0, 0, 255);
+            }
+            return Color.FromArgb(255, 0, 0);
+        }
+        public static Color ToLight(int tLight)
+        {
+            if (tLight == LightOn)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public static Color ToPipe(int tPipe)
+        {
+            if (tPipe == PipeL1)
+            {
+                return Color.FromArgb(255, 0, 0);
+            }
+            else if (tPipe == PipeL2)
+            {
+                return Color.FromArgb(0, 255, 0);
+            }
+            else if (tPipe == PipeL3)
+            {
+                return Color.FromArgb(0, 0, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public static Color ToGrime(int tGrime)
+        {
+            if (tGrime == GrimeOn)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+        public static Color ToShading(int tShading)
+        {
+            return Color.FromArgb(tShading, tShading, tShading);
+        }
+        public static Color ToSky(int tSky)
+        {
+            if (tSky == SkyOn)
+            {
+                return Color.FromArgb(255, 255, 255);
+            }
+            return Color.FromArgb(0, 0, 0);
+        }
+
         public Color ColorDepth()
         {
             int val = (int)(Depth * 8.8);
+            val = Math.Min(val, 255);
             return Color.FromArgb(val, val, val);
         }
         public Color ColorEColor()
@@ -146,9 +231,9 @@ namespace Manual_Screen_Renderer
             public CursorColors.Features Components { get; }
             public override string ToString() => $"({X}, {Y}, {Components})";
         }
-        public void AddToUndoBuffer(int x, int y, Features features)
+        public void AddToUndoBuffer(BufferAction act)
         {
-            var act = new BufferAction(x, y, features);
+            //var act = new BufferAction(x, y, features);
             if (undoBuffer.Count >= 100)
             {
                 undoBuffer.RemoveAt(0);
@@ -163,7 +248,7 @@ namespace Manual_Screen_Renderer
         }
         public void RemoveFromUndoBuffer()
         {
-            AddToRedoBuffer(undoBuffer[undoBuffer.Count - 1]);
+            //AddToRedoBuffer(undoBuffer[undoBuffer.Count - 1]);
             undoBuffer.RemoveAt(undoBuffer.Count - 1);
         }
         public void AddToRedoBuffer(BufferAction act)
@@ -177,6 +262,12 @@ namespace Manual_Screen_Renderer
             {
                 redoBuffer.Add(act);
             }
+        }
+
+        public void RemoveFromRedoBuffer()
+        {
+            //AddToUndoBuffer(redoBuffer[redoBuffer.Count - 1]);
+            redoBuffer.RemoveAt(redoBuffer.Count - 1);
         }
 
         public static Color ColorRendered(Features features)
@@ -253,10 +344,28 @@ namespace Manual_Screen_Renderer
             public int ThisShading { get; }
             public int ThisSky { get; }
 
+            public override bool Equals(Object obj)
+            {
+                return obj is Features && Equals((Features)obj);
+            }
+            public bool Equals(Features other)
+            {
+                return ThisDepth == other.ThisDepth && ThisIndexID == other.ThisIndexID && ThisEColor == other.ThisEColor
+                     && ThisLColor == other.ThisLColor && ThisLight == other.ThisLight && ThisPipe == other.ThisPipe
+                      && ThisGrime == other.ThisGrime && ThisShading == other.ThisShading && ThisSky == other.ThisSky;
+            }
+
+            public static bool operator ==(Features lhs, Features rhs)
+            {
+                return lhs.Equals(rhs);
+            }
+
+            public static bool operator !=(Features lhs, Features rhs)
+            {
+                return !lhs.Equals(rhs);
+            }
             public override string ToString() => $"({ThisDepth}, {ThisIndexID}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
         }
-
-        
 
         public int IndexColorID(Color colInput)
         {
@@ -319,7 +428,6 @@ namespace Manual_Screen_Renderer
                 }
             }
         }
-
 
         public static unsafe Bitmap SetPixelIndexedBitmap(Bitmap bitmap, int slot,int x, int y)
         {
@@ -435,6 +543,21 @@ namespace Manual_Screen_Renderer
             return output;
         }
 
+        public static Features FeaturesFromColors(Color tDepth, int tIndexID, Color tEColor, Color tLColor, Color tLight, Color tPipe, Color tGrime, Color tShading, Color tSky)
+        {
+            var output = new CursorColors.Features(
+                (int)(tDepth.R / 8.79),
+                tIndexID,
+                (tEColor== ToEColor(EffectColorA) ? EffectColorA : 0)+ (tEColor == ToEColor(EffectColorB) ? EffectColorB : 0)+ (tEColor == ToEColor(EffectColorC) ? EffectColorC : 0),
+                (tLColor == ToLColor(GeometryNeutral) ? GeometryNeutral : 0) + (tLColor == ToLColor(GeometryLight) ? GeometryLight : 0),
+                (int)(tLight.R / 255),
+                (tPipe == ToPipe(PipeL1) ? PipeL1 : 0) + (tPipe == ToPipe(PipeL2) ? PipeL2 : 0) + (tPipe == ToPipe(PipeL3) ? PipeL3 : 0),
+                (int)(tGrime.R / 255),
+                (int)(tShading.R),
+                (int)(tSky.R / 255)
+            );
+            return output;
+        }
 
     }
 }
