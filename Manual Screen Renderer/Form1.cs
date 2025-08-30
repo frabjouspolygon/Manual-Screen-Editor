@@ -409,9 +409,11 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
-                txtEColor.Text = filePath;
-                imgEColor = myBitmap;
+                myBitmap = new Bitmap(fileFull);
+                txtRendered.Text = filePath;
+                imgRendered = myBitmap;
+                strFileName = fileName;
+                strFilePath = filePath;
                 RefreshWorkspace();
             }
             catch
