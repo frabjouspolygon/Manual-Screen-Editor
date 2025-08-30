@@ -137,7 +137,7 @@ namespace Manual_Screen_Renderer
             var filePath = string.Empty;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "C:/Users/tytro/Pictures/";
+                
                 openFileDialog.Filter = "png files (*.png)|*.png";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
@@ -156,7 +156,7 @@ namespace Manual_Screen_Renderer
             var fileFull = string.Empty;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "C:/Users/tytro/Pictures/";
+                
                 openFileDialog.Filter = "png files (*.png)|*.png";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
@@ -170,54 +170,57 @@ namespace Manual_Screen_Renderer
             return (filePath, fileName,fileFull);
         }
 
+        public string ImageDialogueFiltered(string strLayer)
+        {
+            var filePath = string.Empty;
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                
+                openFileDialog.Filter = "png files (*"+strLayer+".png)|*"+strLayer+".png";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                }
+            }//end using
+            return filePath;
+        }
+
         private void btnDepth_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_depth");// ImageDialogue();
             Bitmap myBitmap = null;
             try
             {
                 myBitmap = new Bitmap(filePath);
-                //txtDepth.Text = filePath;
-                //imgDepth = myBitmap;
+                txtDepth.Text = filePath;
+                imgDepth = myBitmap;
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
-                //txtDepth.Text = "";
+                txtDepth.Text = "";
                 //imgDepth = null;
-            }
-            finally
-            {
-                txtDepth.Text = filePath;
-                imgDepth = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
             }
         }
         private void btnEColor_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_ecolor");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtEColor.Text = filePath;
                 imgEColor = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtEColor.Text = "";
-                imgEColor = null;
+                //imgEColor = null;
             }
         }
         private void txtEColor_KeyPress(object sender, KeyPressEventArgs e)
@@ -233,31 +236,25 @@ namespace Manual_Screen_Renderer
 
         private void btnIndex_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_index");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
-                Bitmap orig = new Bitmap(@"c:\temp\24bpp.bmp");
-                imgIndex = new Bitmap(myBitmap.Width, myBitmap.Height,System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+                myBitmap = new Bitmap(filePath);
+                imgIndex = new Bitmap(myBitmap.Width, myBitmap.Height, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
                 using (Graphics gr = Graphics.FromImage(imgIndex))
                 {
                     gr.DrawImage(myBitmap, new Rectangle(0, 0, imgIndex.Width, imgIndex.Height));
                 }
                 txtIndex.Text = filePath;
-                //imgIndex = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    LoadIndexFromRGBBitmap();
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                LoadIndexFromRGBBitmap();
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtIndex.Text = "";
-                imgIndex = null;
+                //imgIndex = null;
             }
         }
 
@@ -293,139 +290,115 @@ namespace Manual_Screen_Renderer
 
         private void btnLColor_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_lcolor");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtLColor.Text = filePath;
                 imgLColor = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtLColor.Text = "";
-                imgLColor = null;
+                //imgLColor = null;
             }
         }
 
         private void btnLight_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_light");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtLight.Text = filePath;
                 imgLight = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtLight.Text = "";
-                imgLight = null;
+                //imgLight = null;
             }
         }
 
         private void btnPipe_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_pipe");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtPipe.Text = filePath;
                 imgPipe = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtPipe.Text = "";
-                imgPipe = null;
+                //imgPipe = null;
             }
         }
 
         private void btnRainbow_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_grime");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtRainbow.Text = filePath;
                 imgRainbow = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtRainbow.Text = "";
-                imgRainbow = null;
+                //imgRainbow = null;
             }
         }
 
         private void btnShading_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_shading");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtShading.Text = filePath;
                 imgShading = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtShading.Text = "";
-                imgShading = null;
+                //imgShading = null;
             }
         }
 
         private void btnSky_Click(object sender, EventArgs e)
         {
-            string filePath = ImageDialogue();
+            string filePath = ImageDialogueFiltered("_sky");//ImageDialogue();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(filePath);
+                myBitmap = new Bitmap(filePath);
                 txtSky.Text = filePath;
                 imgSky = myBitmap;
-                lblMessages.Text = "Composing components to rendered screen.";
-                //Task.Run(() => {
-                    RenderFromComponenets();
-                    RefreshWorkspace();
-                //});
-                lblMessages.Text = "Ready";
+                RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtSky.Text = "";
-                imgSky = null;
+                //imgSky = null;
             }
         }
 
@@ -433,20 +406,19 @@ namespace Manual_Screen_Renderer
         {
             //string filePath = ImageDialogue();
             var (filePath, fileName, fileFull) = ImageDialogue2();
+            Bitmap myBitmap = null;
             try
             {
-                var myBitmap = new Bitmap(fileFull);
-                txtRendered.Text = filePath;
-                imgRendered = myBitmap;
-                strFileName = fileName;
-                strFilePath = filePath;
+                myBitmap = new Bitmap(filePath);
+                txtEColor.Text = filePath;
+                imgEColor = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtRendered.Text = "";
-                imgRendered = null;
+                //imgRendered = null;
             }
         }
 
@@ -716,6 +688,115 @@ namespace Manual_Screen_Renderer
             RefreshWorkspace();
         }
 
+        private void FastCompose()
+        {
+            int w = imgRendered.Width;
+            int h = imgRendered.Height;
+
+            //Task.Run(() => {
+            //    
+            //});
+            /*Bitmap bmpDepth = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpIndex = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+            Bitmap bmpEcolor = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpLcolor = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpLight = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpPipe = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpGrime = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpShading = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpSky = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            Bitmap bmpRendered = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+            using (SolidBrush brush = new SolidBrush(colFill))
+            {
+                bmpDepth = imgDepth;
+            }*/
+            //Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Size s = imgDepth.Size;
+            PixelFormat fmt = imgDepth.PixelFormat;
+            // we need the bit depth and we assume either 32bppArgb or 24bppRgb !
+            byte bpp = (byte)4;//(fmt == PixelFormat.Format32bppArgb ? 4 : 3);
+            // lock the bits and prepare the loop
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData0 = imgDepth.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData1 = imgEColor.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData2 = imgIndex.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format8bppIndexed);
+            BitmapData bmpData3 = imgLColor.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData4 = imgLight.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData5 = imgPipe.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData6 = imgRainbow.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData7 = imgShading.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData8 = imgSky.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            int size1 = bmpData9.Stride * bmpData9.Height;
+            int size2 = bmpData2.Stride * bmpData2.Height;
+            byte[] data0 = new byte[size1];
+            byte[] data1 = new byte[size1];
+            byte[] data2 = new byte[bmpData2.Stride * s.Height];
+            //byte[] data2 = new byte[size2];
+            byte[] data3 = new byte[size1];
+            byte[] data4 = new byte[size1];
+            byte[] data5 = new byte[size1];
+            byte[] data6 = new byte[size1];
+            byte[] data7 = new byte[size1];
+            byte[] data8 = new byte[size1];
+            byte[] data9 = new byte[size1];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData0.Scan0, data0, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData1.Scan0, data1, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData2.Scan0, data2, 0, data2.Length);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData3.Scan0, data3, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData4.Scan0, data4, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData5.Scan0, data5, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData6.Scan0, data6, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData7.Scan0, data7, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData8.Scan0, data8, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData9.Scan0, data9, 0, size1);
+            // loops
+            for (int y = 0; y < s.Height; y++)
+            {
+                for (int x = 0; x < s.Width; x++)
+                {
+                    
+                    // calculate the index
+                    int index = y * bmpData1.Stride + x * bpp;
+                    //int index = y * bmpData1.Stride + x * bpp;
+                    // get the color
+                    Color c = Color.FromArgb(data1[index + 3], data1[index + 2], data1[index + 1], data1[index]);//bpp == 4 ? data[index + 3] : 255,data[index + 2], data[index + 1], data[index]);
+                    Color c0 = Color.FromArgb(data0[index + 3], data0[index + 2], data0[index + 1], data0[index]);
+                    Color c1 = Color.FromArgb(data1[index + 3], data1[index + 2], data1[index + 1], data1[index]);
+                    //Color c2 = Color.FromArgb(data2[index + 3]);
+                    //int c2 = data2[]
+                    int idx = data2[y * bmpData2.Stride + x];
+                    Color c3 = Color.FromArgb(data3[index + 3], data3[index + 2], data3[index + 1], data3[index]);
+                    Color c4 = Color.FromArgb(data4[index + 3], data4[index + 2], data4[index + 1], data4[index]);
+                    Color c5 = Color.FromArgb(data5[index + 3], data5[index + 2], data5[index + 1], data5[index]);
+                    Color c6 = Color.FromArgb(data6[index + 3], data6[index + 2], data6[index + 1], data6[index]);
+                    Color c7 = Color.FromArgb(data7[index + 3], data7[index + 2], data7[index + 1], data7[index]);
+                    Color c8 = Color.FromArgb(data8[index + 3], data8[index + 2], data8[index + 1], data8[index]);
+                    Color c9 = ColorRendered(FeaturesFromColors(c0, idx, c1,c3,c4,c5,c6,c7,c8));
+                    //if (x == 900 && y == 100)
+                    //    Console.WriteLine("compose at " + x.ToString() + " ," + y.ToString()+" "+ data8[index + 3].ToString());
+                    // process it
+                    //c = hueChanger(c, 2);
+                    // set the channels from the new color
+                    data9[index + 0] = c9.B;
+                    data9[index + 1] = c9.G;
+                    data9[index + 2] = c9.R;
+                    data9[index + 3] = c9.A;
+                }
+            }
+            System.Runtime.InteropServices.Marshal.Copy(data9, 0, bmpData9.Scan0, data9.Length);
+            imgDepth.UnlockBits(bmpData0);
+            imgEColor.UnlockBits(bmpData1);
+            imgIndex.UnlockBits(bmpData2);
+            imgLColor.UnlockBits(bmpData3);
+            imgLight.UnlockBits(bmpData4);
+            imgPipe.UnlockBits(bmpData5);
+            imgRainbow.UnlockBits(bmpData6);
+            imgShading.UnlockBits(bmpData7);
+            imgSky.UnlockBits(bmpData8);
+            imgRendered.UnlockBits(bmpData9);
+            Console.WriteLine("Done Composing");
+        }
 
         private void RenderFromComponenets()
         {
@@ -735,6 +816,7 @@ namespace Manual_Screen_Renderer
                         imgShading.GetPixel(j, i),
                         imgSky.GetPixel(j, i)
                     );
+                    Console.WriteLine("got features from " + j.ToString() + ", " + i.ToString());
                     imgRendered.SetPixel(j, i, CursorColors.ColorRendered(features));
                 }
             }
@@ -780,7 +862,9 @@ namespace Manual_Screen_Renderer
 
         private void btnCompose_Click(object sender, EventArgs e)
         {
-
+            FastCompose();
+            //RenderFromComponenets();
+            RefreshWorkspace();
         }
 
         private void btnDecompose_Click(object sender, EventArgs e)

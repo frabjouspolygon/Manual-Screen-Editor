@@ -102,6 +102,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lblMessages = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnCompose = new System.Windows.Forms.Button();
             this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
             this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -124,6 +125,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnCompose);
             this.splitContainer1.Panel1.Controls.Add(this.btnEraser);
             this.splitContainer1.Panel1.Controls.Add(this.nudDepth);
             this.splitContainer1.Panel1.Controls.Add(this.btnPickSky);
@@ -776,6 +778,15 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Name = "label1";
             // 
+            // btnCompose
+            // 
+            resources.ApplyResources(this.btnCompose, "btnCompose");
+            this.btnCompose.Name = "btnCompose";
+            this.btnCompose.TabStop = false;
+            this.toolTip.SetToolTip(this.btnCompose, resources.GetString("btnCompose.ToolTip"));
+            this.btnCompose.UseVisualStyleBackColor = true;
+            this.btnCompose.Click += new System.EventHandler(this.btnCompose_Click);
+            // 
             // pnlWorkspace
             // 
             this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
@@ -899,6 +910,7 @@
         private System.Windows.Forms.ToolStripMenuItem exportLayersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.Button btnCompose;
     }
 }
 

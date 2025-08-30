@@ -481,7 +481,7 @@ namespace Manual_Screen_Renderer
 
             if (R == 255 && G == 255 && B == 255)//if sky
             {
-                tDepth = 30;
+                tDepth = 29;
                 tIndex = Color.Transparent;
                 tIndexID = 0;
                 tEColor = 0;
