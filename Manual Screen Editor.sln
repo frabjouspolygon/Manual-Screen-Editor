@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32126.315
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manual Screen Renderer", "Manual Screen Renderer\Manual Screen Renderer.csproj", "{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manual Screen Editor", "Manual Screen Renderer\Manual Screen Editor.csproj", "{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
