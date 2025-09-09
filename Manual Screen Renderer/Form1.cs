@@ -5,12 +5,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+//using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AForge.Imaging.Filters;
 //using System.Windows.Media;
 
 //using System.Windows.Media;
@@ -45,6 +47,8 @@ namespace Manual_Screen_Renderer
         static Bitmap imgShading = null;
         static Bitmap imgSky = null;
         static Bitmap imgRendered = null;
+        static Bitmap imgPreview = null;
+        static Bitmap imgPalette = null;
         static int intMode = 9;//0-9
         static Color colCursor = Color.FromArgb(0,0,0,0);
         static CursorColors ccPaint = null;
@@ -61,8 +65,10 @@ namespace Manual_Screen_Renderer
         static string strFileName = null;
         static string strFilePath = null;
         static bool pickerMode = false;
-
-        
+        static bool paletteMode = false;
+        static bool changed = true;
+        static Color colA = Color.FromArgb( 255, 0, 255);
+        static Color colB = Color.FromArgb(0, 255, 255);
         public Form1()
         {
             InitializeComponent();
@@ -81,6 +87,7 @@ namespace Manual_Screen_Renderer
             imgEColor = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             //imgIndex = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0, 0));
             imgIndex = new Bitmap(1400, 800, PixelFormat.Format8bppIndexed);
+            imgPalette = SolidBitmap(32, 8, Color.FromArgb(0, 0, 0));
             ccPaint.IndexPalette = imgIndex.Palette;
             for (int i = 0; i < 256; i++)
             {
@@ -95,6 +102,7 @@ namespace Manual_Screen_Renderer
             imgShading = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             imgSky = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             imgRendered = SolidBitmap(1400, 800, Color.FromArgb(1, 0, 0));
+            imgPreview = SolidBitmap(1400, 800, Color.FromArgb(1, 0, 0));
             //pbxWorkspace.SizeMode = PictureBoxSizeMode.AutoSize;
             //splitContainer1.Panel2.AutoScroll = true;
             pnlWorkspace.AutoScroll = true;
@@ -127,10 +135,32 @@ namespace Manual_Screen_Renderer
             {
                 gfx.FillRectangle(brush, 0, 0, width, height);
             }
+            
             return Bmp;
         }
 
-        
+        public static Image ConvertToIndexed(Bitmap oldbmp)
+        {
+            var bmp8bpp = Grayscale.CommonAlgorithms.BT709.Apply(oldbmp);
+            return bmp8bpp;
+            /*using (var ms = new MemoryStream())
+            {
+                oldbmp.Save(ms, ImageFormat.Gif);
+                ms.Position = 0;
+                return Image.FromStream(ms);
+            }*/
+        }
+        public static Color Blend(Color color, Color backColor, double amount)
+        {
+            byte r = (byte)(color.R * amount + backColor.R * (1 - amount));
+            byte g = (byte)(color.G * amount + backColor.G * (1 - amount));
+            byte b = (byte)(color.B * amount + backColor.B * (1 - amount));
+            return Color.FromArgb(r, g, b);
+        }
+        public static Bitmap cropAtRect(Bitmap b, Rectangle r)
+        {
+            return b.Clone(r, b.PixelFormat);
+        }
 
         public string ImageDialogue()
         {
@@ -140,7 +170,7 @@ namespace Manual_Screen_Renderer
                 
                 openFileDialog.Filter = "png files (*.png)|*.png";
                 openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
+                openFileDialog.RestoreDirectory = false;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
@@ -241,17 +271,25 @@ namespace Manual_Screen_Renderer
             try
             {
                 myBitmap = new Bitmap(filePath);
-                imgIndex = new Bitmap(myBitmap.Width, myBitmap.Height, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
-                using (Graphics gr = Graphics.FromImage(imgIndex))
-                {
-                    gr.DrawImage(myBitmap, new Rectangle(0, 0, imgIndex.Width, imgIndex.Height));
-                }
+                LoadIndexFromRGBBitmap5(myBitmap);
+                //imgIndex = (Bitmap)ConvertPixelformat(ref myBitmap);
+                //imgIndex = (Bitmap)ConvertToIndexed(myBitmap);
+                //Console.WriteLine("converted");
+                //imgIndex = new Bitmap(myBitmap.Width, myBitmap.Height, PixelFormat.Format8bppIndexed);
+                //using (Graphics gr = Graphics.FromImage(imgIndex))
+                //{
+                //    gr.DrawImage(myBitmap, new Rectangle(0, 0, imgIndex.Width, imgIndex.Height));
+                //}
                 txtIndex.Text = filePath;
-                LoadIndexFromRGBBitmap();
+                //LoadIndexFromRGBBitmap2();
+                //LoadIndexFromRGBBitmap3();
+                Console.WriteLine("loaded index");
                 RefreshWorkspace();
+                Console.WriteLine("refresh");
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtIndex.Text = "";
                 //imgIndex = null;
@@ -262,13 +300,14 @@ namespace Manual_Screen_Renderer
         private void LoadIndexFromRGBBitmap()
         {
             for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
-                ccPaint.IndexPalette.Entries[i] = Color.Transparent;
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;//empty out the index palette
             int slot = 1;
             for (int i = 0; i < imgRendered.Height; i++)
             {
                 for (int j = 0; j < imgRendered.Width; j++)
                 {
                     Color color = imgIndex.Palette.Entries[GetPixelIndexedBitmap(imgIndex, j, i)];
+                    Console.WriteLine(i.ToString() + ", " + j.ToString());
                     if (slot < 255 && color.A == 255)
                     {
                         bool claimed = false;
@@ -285,6 +324,192 @@ namespace Manual_Screen_Renderer
 
                     }
                 }
+            }
+        }
+
+        private void LoadIndexFromRGBBitmap2()
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;//empty out the index palette
+            List<int> taken = new List<int>();
+            Size s = imgIndex.Size;
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData = imgIndex.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format8bppIndexed);
+            int size1 = bmpData.Stride * bmpData.Height;
+            byte[] data2 = new byte[bmpData.Stride * s.Height];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData.Scan0, data2, 0, data2.Length);
+            int slot = 1;
+            for (int i = 0; i < s.Height; i++)
+            {
+                for (int j = 0; j < s.Width; j++)
+                {
+                    int idx = data2[i * bmpData.Stride + j];
+                    //Color color = imgIndex.Palette.Entries[idx];
+                    //Console.WriteLine(i.ToString() + ", " + j.ToString());
+                    if (slot < 255)// && color.A == 255)
+                    {
+                        bool claimed = false;
+                        for (int k = 0; k < taken.Count; k++)
+                        {
+                            if (idx == taken[k])
+                            {
+                                claimed = true;
+                                k = taken.Count;
+                            }
+
+                        }
+                        /*for (int k = 0; k < ccPaint.IndexPalette.Entries.Length; k++)
+                        {
+                            if (color == ccPaint.IndexPalette.Entries[k])
+                                claimed = true;
+                        }*/
+                        if (!claimed)
+                        {
+                            taken.Add(idx);
+                            ccPaint.IndexPalette.Entries[slot] = imgIndex.Palette.Entries[idx];
+                            slot++;
+                        }
+                    }
+                    else if (slot > 255)
+                    {
+                        break;
+                    }
+                }
+            }
+            imgIndex.UnlockBits(bmpData);
+        }
+
+        private unsafe void LoadIndexFromRGBBitmap4(Bitmap imgInput)
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;//empty out the index palette
+                imgIndex.Palette.Entries[i] = Color.Transparent;
+            }
+            Size s = imgInput.Size;
+            PixelFormat fmt = imgIndex.PixelFormat;
+            byte bpp = (byte)4;
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData0 = imgInput.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData1 = imgIndex.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
+            //BitmapData bmpData = imgIndex.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format8bppIndexed);
+            int size0 = bmpData0.Stride * bmpData0.Height;
+
+            int size1 = bmpData1.Stride * bmpData1.Height;
+            byte[] data0 = new byte[size0*4];
+            byte[] data1 = new byte[bmpData1.Stride * s.Height];
+            Console.WriteLine("length " + data1.Length.ToString());
+            Console.WriteLine((1400*800).ToString());
+            
+            int slot = 1;
+            //byte* line = (byte*)bmpData1.Scan0;
+            System.Runtime.InteropServices.Marshal.Copy(bmpData0.Scan0, data0, 0, size0);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData1.Scan0, data1, 0, data1.Length);
+
+            for (int i = 0; i < s.Height; i++)
+            {
+
+                Console.WriteLine(i.ToString() + " slot: " + slot.ToString());
+                //line += bmpData1.Stride;
+                for (int j = 0; j < s.Width; j++)
+                {
+                    int index = i * bmpData0.Stride + j * bpp;
+                    Color c = Color.FromArgb(data0[index + 3], data0[index + 2], data0[index + 1], data0[index]);
+                    
+                    if (slot < 255 && c.A > 0)
+                    {
+                        bool claimed = false;
+                        for (int k = 0; k < ccPaint.IndexPalette.Entries.Length; k++)
+                        {
+                            if (c == ccPaint.IndexPalette.Entries[k])
+                            {
+                                claimed = true;
+                                break;
+                                //k = ccPaint.IndexPalette.Entries.Length-1;
+                            }
+                        }
+                        if (!claimed)
+                        {
+                            //data2[y * bmpData2.Stride + x];
+                            Console.WriteLine(c.R.ToString() + " " + c.G.ToString() + " " + c.B.ToString() + " " + c.A.ToString());
+                            data1[i * bmpData1.Stride + j] = (byte)slot;
+                            //line[j] = (byte)slot;
+                            imgIndex.Palette.Entries[slot] = c;
+                            ccPaint.IndexPalette.Entries[slot] = c;
+                            //data1[index + 0] = c.B;
+                            //data1[index + 1] = c.G;
+                            //data1[index + 2] = c.R;
+                            //data1[index + 3] = 255;
+                            slot++;
+                        }
+                    }
+                    else if (slot > 255)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            //imgIndex.UnlockBits(bmpData1);
+            //System.Runtime.InteropServices.Marshal.Copy(data2, 0, bmpData1.Scan0, data2.Length);
+            imgInput.UnlockBits(bmpData0);
+            imgIndex.UnlockBits(bmpData1);
+        }
+
+
+        private void LoadIndexFromRGBBitmap3()
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+                ccPaint.IndexPalette.Entries[i] = imgIndex.Palette.Entries[i];
+        }
+
+        private void LoadIndexFromRGBBitmap5(Bitmap imgInput)
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;//empty out the index palette
+                imgIndex.Palette.Entries[i] = Color.Transparent;
+            }
+                
+            int slot = 255;
+            for (int i = 0; i < imgInput.Height; i++)
+            {
+                Console.WriteLine(i.ToString() + ", " + slot.ToString());
+                for (int j = 0; j < imgInput.Width; j++)
+                {
+                    Color color = imgInput.GetPixel(j,i);// imgIndex.Palette.Entries[GetPixelIndexedBitmap(imgIndex, j, i)];
+                    
+                    if (slot > 0 && color.A == 255)
+                    {
+                        bool claimed = false;
+                        for (int k = 0; k < ccPaint.IndexPalette.Entries.Length; k++)
+                        {
+                            if (color == ccPaint.IndexPalette.Entries[k])
+                            {
+                                claimed = true;
+                                break;
+                            }
+                        }
+                        if (!claimed)
+                        {
+                            //imgIndex.Palette.Entries[slot] = color;
+                            imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, slot, j, i);
+                            ccPaint.IndexPalette.Entries[slot] = color;
+                            slot--;
+                        }
+                        
+
+                    }
+                    if (color.A == 255)
+                    {
+                        imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, ccPaint.IndexColorID(color), j, i);
+                    }
+                }
+            }
+
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+            {
+                imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
             }
         }
 
@@ -559,13 +784,19 @@ namespace Manual_Screen_Renderer
                         
                         if (Math.Sign(e.Delta)>=0 && newHeight <= pbxWorkspace.Image.Height*20)
                         {
+                            //pnlWorkspace.AutoScroll = false;
                             pbxWorkspace.Size = new Size(newWidth, newHeight);
+                            //pnlWorkspace.AutoScroll = true;
+                            pnlWorkspace.AutoScrollPosition = Cursor.Position;
                             pbxWorkspace.Refresh();
                         }
                         else if (Math.Sign(e.Delta)<=0 && pbxWorkspace.Image.Height/newHeight  < 4)
                         {
                             //lblMessages.Text = (newHeight).ToString() + "," + (pbxWorkspace.Image.Height).ToString();
+                            //pnlWorkspace.AutoScroll = false;
                             pbxWorkspace.Size = new Size(newWidth, newHeight);
+                            //pnlWorkspace.AutoScroll = true;
+                            //pnlWorkspace.AutoScrollPosition = Cursor.Position;
                             pbxWorkspace.Refresh();
                         }
 
@@ -677,6 +908,7 @@ namespace Manual_Screen_Renderer
 
         private void WorkspaceSetPixel(int intX, int intY, CursorColors.Features features)
         {
+            changed = true;
             imgDepth.SetPixel(intX, intY, CursorColors.ToDepth(features.ThisDepth));
             imgEColor.SetPixel(intX, intY, CursorColors.ToEColor(features.ThisEColor));
             imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, features.ThisIndexID, intX, intY);
@@ -824,9 +1056,62 @@ namespace Manual_Screen_Renderer
             }
         }
 
+        private void MakePreview()
+        {
+            Color ecolA = Color.FromArgb(255, 0, 255);
+            Color ecolB = Color.FromArgb(0, 255, 255);
+            for (int y = 0; y < imgRendered.Height; y++)
+            {
+                for (int x = 0; x < imgRendered.Width; x++)
+                {
+                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
+                    Color c = Color.Black;
+                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+                    int tSky = features.ThisSky;
+
+                    if (tSky ==1)
+                    {
+                        c = imgPalette.GetPixel(0, 0);
+                    }
+                    else if (tPipe > 0)
+                    {
+                        c = imgPalette.GetPixel(10+tPipe, 0);
+                    }
+                    else if (tIndexID>0)
+                    {
+                        c = ccPaint.IndexPalette.Entries[tIndexID];
+                    }
+                    else
+                    {
+                        c = imgPalette.GetPixel(tDepth, 2 + (2-tLColor) + 3 *( 1-tLight));
+                        if (tEColor > 0)
+                        {
+                            if(tEColor == 1)
+                            {
+                                c = Blend(ecolA, c, (double)tShading/255);
+                            }
+                            else if (tEColor == 2)
+                            {
+                                c = Blend(ecolB, c, (double)tShading / 255);
+                            }
+                            else
+                            {
+                                c = Blend(Color.White, c, (double)tShading / 255);
+                            }
+                        }
+                        if (tGrime > 0)
+                        {
+
+                        }
+                    }
+                    imgPreview.SetPixel(x, y, c);
+                }
+            }
+        }
+
         private void RefreshWorkspace()
         {
-
             switch (intMode)
             {
                 case 0:
@@ -857,7 +1142,19 @@ namespace Manual_Screen_Renderer
                     pbxWorkspace.Image = imgSky;
                     break;
                 case 9:
-                    pbxWorkspace.Image = imgRendered;
+                    if (paletteMode)
+                    {
+                        if (changed)
+                        {
+                            MakePreview();
+                            changed = false;
+                        }
+                        pbxWorkspace.Image = imgPreview;
+                    }
+                    else
+                    {
+                        pbxWorkspace.Image = imgRendered;
+                    }
                     break;
             }
         }
@@ -1324,6 +1621,77 @@ namespace Manual_Screen_Renderer
                 ccPaint.AddToUndoBuffer(oldState);
                 WorkspaceSetPixel(x, y, features);
                 ccPaint.RemoveFromRedoBuffer();
+            }
+        }
+
+        private void paletteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (paletteToolStripMenuItem.Checked)
+            {
+                paletteMode = true;
+            }
+            else
+            {
+                paletteMode = false;
+            }
+        }
+
+        private void setPaletteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filePath = ImageDialogue();
+            Bitmap myBitmap = null;
+            try
+            {
+                myBitmap = new Bitmap(filePath);
+                if(myBitmap.Width == 32 && (myBitmap.Height == 16 || myBitmap.Height == 8))
+                {
+                    if(myBitmap.Height == 8)
+                    {
+                        //myBitmap = myBitmap;
+                    }
+                    else
+                    {
+                        myBitmap = cropAtRect(myBitmap, new Rectangle(0, 0, 32, 8));
+                    }
+                    //Console.WriteLine("a");
+                    //imgPalette = new Bitmap(32, 8, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+                    //Console.WriteLine(myBitmap.PixelFormat);
+                    imgPalette = myBitmap;//(Bitmap)ConvertToIndexed(myBitmap);
+                    //using (Graphics gr = Graphics.FromImage(imgPalette))
+                    //{
+                    //Console.WriteLine(PixelFormat);
+                    //gr.DrawImage(myBitmap, new Rectangle(0, 0, 32, 8));
+                    //}
+                }
+                else
+                {
+                    MessageBox.Show("wrong resolution", "error", MessageBoxButtons.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+            }
+        }
+
+        private void effectAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = colorDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colA = colorDialog1.Color;
+                changed = true;
+            }
+        }
+
+        private void effectBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = colorDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colB = colorDialog1.Color;
+                changed = true;
             }
         }
     }
