@@ -1078,8 +1078,10 @@ namespace Manual_Screen_Renderer
                     {
                         c = imgPalette.GetPixel(10+tPipe, 0);
                     }
-                    else if (tIndexID>0)
+                    else if (tIndexID > 0)
                     {
+
+                        Console.WriteLine("index allowed at "+x.ToString()+y.ToString());
                         c = ccPaint.IndexPalette.Entries[tIndexID];
                     }
                     else
@@ -1144,7 +1146,7 @@ namespace Manual_Screen_Renderer
                 case 9:
                     if (paletteMode)
                     {
-                        if (changed)
+                        if (true)
                         {
                             MakePreview();
                             changed = false;
