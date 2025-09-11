@@ -1058,8 +1058,6 @@ namespace Manual_Screen_Renderer
 
         private void MakePreview()
         {
-            Color ecolA = Color.FromArgb(255, 0, 255);
-            Color ecolB = Color.FromArgb(0, 255, 255);
             for (int y = 0; y < imgRendered.Height; y++)
             {
                 for (int x = 0; x < imgRendered.Width; x++)
@@ -1091,11 +1089,11 @@ namespace Manual_Screen_Renderer
                         {
                             if(tEColor == 1)
                             {
-                                c = Blend(ecolA, c, (double)tShading/255);
+                                c = Blend(colA, c, (double)tShading/255);
                             }
                             else if (tEColor == 2)
                             {
-                                c = Blend(ecolB, c, (double)tShading / 255);
+                                c = Blend(colB, c, (double)tShading / 255);
                             }
                             else
                             {
