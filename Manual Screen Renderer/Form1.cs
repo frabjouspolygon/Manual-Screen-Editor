@@ -48,7 +48,8 @@ namespace Manual_Screen_Renderer
         static Bitmap imgSky = null;
         static Bitmap imgRendered = null;
         static Bitmap imgPreview = null;
-        static Bitmap imgPalette = null;
+        //static Bitmap imgPalette = null;
+        //static Bitmap imgGrimeMask = null;
         static int intMode = 9;//0-9
         static Color colCursor = Color.FromArgb(0,0,0,0);
         static CursorColors ccPaint = null;
@@ -67,8 +68,8 @@ namespace Manual_Screen_Renderer
         static bool pickerMode = false;
         static bool paletteMode = false;
         static bool changed = true;
-        static Color colA = Color.FromArgb( 255, 0, 255);
-        static Color colB = Color.FromArgb(0, 255, 255);
+        //static Color colA = Color.FromArgb( 255, 0, 255);
+        //static Color colB = Color.FromArgb(0, 255, 255);
         public Form1()
         {
             InitializeComponent();
@@ -87,7 +88,7 @@ namespace Manual_Screen_Renderer
             imgEColor = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             //imgIndex = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0, 0));
             imgIndex = new Bitmap(1400, 800, PixelFormat.Format8bppIndexed);
-            imgPalette = SolidBitmap(32, 8, Color.FromArgb(0, 0, 0));
+            //ccPaint.imgPalette = SolidBitmap(32, 8, Color.FromArgb(0, 0, 0));
             ccPaint.IndexPalette = imgIndex.Palette;
             for (int i = 0; i < 256; i++)
             {
@@ -103,6 +104,7 @@ namespace Manual_Screen_Renderer
             imgSky = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             imgRendered = SolidBitmap(1400, 800, Color.FromArgb(1, 0, 0));
             imgPreview = SolidBitmap(1400, 800, Color.FromArgb(1, 0, 0));
+            //imgGrimeMask = new Bitmap(Properties.Resources.GrimeMask);
             //pbxWorkspace.SizeMode = PictureBoxSizeMode.AutoSize;
             //splitContainer1.Panel2.AutoScroll = true;
             pnlWorkspace.AutoScroll = true;
@@ -898,15 +900,16 @@ namespace Manual_Screen_Renderer
                     {
                         ccPaint.AddToUndoBuffer(new BufferAction(intX, intY, features));
                     }
-                    imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky));
-                    
+                    Color colRend = CursorColors.ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+                    imgRendered.SetPixel(intX, intY, colRend);
+                    imgPreview.SetPixel(intX, intY, colRend);
                     //pbxWorkspace.Image = imgWorking;
                     RefreshWorkspace();
                 }
             }
         }
 
-        private void WorkspaceSetPixel(int intX, int intY, CursorColors.Features features)
+        private void WorkspaceSetPixel(int intX, int intY, CursorColors.Features features)//sets a pixel in all images regardless of layer selection
         {
             changed = true;
             imgDepth.SetPixel(intX, intY, CursorColors.ToDepth(features.ThisDepth));
@@ -918,7 +921,9 @@ namespace Manual_Screen_Renderer
             imgRainbow.SetPixel(intX, intY, CursorColors.ToGrime(features.ThisGrime));
             imgShading.SetPixel(intX, intY, CursorColors.ToShading(features.ThisSky));
             imgSky.SetPixel(intX, intY, CursorColors.ToSky(features.ThisSky));
-            imgRendered.SetPixel(intX, intY, CursorColors.ColorRendered(features));
+            Color colRend = CursorColors.ColorRendered(features);
+            imgRendered.SetPixel(intX, intY, colRend);
+            imgPreview.SetPixel(intX, intY, colRend);
             RefreshWorkspace();
         }
 
@@ -927,24 +932,6 @@ namespace Manual_Screen_Renderer
             int w = imgRendered.Width;
             int h = imgRendered.Height;
 
-            //Task.Run(() => {
-            //    
-            //});
-            /*Bitmap bmpDepth = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpIndex = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
-            Bitmap bmpEcolor = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpLcolor = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpLight = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpPipe = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpGrime = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpShading = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpSky = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            Bitmap bmpRendered = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-            using (SolidBrush brush = new SolidBrush(colFill))
-            {
-                bmpDepth = imgDepth;
-            }*/
-            //Bitmap bmp = (Bitmap)pictureBox1.Image;
             Size s = imgDepth.Size;
             PixelFormat fmt = imgDepth.PixelFormat;
             // we need the bit depth and we assume either 32bppArgb or 24bppRgb !
@@ -1029,7 +1016,8 @@ namespace Manual_Screen_Renderer
             imgShading.UnlockBits(bmpData7);
             imgSky.UnlockBits(bmpData8);
             imgRendered.UnlockBits(bmpData9);
-            Console.WriteLine("Done Composing");
+            //Console.WriteLine("Done Composing");
+            MakePreview();
         }
 
         private void RenderFromComponenets()
@@ -1062,49 +1050,7 @@ namespace Manual_Screen_Renderer
             {
                 for (int x = 0; x < imgRendered.Width; x++)
                 {
-                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
-                    Color c = Color.Black;
-                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
-                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
-                    int tSky = features.ThisSky;
-
-                    if (tSky ==1)
-                    {
-                        c = imgPalette.GetPixel(0, 0);
-                    }
-                    else if (tPipe > 0)
-                    {
-                        c = imgPalette.GetPixel(10+tPipe, 0);
-                    }
-                    else if (tIndexID > 0)
-                    {
-
-                        Console.WriteLine("index allowed at "+x.ToString()+y.ToString());
-                        c = ccPaint.IndexPalette.Entries[tIndexID];
-                    }
-                    else
-                    {
-                        c = imgPalette.GetPixel(tDepth, 2 + (2-tLColor) + 3 *( 1-tLight));
-                        if (tEColor > 0)
-                        {
-                            if(tEColor == 1)
-                            {
-                                c = Blend(colA, c, (double)tShading/255);
-                            }
-                            else if (tEColor == 2)
-                            {
-                                c = Blend(colB, c, (double)tShading / 255);
-                            }
-                            else
-                            {
-                                c = Blend(Color.White, c, (double)tShading / 255);
-                            }
-                        }
-                        if (tGrime > 0)
-                        {
-
-                        }
-                    }
+                    Color c = ccPaint.PreviewPixel(imgRendered.GetPixel(x, y), x, y);
                     imgPreview.SetPixel(x, y, c);
                 }
             }
@@ -1146,7 +1092,7 @@ namespace Manual_Screen_Renderer
                     {
                         if (true)
                         {
-                            MakePreview();
+                            //MakePreview();
                             changed = false;
                         }
                         pbxWorkspace.Image = imgPreview;
@@ -1182,92 +1128,83 @@ namespace Manual_Screen_Renderer
             }
             lblMessages.Text = "Decomposing rendered screen into components.";
 
-            //Task.Run(() => {
-                imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgEColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgLColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgLight = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgPipe = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgRainbow = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgShading = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgSky = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-                imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format8bppIndexed);
+            imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgEColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgLColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgLight = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgPipe = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgRainbow = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgShading = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgSky = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format8bppIndexed);
 
-                /*for (int j = Math.Min(255, imgRendered.Width); j > 0; j--)
+            for (int i = 0; i < imgRendered.Height; i++)
+            {
+                for (int j = 0; j < imgRendered.Width; j++)
                 {
-                    ccPaint.IndexPalette.Entries[j] = imgRendered.GetPixel(j, 0);
-                }*/
-                for (int i = 0; i < imgRendered.Height; i++)
-                {
-                    for (int j = 0; j < imgRendered.Width; j++)
+                    Color colPixel = imgRendered.GetPixel(j, i);
+                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(j, i));
+                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+                    int tSky = features.ThisSky;
+
+                    ccPaint.Depth = tDepth;
+                    ccPaint.IndexID = tIndexID;
+                    ccPaint.EColor = tEColor;
+                    ccPaint.LColor = tLColor;
+                    ccPaint.Light = tLight;
+                    ccPaint.Pipe = tPipe;
+                    ccPaint.Grime = tGrime;
+                    ccPaint.Shading = tShading;
+                    ccPaint.Sky = tSky;
+                    if (tIndexID != 0)
                     {
-                        Color colPixel = imgRendered.GetPixel(j, i);
-                        CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(j, i));
-                        int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
-                        int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
-                        int tSky = features.ThisSky;
-
-                        ccPaint.Depth = tDepth;
-                        ccPaint.IndexID = tIndexID;
-                        ccPaint.EColor = tEColor;
-                        ccPaint.LColor = tLColor;
-                        ccPaint.Light = tLight;
-                        ccPaint.Pipe = tPipe;
-                        ccPaint.Grime = tGrime;
-                        ccPaint.Shading = tShading;
-                        ccPaint.Sky = tSky;
-                        if (tIndexID != 0)
-                        {
-                            ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255 - tIndexID, 0);
-                            //imgIndex.SetPixel(j, i, ccPaint.IndexPalette.Entries[tIndexID]);
-                            imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, tIndexID, j, i);
-                        }
-                        else
-                        {
-                            //imgIndex.SetPixel(j, i, Color.Transparent);
-                            imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, 0, j, i);
-                        }
-                        imgSky.SetPixel(j, i, ccPaint.ColorSky());
-                        imgLight.SetPixel(j, i, ccPaint.ColorLight());
-                        imgLColor.SetPixel(j, i, ccPaint.ColorLColor());
-                        imgPipe.SetPixel(j, i, ccPaint.ColorPipe());
-                        imgDepth.SetPixel(j, i, ccPaint.ColorDepth());
-                        imgRainbow.SetPixel(j, i, ccPaint.ColorGrime());
-                        imgEColor.SetPixel(j, i, ccPaint.ColorEColor());
-                        imgShading.SetPixel(j, i, ccPaint.ColorShading());
-                    }//end for width
-                }//end for height
-
-                RefreshWorkspace();
-            //});
+                        ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255 - tIndexID, 0);
+                        //imgIndex.SetPixel(j, i, ccPaint.IndexPalette.Entries[tIndexID]);
+                        imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, tIndexID, j, i);
+                    }
+                    else
+                    {
+                        //imgIndex.SetPixel(j, i, Color.Transparent);
+                        imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, 0, j, i);
+                    }
+                    imgSky.SetPixel(j, i, ccPaint.ColorSky());
+                    imgLight.SetPixel(j, i, ccPaint.ColorLight());
+                    imgLColor.SetPixel(j, i, ccPaint.ColorLColor());
+                    imgPipe.SetPixel(j, i, ccPaint.ColorPipe());
+                    imgDepth.SetPixel(j, i, ccPaint.ColorDepth());
+                    imgRainbow.SetPixel(j, i, ccPaint.ColorGrime());
+                    imgEColor.SetPixel(j, i, ccPaint.ColorEColor());
+                    imgShading.SetPixel(j, i, ccPaint.ColorShading());
+                }//end for width
+            }//end for height
+            for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
+            {
+                imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
+            }
+            MakePreview();
+            RefreshWorkspace();
             lblMessages.Text = "Ready";
         }
 
         private void btnPickIndex_Click(object sender, EventArgs e)
         {
-            //IndexPopup stuff = new IndexPopup(ccPaint.IndexPalette);
-            //stuff.Show();
-
             using (var form = new IndexPopup(ccPaint.IndexPalette,ccPaint.IndexID))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    ColorPalette val = form.IndexPalette;
-                    int val2 = form.selectedColorID;
-                    ccPaint.IndexPalette = val;
-                    imgIndex.Palette = val;
-                    ccPaint.IndexID = val2;
+                    ColorPalette cPal = form.IndexPalette;
+                    int selID = form.selectedColorID;
+                    ccPaint.IndexPalette = cPal;
+                    imgIndex.Palette = cPal;
+                    ccPaint.IndexID = selID;
                     btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
-                    Console.WriteLine("IndexID "+val2.ToString());
-                    toolTip.SetToolTip(btnPickIndex, val2.ToString());
+                    //Console.WriteLine("IndexID "+selID.ToString());
+                    toolTip.SetToolTip(btnPickIndex, selID.ToString());
+                    MakePreview();
                 }
             }
-
-            //colorDialog1.ShowDialog();
-            //Color colSelection = colorDialog1.Color;
-            //ccPaint.Index = colSelection;
-            //btnPickIndex.BackColor = colSelection;
         }
 
         private void btnPickEColor_Click(object sender, EventArgs e)
@@ -1370,10 +1307,10 @@ namespace Manual_Screen_Renderer
         private void btnPickPipe_Click(object sender, EventArgs e)
         {
             int colInitial = ccPaint.Pipe;//btnPickPipe.BackColor;
-            Color L1 = Color.FromArgb(255, 0, 0);
-            Color L2 = Color.FromArgb(0, 255, 0);
-            Color L3 = Color.FromArgb(0, 0, 255);
-            Color Off = Color.FromArgb(0, 0, 0);
+            Color L1 = CursorColors.ToPipe(CursorColors.PipeL1);
+            Color L2 = CursorColors.ToPipe(CursorColors.PipeL2);
+            Color L3 = CursorColors.ToPipe(CursorColors.PipeL3);
+            Color Off = CursorColors.ToPipe(CursorColors.NoPipe);
             if (colInitial == CursorColors.PipeL1)
             {
                 ccPaint.Pipe = CursorColors.PipeL2;
@@ -1479,6 +1416,7 @@ namespace Manual_Screen_Renderer
         private void btnEraser_Click(object sender, EventArgs e)
         {
             ccPaint.IndexID = 0;
+            toolTip.SetToolTip(btnPickIndex, "0");
         }
 
         private Bitmap StampIndexes(Bitmap bitmap)
@@ -1629,10 +1567,12 @@ namespace Manual_Screen_Renderer
             if (paletteToolStripMenuItem.Checked)
             {
                 paletteMode = true;
+                RefreshWorkspace();
             }
             else
             {
                 paletteMode = false;
+                RefreshWorkspace();
             }
         }
 
@@ -1656,7 +1596,7 @@ namespace Manual_Screen_Renderer
                     //Console.WriteLine("a");
                     //imgPalette = new Bitmap(32, 8, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
                     //Console.WriteLine(myBitmap.PixelFormat);
-                    imgPalette = myBitmap;//(Bitmap)ConvertToIndexed(myBitmap);
+                    ccPaint.imgPalette = myBitmap;//(Bitmap)ConvertToIndexed(myBitmap);
                     //using (Graphics gr = Graphics.FromImage(imgPalette))
                     //{
                     //Console.WriteLine(PixelFormat);
@@ -1680,7 +1620,7 @@ namespace Manual_Screen_Renderer
             var result = colorDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                colA = colorDialog1.Color;
+                ccPaint.colA = colorDialog1.Color;
                 changed = true;
             }
         }
@@ -1690,7 +1630,7 @@ namespace Manual_Screen_Renderer
             var result = colorDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                colB = colorDialog1.Color;
+                ccPaint.colB = colorDialog1.Color;
                 changed = true;
             }
         }

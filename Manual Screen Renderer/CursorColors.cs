@@ -24,8 +24,8 @@ namespace Manual_Screen_Renderer
         public static int LightOn = 1;
         public static int NoPipe = 0;
         public static int PipeL1 = 1;
-        public static int PipeL2 = 2;
-        public static int PipeL3 = 3;
+        public static int PipeL2 = 3;
+        public static int PipeL3 = 2;
         public static int GrimeOff = 0;
         public static int GrimeOn = 1;
         public static int SkyOff = 0;
@@ -45,11 +45,18 @@ namespace Manual_Screen_Renderer
 
         public List<CursorColors.BufferAction> undoBuffer = new List<CursorColors.BufferAction>();
         public List<CursorColors.BufferAction> redoBuffer = new List<CursorColors.BufferAction>();
-
+        public Bitmap imgPalette { get; set; }
+        public Bitmap imgGrimeMask { get; set; }
+        public Color colA { get; set; }
+        public Color colB { get; set; }
         public ColorPalette IndexPalette { get; set; }
         public CursorColors()
         {
             //IndexPalette = new List<Color>(256);
+            imgPalette = Form1.SolidBitmap(32, 8, Color.FromArgb(0, 0, 0));
+            imgGrimeMask = new Bitmap(Properties.Resources.GrimeMask);
+            colA = Color.FromArgb(255, 0, 255);
+            colB = Color.FromArgb(0, 255, 255);
         }
 
         public static Color ToDepth(int tDepth)
@@ -185,17 +192,17 @@ namespace Manual_Screen_Renderer
         {
             if (Pipe == PipeL1)
             {
-                return Color.FromArgb(255, 0, 0);
+                return ToPipe(PipeL1);
             }
             else if (Pipe == PipeL2)
             {
-                return Color.FromArgb(0, 255, 0);
+                return ToPipe(PipeL2);
             }
             else if (Pipe == PipeL3)
             {
-                return Color.FromArgb(0, 0, 255);
+                return ToPipe(PipeL3);
             }
-            return Color.FromArgb(0, 0, 0);
+            return ToPipe(NoPipe);
         }
         public Color ColorGrime()
         {
@@ -301,17 +308,17 @@ namespace Manual_Screen_Renderer
                 }
                 valRed = 1+tDepth + tLColor * 30 + tLight * 90;
                 valGreen = tEColor + tGrime * 4 + useIndex * 8 + tLight * 16;
-                if(tPipe==1)
+                if(tPipe==PipeL1)
                 {
-                    valGreen = 8;
+                    valGreen = 7 + PipeL1;
                 }
-                if (tPipe == 2)
+                if (tPipe == PipeL2)
                 {
-                    valGreen = 9;
+                    valGreen = 7 + PipeL2;
                 }
-                if (tPipe == 3)
+                if (tPipe == PipeL3)
                 {
-                    valGreen = 10;
+                    valGreen = 7 + PipeL3;
                 }
                 return Color.FromArgb(valRed, valGreen, valBlue);
             }
@@ -371,6 +378,64 @@ namespace Manual_Screen_Renderer
         {
             //return IndexPalette.FindIndex(a => a == colInput);
             return Array.FindIndex(IndexPalette.Entries, a => a == colInput);
+        }
+
+        public Color PreviewPixel(Color colRend,int x, int y)
+        {
+            CursorColors.Features features = CursorColors.FeaturesRendered(colRend);
+            Color c = Color.Black;
+            int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+            int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+            int tSky = features.ThisSky;
+
+            if (tSky == 1)
+            {
+                c = imgPalette.GetPixel(0, 0);
+            }
+            else if (tPipe > 0)
+            {
+                if (tPipe == PipeL1)
+                {
+                    c = imgPalette.GetPixel(10, 0);
+                }
+                else if (tPipe == PipeL2)
+                {
+                    c = imgPalette.GetPixel(11, 0);
+                }
+                else if(tPipe == PipeL3)
+                {
+                    c = imgPalette.GetPixel(12, 0);
+                }
+            }
+            else if (tIndexID > 0)
+            {
+                c = IndexPalette.Entries[tIndexID];
+            }
+            else
+            {
+                c = imgPalette.GetPixel(tDepth, 2 + (2 - tLColor) + 3 * (1 - tLight));
+                if (tEColor > 0)
+                {
+                    if (tEColor == 1)
+                    {
+                        c = Form1.Blend(colA, c, (double)tShading / 255);
+                    }
+                    else if (tEColor == 2)
+                    {
+                        c = Form1.Blend(colB, c, (double)tShading / 255);
+                    }
+                    else
+                    {
+                        c = Form1.Blend(Color.White, c, (double)tShading / 255);
+                    }
+                }
+                if (tGrime > 0)
+                {
+                    int a = Math.Min((int)Math.Round(imgGrimeMask.GetPixel(x, y).GetBrightness() * 31), 31);
+                    c = Form1.Blend(imgPalette.GetPixel(a, 1), c, 0.2);
+                }
+            }
+            return c;
         }
 
         public void AddIndexColor(Color colInput, int slot = -1)
@@ -487,7 +552,7 @@ namespace Manual_Screen_Renderer
                 tEColor = 0;
                 tLColor = 0;
                 tLight = 0; 
-                tPipe = 0; 
+                tPipe = NoPipe; 
                 tGrime=0; 
                 tShading=0;
                 tSky = 1;
@@ -501,7 +566,6 @@ namespace Manual_Screen_Renderer
                 if (G > 31)
                     G = 0;
                 tSky = 0;
-                
 
                 tLight = R > 90 ? 1 : 0;// 0 or 1
                 R = R - 90 * tLight;
@@ -509,13 +573,13 @@ namespace Manual_Screen_Renderer
                 R = R - tLColor * 30-1;
                 tDepth = R;//(int)(R * 8.8);//0-29
                 //tPipe = (G == 8 ? 1 : 0 + G == 9 ? 2 : 0 + G == 10 ? 3 : 0) * B == 0 ? 1 : 0;//0-3 the B==0 is for of index colors, change this later to only index
-                if (G == 8 && B == 0) tPipe = 1;
-                else if (G == 9 && B == 0) tPipe = 2;
-                else if (G == 10 && B == 0) tPipe = 3;
-                else tPipe = 0;
+                if (G == 7+PipeL1 && B == 0) tPipe = PipeL1;
+                else if (G == 7 + PipeL2 && B == 0) tPipe = PipeL2;
+                else if (G == 7 + PipeL3 && B == 0) tPipe = PipeL3;
+                else tPipe = NoPipe;
                 G = G % 16; //0-15
                 int HasIndex = Math.Min(G / 8, 1); //0 or 1
-                HasIndex = HasIndex * ( (B != 0 && tPipe == 0) ? 1 : 0);
+                HasIndex = HasIndex * ( (B != 0 && tPipe == NoPipe) ? 1 : 0);
                 G = G % 8; //0-7
                 tGrime = G / 4;//0 or 1
                 tEColor = G % 4;//0-3
@@ -530,7 +594,7 @@ namespace Manual_Screen_Renderer
                     //tIndex = Color.Transparent;//for now no index support
                     tIndexID = 0;
                 }
-                if(tPipe!=0)
+                if(tPipe!=NoPipe)
                 {
                     tEColor = 0;
                     tIndexID = 0;
