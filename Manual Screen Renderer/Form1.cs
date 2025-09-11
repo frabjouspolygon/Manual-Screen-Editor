@@ -1020,6 +1020,126 @@ namespace Manual_Screen_Renderer
             MakePreview();
         }
 
+        private void FastDecompose()
+        {
+            int w = imgRendered.Width;
+            int h = imgRendered.Height;
+
+            Size s = imgDepth.Size;
+            PixelFormat fmt = imgDepth.PixelFormat;
+            // we need the bit depth and we assume either 32bppArgb or 24bppRgb !
+            byte bpp = (byte)4;//(fmt == PixelFormat.Format32bppArgb ? 4 : 3);
+            // lock the bits and prepare the loop
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData0 = imgDepth.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData1 = imgEColor.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData2 = imgIndex.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
+            BitmapData bmpData3 = imgLColor.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData4 = imgLight.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData5 = imgPipe.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData6 = imgRainbow.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData7 = imgShading.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData8 = imgSky.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            int size1 = bmpData9.Stride * bmpData9.Height;
+            int size2 = bmpData2.Stride * bmpData2.Height;
+            byte[] data0 = new byte[size1];
+            byte[] data1 = new byte[size1];
+            byte[] data2 = new byte[bmpData2.Stride * s.Height];
+            byte[] data3 = new byte[size1];
+            byte[] data4 = new byte[size1];
+            byte[] data5 = new byte[size1];
+            byte[] data6 = new byte[size1];
+            byte[] data7 = new byte[size1];
+            byte[] data8 = new byte[size1];
+            byte[] data9 = new byte[size1];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData0.Scan0, data0, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData1.Scan0, data1, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData2.Scan0, data2, 0, data2.Length);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData3.Scan0, data3, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData4.Scan0, data4, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData5.Scan0, data5, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData6.Scan0, data6, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData7.Scan0, data7, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData8.Scan0, data8, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData9.Scan0, data9, 0, size1);
+            // loops
+            for (int y = 0; y < s.Height; y++)
+            {
+                for (int x = 0; x < s.Width; x++)
+                {
+                    // calculate the index
+                    int index = y * bmpData1.Stride + x * bpp;
+                    //int index = y * bmpData1.Stride + x * bpp;
+                    // get the color
+                    Color c9 = Color.FromArgb(data9[index + 3], data9[index + 2], data9[index + 1], data9[index]);
+                    CursorColors.Features features = CursorColors.FeaturesRendered(c9);
+                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+                    int tSky = features.ThisSky;
+
+                    //ccPaint.Depth = tDepth;
+                    //ccPaint.IndexID = tIndexID;
+                    //ccPaint.EColor = tEColor;
+                    //ccPaint.LColor = tLColor;
+                    //ccPaint.Light = tLight;
+                    //ccPaint.Pipe = tPipe;
+                    //ccPaint.Grime = tGrime;
+                    //ccPaint.Shading = tShading;
+                    //ccPaint.Sky = tSky;
+                    if (tIndexID != 0)
+                    {
+                        ccPaint.IndexPalette.Entries[tIndexID] = Color.FromArgb(data9[(255 - tIndexID) * bpp + 3], data9[(255 - tIndexID) * bpp + 2], data9[(255 - tIndexID) * bpp + 1], data9[(255 - tIndexID) * bpp]);
+                    }
+                    Color c0 = CursorColors.ToDepth(tDepth);//Color.FromArgb(data0[index + 3], data0[index + 2], data0[index + 1], data0[index]);
+                    Color c1 = CursorColors.ToEColor(tEColor);//Color.FromArgb(data1[index + 3], data1[index + 2], data1[index + 1], data1[index]);
+                    //int idx = data2[y * bmpData2.Stride + x];
+                    Color c3 = CursorColors.ToLColor(tLColor);//Color.FromArgb(data3[index + 3], data3[index + 2], data3[index + 1], data3[index]);
+                    Color c4 = CursorColors.ToLight(tLight);//Color.FromArgb(data4[index + 3], data4[index + 2], data4[index + 1], data4[index]);
+                    Color c5 = CursorColors.ToPipe(tPipe);//Color.FromArgb(data5[index + 3], data5[index + 2], data5[index + 1], data5[index]);
+                    Color c6 = CursorColors.ToGrime(tGrime);//Color.FromArgb(data6[index + 3], data6[index + 2], data6[index + 1], data6[index]);
+                    Color c7 = CursorColors.ToShading(tShading);//Color.FromArgb(data7[index + 3], data7[index + 2], data7[index + 1], data7[index]);
+                    Color c8 = CursorColors.ToSky(tSky);//Color.FromArgb(data8[index + 3], data8[index + 2], data8[index + 1], data8[index]);
+
+                    //Color c9 = ColorRendered(FeaturesFromColors(c0, idx, c1, c3, c4, c5, c6, c7, c8));
+                    data0[index + 0] = c0.B;data0[index + 1] = c0.G;data0[index + 2] = c0.R;data0[index + 3] = c0.A;
+                    data1[index + 0] = c1.B; data1[index + 1] = c1.G; data1[index + 2] = c1.R; data1[index + 3] = c1.A;
+                    data2[y * bmpData2.Stride + x] = (byte)tIndexID;
+                    data3[index + 0] = c3.B; data3[index + 1] = c3.G; data3[index + 2] = c3.R; data3[index + 3] = c3.A;
+                    data4[index + 0] = c4.B; data4[index + 1] = c4.G; data4[index + 2] = c4.R; data4[index + 3] = c4.A;
+                    data5[index + 0] = c5.B; data5[index + 1] = c5.G; data5[index + 2] = c5.R; data5[index + 3] = c5.A;
+                    data6[index + 0] = c6.B; data6[index + 1] = c6.G; data6[index + 2] = c6.R; data6[index + 3] = c6.A;
+                    data7[index + 0] = c7.B; data7[index + 1] = c7.G; data7[index + 2] = c7.R; data7[index + 3] = c7.A;
+                    data8[index + 0] = c8.B; data8[index + 1] = c8.G; data8[index + 2] = c8.R; data8[index + 3] = c8.A;
+                    //data9[index + 0] = c9.B;
+                    //data9[index + 1] = c9.G;
+                    //data9[index + 2] = c9.R;
+                    //data9[index + 3] = c9.A;
+                }
+            }
+            System.Runtime.InteropServices.Marshal.Copy(data0, 0, bmpData0.Scan0, data0.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data1, 0, bmpData1.Scan0, data1.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data2, 0, bmpData2.Scan0, data2.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data3, 0, bmpData3.Scan0, data3.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data4, 0, bmpData4.Scan0, data4.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data5, 0, bmpData5.Scan0, data5.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data6, 0, bmpData6.Scan0, data6.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data7, 0, bmpData7.Scan0, data7.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data8, 0, bmpData8.Scan0, data8.Length);
+            imgDepth.UnlockBits(bmpData0);
+            imgEColor.UnlockBits(bmpData1);
+            imgIndex.UnlockBits(bmpData2);
+            imgLColor.UnlockBits(bmpData3);
+            imgLight.UnlockBits(bmpData4);
+            imgPipe.UnlockBits(bmpData5);
+            imgRainbow.UnlockBits(bmpData6);
+            imgShading.UnlockBits(bmpData7);
+            imgSky.UnlockBits(bmpData8);
+            imgRendered.UnlockBits(bmpData9);
+            //Console.WriteLine("Done Composing");
+            MakePreview();
+        }
+
         private void RenderFromComponenets()
         {
             for (int i = 0; i < imgRendered.Height; i++)
@@ -1127,8 +1247,9 @@ namespace Manual_Screen_Renderer
                 }
             }
             lblMessages.Text = "Decomposing rendered screen into components.";
+            FastDecompose();
 
-            imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
+            /*imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
             imgEColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
             imgLColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
             imgLight = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
@@ -1178,10 +1299,12 @@ namespace Manual_Screen_Renderer
                     imgShading.SetPixel(j, i, ccPaint.ColorShading());
                 }//end for width
             }//end for height
-            for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
-            {
-                imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
-            }
+            */
+            //for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
+            //{
+            //    imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
+            //}
+            imgIndex.Palette = ccPaint.IndexPalette;
             MakePreview();
             RefreshWorkspace();
             lblMessages.Text = "Ready";
