@@ -1575,6 +1575,7 @@ namespace Manual_Screen_Renderer
                 StampIndexes(imgRendered).Save(sfd.FileName, ImageFormat.Png);
                 strFileName = Path.GetFileNameWithoutExtension(sfd.FileName);
                 strFilePath = Path.GetDirectoryName(sfd.FileName);
+                saveToolStripMenuItem.Enabled = true;
             }
         }
 
