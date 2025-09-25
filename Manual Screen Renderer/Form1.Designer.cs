@@ -94,6 +94,10 @@
             this.lblMinLayer = new System.Windows.Forms.Label();
             this.nudMaxLayer = new System.Windows.Forms.NumericUpDown();
             this.nudMinLayer = new System.Windows.Forms.NumericUpDown();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tlblMessages = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,9 +116,7 @@
             this.version11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lblMessages = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -125,8 +127,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
+            this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.ContentPanel.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -204,6 +210,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblMinLayer);
             this.splitContainer1.Panel2.Controls.Add(this.nudMaxLayer);
             this.splitContainer1.Panel2.Controls.Add(this.nudMinLayer);
+            this.splitContainer1.Panel2.Controls.Add(this.splitter1);
             this.splitContainer1.TabStop = false;
             // 
             // lblPen
@@ -593,7 +600,6 @@
             // pbxWorkspace
             // 
             this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
-            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
             resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
             this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -765,15 +771,54 @@
             0});
             this.nudMinLayer.ValueChanged += new System.EventHandler(this.nudMinLayer_ValueChanged);
             // 
+            // toolStripContainer1
+            // 
+            // 
+            // toolStripContainer1.BottomToolStripPanel
+            // 
+            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+            // 
+            // toolStripContainer1.ContentPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            // 
+            // statusStrip1
+            // 
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlblMessages,
+            this.toolStripStatusLabel2});
+            this.statusStrip1.Name = "statusStrip1";
+            // 
+            // tlblMessages
+            // 
+            resources.ApplyResources(this.tlblMessages, "tlblMessages");
+            this.tlblMessages.Margin = new System.Windows.Forms.Padding(0, 3, 20, 2);
+            this.tlblMessages.Name = "tlblMessages";
+            this.tlblMessages.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
+            // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -884,32 +929,19 @@
             this.colorDialog1.FullOpen = true;
             this.colorDialog1.SolidColorOnly = true;
             // 
-            // lblMessages
+            // splitter1
             // 
-            resources.ApplyResources(this.lblMessages, "lblMessages");
-            this.lblMessages.Name = "lblMessages";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Name = "label1";
-            // 
-            // panel1
-            // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.lblMessages);
-            this.panel1.Name = "panel1";
+            this.splitter1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.splitter1, "splitter1");
+            this.splitter1.Name = "splitter1";
+            this.splitter1.TabStop = false;
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -924,12 +956,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
+            this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -993,7 +1031,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveACopyToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.Label lblMessages;
         private System.Windows.Forms.Button btnPickSky;
         private System.Windows.Forms.Button btnPickRainbow;
         private System.Windows.Forms.Button btnPickPipe;
@@ -1005,7 +1042,6 @@
         private System.Windows.Forms.Button btnPickShading;
         private System.Windows.Forms.Button btnShowRendered;
         private System.Windows.Forms.Button btnEraser;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem exportLayersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
@@ -1019,7 +1055,11 @@
         private System.Windows.Forms.ToolStripMenuItem version11ToolStripMenuItem;
         private System.Windows.Forms.NumericUpDown nudPenSize;
         private System.Windows.Forms.Label lblPen;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tlblMessages;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }
 

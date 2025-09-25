@@ -68,6 +68,7 @@ namespace Manual_Screen_Renderer
         static bool pickerMode = false;
         static bool paletteMode = false;
         static bool changed = true;
+        public Point lastCursor = new Point();
         //static Color colA = Color.FromArgb( 255, 0, 255);
         //static Color colB = Color.FromArgb(0, 255, 255);
         public Form1()
@@ -111,7 +112,8 @@ namespace Manual_Screen_Renderer
             pbxWorkspace.MouseWheel += pbxWorkspace_MouseWheel;
             //pbxWorkspace.
             pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-
+            lastCursor = Cursor.Position;
+            this.DoubleBuffered = true;
             int R = 180;
             ccPaint.EColor = CursorColors.NoEffectColor;
             int Light = R > 90 ? 1 : 0;// 0 or 1
@@ -128,6 +130,38 @@ namespace Manual_Screen_Renderer
         }
 
         public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
+        public static double Clamp(double min, double max, double a) => Math.Min(max,Math.Max(min,a));
+
+        public static List<Point> GetBresenhamLine(Point p0, Point p1)
+        {
+            int x0 = p0.X;
+            int y0 = p0.Y;
+            int x1 = p1.X;
+            int y1 = p1.Y;
+            int dx = Math.Abs(x1 - x0);
+            int dy = Math.Abs(y1 - y0);
+            int sx = x0 < x1 ? 1 : -1;
+            int sy = y0 < y1 ? 1 : -1;
+            int err = dx - dy;
+            var points = new List<Point>();
+            while (true)
+            {
+                points.Add(new Point(x0, y0));
+                if (x0 == x1 && y0 == y1) break;
+                int e2 = 2 * err;
+                if (e2 > -dy)
+                {
+                    err = err - dy;
+                    x0 = x0 + sx;
+                }
+                if (e2 < dx)
+                {
+                    err = err + dx;
+                    y0 = y0 + sy;
+                }
+            }
+            return points;
+        }
 
         public static Bitmap SolidBitmap(int width, int height, Color colFill)
         {
@@ -782,26 +816,26 @@ namespace Manual_Screen_Renderer
                         int factor = (int)(width/50) * Math.Sign(e.Delta);
                         int newHeight = height + factor;
                         int newWidth = newHeight * pbxWorkspace.Image.Width / pbxWorkspace.Image.Height;
-                        //if (newHeight >= pbxWorkspace.Image.Height && newWidth >= pbxWorkspace.Image.Width && height/pbxWorkspace.Image.Height< 10000 && width/pbxWorkspace.Image.Width < 10000)
-                        
-                        if (Math.Sign(e.Delta)>=0 && newHeight <= pbxWorkspace.Image.Height*20)
+                        if ((Math.Sign(e.Delta)>=0 && newHeight <= pbxWorkspace.Image.Height*20 )|| (Math.Sign(e.Delta) <= 0 && pbxWorkspace.Image.Height / newHeight < 4))
                         {
-                            //pnlWorkspace.AutoScroll = false;
+                            float wi = pbxWorkspace.Width;
+                            float hi = pbxWorkspace.Height;
+                            float tpi = pbxWorkspace.PointToClient(Cursor.Position).X;
+                            float tui = pbxWorkspace.PointToClient(Cursor.Position).Y;
+                            float tw = pnlWorkspace.PointToClient(Cursor.Position).X;
+                            float th = pnlWorkspace.PointToClient(Cursor.Position).Y;
+                            pbxWorkspace.SuspendLayout();
+                            pnlWorkspace.SuspendLayout();
                             pbxWorkspace.Size = new Size(newWidth, newHeight);
-                            //pnlWorkspace.AutoScroll = true;
-                            pnlWorkspace.AutoScrollPosition = Cursor.Position;
+                            float wf=pbxWorkspace.Width;
+                            int df=(int)Math.Abs(wf*(tpi/wi-tw/wf));
+                            float hf = pbxWorkspace.Height;
+                            int kf = (int)Math.Abs(hf * (tui / hi - th / hf));
+                            pnlWorkspace.AutoScrollPosition = new Point(df, kf);
+                            pnlWorkspace.ResumeLayout();
+                            pbxWorkspace.ResumeLayout();
                             pbxWorkspace.Refresh();
                         }
-                        else if (Math.Sign(e.Delta)<=0 && pbxWorkspace.Image.Height/newHeight  < 4)
-                        {
-                            //lblMessages.Text = (newHeight).ToString() + "," + (pbxWorkspace.Image.Height).ToString();
-                            //pnlWorkspace.AutoScroll = false;
-                            pbxWorkspace.Size = new Size(newWidth, newHeight);
-                            //pnlWorkspace.AutoScroll = true;
-                            //pnlWorkspace.AutoScrollPosition = Cursor.Position;
-                            pbxWorkspace.Refresh();
-                        }
-
                     }
                     catch { }
                 }
@@ -825,10 +859,51 @@ namespace Manual_Screen_Renderer
         {
             ccPaint.AddToUndoBuffer(new List<BufferAction>(ccPaint.workingBuffer));
             ccPaint.workingBuffer = new List<BufferAction>();
+            lastCursor = new Point(-1,-1);
+        }
+
+        private Point WorkspacePosition(Point clientPoint)
+        {
+            //Point clientPoint = Cursor.Position;//PointToClient(Cursor.Position);
+            var workRect = pbxWorkspace.DisplayRectangle;//ClientRectangle;
+            
+            workRect = pbxWorkspace.RectangleToScreen(workRect);
+            var intX = (int)(Map(workRect.Left,workRect.Right,0,pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+            var intY = (int)(Map(workRect.Top, workRect.Bottom, 0,pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+            intX = (int)Clamp(0, pbxWorkspace.Image.Width-1, intX);
+            intY = (int)Clamp(0, pbxWorkspace.Image.Height-1, intY);
+            /*dynamic myvar = pbxWorkspace;
+            Type type = myvar.GetType();
+            System.Reflection.PropertyInfo property = type.GetProperty("Parent");
+            while (property != null)
+            {
+                type = myvar.GetType();
+                property = type.GetProperty("Parent");
+                dynamic myvar = property.GetValue;
+                Type type = myvar.GetType();
+                property = type.GetProperty("Parent");
+            }
+            if (property != null)
+            {
+                property.SetValue(obj, 123);
+            }
+            if (myvar.GetType is PictureBoxWithInterpolationMode)
+            {
+
+            }
+            var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, 
+                splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 
+                0, 
+                pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+            var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+            */
+            Point outputPoint = new Point(intX, intY);
+            return outputPoint;
         }
 
         private void pbxWorkspace_Click(object sender, EventArgs e)
         {
+            lastCursor = Cursor.Position;
             UseTool(); //PaintWorkspace();
         }
 
@@ -836,20 +911,24 @@ namespace Manual_Screen_Renderer
         {
             if (pbxWorkspace.Image != null)
             {
-                Point clientPoint = PointToClient(Cursor.Position);
-                var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
-                var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+                //Point clientPoint = PointToClient(Cursor.Position);
+                //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+                //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+                Point workPoint = WorkspacePosition(Cursor.Position);
+                int intX = workPoint.X, intY = workPoint.Y;
                 lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
                 if (MouseButtons == MouseButtons.Left)
-                    UseTool();//PaintWorkspace();
+                    UseTool();
             }
         }
 
         private void UseTool()
         {
-            Point clientPoint = PointToClient(Cursor.Position);
-            var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
-            var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+            //Point clientPoint = PointToClient(Cursor.Position);
+            //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+            //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+            Point workPoint = WorkspacePosition(Cursor.Position);
+            int intX = workPoint.X, intY = workPoint.Y;
             if (pickerMode)
             {
                 ToolPicker(intX, intY);
@@ -890,31 +969,45 @@ namespace Manual_Screen_Renderer
         {
             if (pbxWorkspace.Image != null)
             {
+                if (lastCursor.X == -1)
+                {
+                    lastCursor = Cursor.Position;
+                }
                 //Point clientPoint = PointToClient(Cursor.Position);
                 //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
                 //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
                 int r = ccPaint.PenSize;
-                for (int x = 1-r; x < r; x++)
+                List<Point> interp = GetBresenhamLine(WorkspacePosition(Cursor.Position), WorkspacePosition(lastCursor));
+                for (int t = 0; t< interp.Count; t++)
                 {
-                    int ry = (int)Math.Max( Math.Sqrt(Math.Abs(x * x - r * r)), 1);
-                    for (int y = 1-ry  ; y < ry; y++)
+                    int cx = interp[t].X;
+                    int cy = interp[t].Y;
+                    for (int x = 1 - r; x < r; x++)
                     {
-                        int px = intX + x;
-                        int py = intY + y;
-                        if((px>=0 && px < pbxWorkspace.Image.Width) && (py >= 0 && py < pbxWorkspace.Image.Height))
+                        int ry = (int)Math.Max(Math.Sqrt(Math.Abs(x * x - r * r)), 1);
+                        for (int y = 1 - ry; y < ry; y++)
                         {
-                            PaintPixel(px, py);
+                            int px = cx + x;
+                            int py = cy + y;
+                            if ((px >= 0 && px < pbxWorkspace.Image.Width) && (py >= 0 && py < pbxWorkspace.Image.Height))
+                            {
+                                //Console.WriteLine("got a point,Paint Pixel");
+                                PaintPixel(px, py);
+                            }
                         }
                     }
                 }
+                
+                
             }
             //PaintWorkspace();
-            PaintPixel(intX, intY);
+            //PaintPixel(intX, intY);
+            lastCursor = Cursor.Position;
         }
 
         private void PaintPixel(int intX, int intY)
         {
-            Console.WriteLine("Paint Pixel");
+            //Console.WriteLine("Paint Pixel");
             CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
             int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
             int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
@@ -934,8 +1027,8 @@ namespace Manual_Screen_Renderer
             if (features != newfeatures)
             {
                 ccPaint.workingBuffer.Add(new BufferAction(intX, intY, features));
-                Console.WriteLine("WorkspaceSetPixel");
-                Console.WriteLine(newfeatures.ThisDepth);
+                //Console.WriteLine("WorkspaceSetPixel");
+                //Console.WriteLine(newfeatures.ThisDepth);
                 WorkspaceSetPixel(intX, intY, newfeatures);
             }
         }
@@ -1355,12 +1448,12 @@ namespace Manual_Screen_Renderer
                     return;
                 }
             }
-            lblMessages.Text = "Decomposing rendered screen into components.";
+            tlblMessages.Text = "Decomposing rendered screen into components.";
             FastDecompose();
             imgIndex.Palette = ccPaint.IndexPalette;
             MakePreview();
             RefreshWorkspace();
-            lblMessages.Text = "Ready";
+            tlblMessages.Text = "Ready";
         }
 
         private void btnPickIndex_Click(object sender, EventArgs e)
