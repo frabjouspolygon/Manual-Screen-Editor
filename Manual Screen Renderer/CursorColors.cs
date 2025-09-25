@@ -43,13 +43,15 @@ namespace Manual_Screen_Renderer
         public int Sky { get; set; }//0?1
         //public List<Color> IndexPalette { get; set; }
 
-        public List<CursorColors.BufferAction> undoBuffer = new List<CursorColors.BufferAction>();
-        public List<CursorColors.BufferAction> redoBuffer = new List<CursorColors.BufferAction>();
+        public List<List<CursorColors.BufferAction>> undoBuffer = new List<List<CursorColors.BufferAction>>();
+        public List<List<CursorColors.BufferAction>> redoBuffer = new List<List<CursorColors.BufferAction>>();
+        public List<CursorColors.BufferAction> workingBuffer = new List<CursorColors.BufferAction>();
         public Bitmap imgPalette { get; set; }
         public Bitmap imgGrimeMask { get; set; }
         public Color colA { get; set; }
         public Color colB { get; set; }
         public ColorPalette IndexPalette { get; set; }
+        public int PenSize { get; set; }
         public CursorColors()
         {
             //IndexPalette = new List<Color>(256);
@@ -57,6 +59,7 @@ namespace Manual_Screen_Renderer
             imgGrimeMask = new Bitmap(Properties.Resources.GrimeMask);
             colA = Color.FromArgb(255, 0, 255);
             colB = Color.FromArgb(0, 255, 255);
+            PenSize = 1;
         }
 
         public static Color ToDepth(int tDepth)
@@ -238,27 +241,23 @@ namespace Manual_Screen_Renderer
             public CursorColors.Features Components { get; }
             public override string ToString() => $"({X}, {Y}, {Components})";
         }
-        public void AddToUndoBuffer(BufferAction act)
+        public void AddToUndoBuffer(List<BufferAction> act)
         {
-            //var act = new BufferAction(x, y, features);
             if (undoBuffer.Count >= 100)
             {
                 undoBuffer.RemoveAt(0);
                 undoBuffer.Add(act);
-                //AddToRedoBuffer(act);
             }
             else
             {
                 undoBuffer.Add(act);
-                //AddToRedoBuffer(act);
             }
         }
         public void RemoveFromUndoBuffer()
         {
-            //AddToRedoBuffer(undoBuffer[undoBuffer.Count - 1]);
             undoBuffer.RemoveAt(undoBuffer.Count - 1);
         }
-        public void AddToRedoBuffer(BufferAction act)
+        public void AddToRedoBuffer(List<BufferAction> act)
         {
             if (redoBuffer.Count >= 100)
             {
@@ -273,7 +272,6 @@ namespace Manual_Screen_Renderer
 
         public void RemoveFromRedoBuffer()
         {
-            //AddToUndoBuffer(redoBuffer[redoBuffer.Count - 1]);
             redoBuffer.RemoveAt(redoBuffer.Count - 1);
         }
 

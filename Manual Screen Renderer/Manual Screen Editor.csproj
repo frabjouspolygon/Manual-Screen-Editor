@@ -7,7 +7,7 @@
     <ProjectGuid>{47872A3F-BDEF-41C2-85FF-522EDF9AB89B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Manual_Screen_Renderer</RootNamespace>
-    <AssemblyName>Manual Screen Renderer</AssemblyName>
+    <AssemblyName>ManualScreenEditor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

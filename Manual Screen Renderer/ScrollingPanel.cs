@@ -9,6 +9,11 @@ namespace Manual_Screen_Renderer
 {
     public class ScrollingPanel : Panel
     {
+
+        public ScrollingPanel()
+        {
+            this.DoubleBuffered = true;
+        }
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (this.VScroll && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)//horiz

@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblPen = new System.Windows.Forms.Label();
+            this.nudPenSize = new System.Windows.Forms.NumericUpDown();
             this.btnCompose = new System.Windows.Forms.Button();
             this.btnEraser = new System.Windows.Forms.Button();
             this.nudDepth = new System.Windows.Forms.NumericUpDown();
@@ -76,6 +78,8 @@
             this.txtIndex = new System.Windows.Forms.TextBox();
             this.txtLColor = new System.Windows.Forms.TextBox();
             this.btnShowRendered = new System.Windows.Forms.Button();
+            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
+            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             this.lblCursorCoords = new System.Windows.Forms.Label();
             this.btnEditSky = new System.Windows.Forms.Button();
             this.btnEditShading = new System.Windows.Forms.Button();
@@ -90,6 +94,11 @@
             this.lblMinLayer = new System.Windows.Forms.Label();
             this.nudMaxLayer = new System.Windows.Forms.NumericUpDown();
             this.nudMinLayer = new System.Windows.Forms.NumericUpDown();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tlblMessages = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,20 +117,22 @@
             this.version11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lblMessages = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
-            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPenSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.pnlWorkspace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
+            this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.ContentPanel.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -132,6 +143,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
+            this.splitContainer1.Panel1.Controls.Add(this.lblPen);
+            this.splitContainer1.Panel1.Controls.Add(this.nudPenSize);
             this.splitContainer1.Panel1.Controls.Add(this.btnCompose);
             this.splitContainer1.Panel1.Controls.Add(this.btnEraser);
             this.splitContainer1.Panel1.Controls.Add(this.nudDepth);
@@ -196,7 +210,30 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblMinLayer);
             this.splitContainer1.Panel2.Controls.Add(this.nudMaxLayer);
             this.splitContainer1.Panel2.Controls.Add(this.nudMinLayer);
+            this.splitContainer1.Panel2.Controls.Add(this.splitter1);
             this.splitContainer1.TabStop = false;
+            // 
+            // lblPen
+            // 
+            resources.ApplyResources(this.lblPen, "lblPen");
+            this.lblPen.Name = "lblPen";
+            // 
+            // nudPenSize
+            // 
+            resources.ApplyResources(this.nudPenSize, "nudPenSize");
+            this.nudPenSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPenSize.Name = "nudPenSize";
+            this.nudPenSize.TabStop = false;
+            this.nudPenSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPenSize.ValueChanged += new System.EventHandler(this.nudPenSize_ValueChanged);
             // 
             // btnCompose
             // 
@@ -554,6 +591,26 @@
             this.btnShowRendered.UseVisualStyleBackColor = false;
             this.btnShowRendered.Click += new System.EventHandler(this.btnShowRendered_Click);
             // 
+            // pnlWorkspace
+            // 
+            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
+            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
+            this.pnlWorkspace.Name = "pnlWorkspace";
+            // 
+            // pbxWorkspace
+            // 
+            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
+            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
+            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
+            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pbxWorkspace.Name = "pbxWorkspace";
+            this.pbxWorkspace.TabStop = false;
+            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
+            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
+            this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
+            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
+            this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
+            // 
             // lblCursorCoords
             // 
             resources.ApplyResources(this.lblCursorCoords, "lblCursorCoords");
@@ -714,15 +771,62 @@
             0});
             this.nudMinLayer.ValueChanged += new System.EventHandler(this.nudMinLayer_ValueChanged);
             // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.splitter1, "splitter1");
+            this.splitter1.Name = "splitter1";
+            this.splitter1.TabStop = false;
+            // 
+            // toolStripContainer1
+            // 
+            // 
+            // toolStripContainer1.BottomToolStripPanel
+            // 
+            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+            // 
+            // toolStripContainer1.ContentPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            // 
+            // statusStrip1
+            // 
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlblMessages,
+            this.toolStripStatusLabel2});
+            this.statusStrip1.Name = "statusStrip1";
+            // 
+            // tlblMessages
+            // 
+            resources.ApplyResources(this.tlblMessages, "tlblMessages");
+            this.tlblMessages.Margin = new System.Windows.Forms.Padding(0, 3, 20, 2);
+            this.tlblMessages.Name = "tlblMessages";
+            this.tlblMessages.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
+            // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -833,61 +937,40 @@
             this.colorDialog1.FullOpen = true;
             this.colorDialog1.SolidColorOnly = true;
             // 
-            // lblMessages
-            // 
-            resources.ApplyResources(this.lblMessages, "lblMessages");
-            this.lblMessages.Name = "lblMessages";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Name = "label1";
-            // 
-            // pnlWorkspace
-            // 
-            this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
-            resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
-            this.pnlWorkspace.Name = "pnlWorkspace";
-            // 
-            // pbxWorkspace
-            // 
-            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
-            this.pbxWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
-            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
-            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pbxWorkspace.Name = "pbxWorkspace";
-            this.pbxWorkspace.TabStop = false;
-            this.pbxWorkspace.Click += new System.EventHandler(this.pbxWorkspace_Click);
-            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
-            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
-            // 
             // Form1
             // 
+            this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblMessages);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudPenSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.pnlWorkspace.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
+            this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -951,7 +1034,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveACopyToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.Label lblMessages;
         private System.Windows.Forms.Button btnPickSky;
         private System.Windows.Forms.Button btnPickRainbow;
         private System.Windows.Forms.Button btnPickPipe;
@@ -963,7 +1045,6 @@
         private System.Windows.Forms.Button btnPickShading;
         private System.Windows.Forms.Button btnShowRendered;
         private System.Windows.Forms.Button btnEraser;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem exportLayersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
@@ -975,6 +1056,13 @@
         private System.Windows.Forms.ToolStripMenuItem effectBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem version11ToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown nudPenSize;
+        private System.Windows.Forms.Label lblPen;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tlblMessages;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }
 
