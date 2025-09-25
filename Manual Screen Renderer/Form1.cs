@@ -813,10 +813,23 @@ namespace Manual_Screen_Renderer
         {
             
         }
+        private void pbxWorkspace_MouseUp(object sender, MouseEventArgs e)
+        {
+            ReleasePaint();
+        }
+        private void pbxWorkspace_MouseLeave(object sender, EventArgs e)
+        {
+            ReleasePaint();
+        }
+        private void ReleasePaint()
+        {
+            ccPaint.AddToUndoBuffer(new List<BufferAction>(ccPaint.workingBuffer));
+            ccPaint.workingBuffer = new List<BufferAction>();
+        }
 
         private void pbxWorkspace_Click(object sender, EventArgs e)
         {
-            PaintWorkspace();
+            UseTool(); //PaintWorkspace();
         }
 
         private void pbxWorkspace_MouseMove(object sender, MouseEventArgs e)
@@ -828,7 +841,102 @@ namespace Manual_Screen_Renderer
                 var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
                 lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
                 if (MouseButtons == MouseButtons.Left)
-                    PaintWorkspace();
+                    UseTool();//PaintWorkspace();
+            }
+        }
+
+        private void UseTool()
+        {
+            Point clientPoint = PointToClient(Cursor.Position);
+            var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+            var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+            if (pickerMode)
+            {
+                ToolPicker(intX, intY);
+                return;
+            }
+            PenPaint(intX, intY);
+        }
+
+        private void ToolPicker(int intX, int intY)
+        {
+            CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
+            int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+            int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+            int tSky = features.ThisSky;
+            ccPaint.Depth = tDepth;
+            ccPaint.IndexID = tIndexID;
+            ccPaint.EColor = tEColor;
+            ccPaint.LColor = tLColor;
+            ccPaint.Light = tLight;
+            ccPaint.Pipe = tPipe;
+            ccPaint.Grime = tGrime;
+            ccPaint.Shading = tShading;
+            ccPaint.Sky = tSky;
+            pickerMode = false;
+            nudDepth.Value = ccPaint.Depth + 1;
+            btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
+            btnPickEColor.BackColor = ccPaint.ColorEColor();
+            btnPickLColor.BackColor = ccPaint.ColorLColor();
+            btnPickLight.BackColor = ccPaint.ColorLight();
+            btnPickPipe.BackColor = ccPaint.ColorPipe();
+            btnPickRainbow.BackColor = ccPaint.ColorGrime();
+            btnPickShading.BackColor = ccPaint.ColorShading();
+            btnPickSky.BackColor = ccPaint.ColorSky();
+            btnColorPicker.FlatAppearance.BorderColor = Color.Black;
+        }
+
+        private void PenPaint(int intX, int intY)
+        {
+            if (pbxWorkspace.Image != null)
+            {
+                //Point clientPoint = PointToClient(Cursor.Position);
+                //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+                //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+                int r = ccPaint.PenSize;
+                for (int x = 1-r; x < r; x++)
+                {
+                    int ry = (int)Math.Max( Math.Sqrt(Math.Abs(x * x - r * r)), 1);
+                    for (int y = 1-ry  ; y < ry; y++)
+                    {
+                        int px = intX + x;
+                        int py = intY + y;
+                        if((px>=0 && px < pbxWorkspace.Image.Width) && (py >= 0 && py < pbxWorkspace.Image.Height))
+                        {
+                            PaintPixel(px, py);
+                        }
+                    }
+                }
+            }
+            //PaintWorkspace();
+            PaintPixel(intX, intY);
+        }
+
+        private void PaintPixel(int intX, int intY)
+        {
+            Console.WriteLine("Paint Pixel");
+            CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
+            int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+            int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+            int tSky = features.ThisSky;
+            if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
+                return;
+            if (blnDepth) { tDepth = ccPaint.Depth; }
+            if (blnEColor) {  tEColor = ccPaint.EColor; }
+            if (blnIndex) { tIndexID = ccPaint.IndexID; }
+            if (blnLColor) { tLColor = ccPaint.LColor; }
+            if (blnLight) { tLight = ccPaint.Light; }
+            if (blnPipe) { tPipe = ccPaint.Pipe; }
+            if (blnRainbow) { tGrime = ccPaint.Grime; }
+            if (blnShading) { tShading = ccPaint.Shading; }
+            if (blnSky) { tSky = ccPaint.Sky; }
+            var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
+            if (features != newfeatures)
+            {
+                ccPaint.workingBuffer.Add(new BufferAction(intX, intY, features));
+                Console.WriteLine("WorkspaceSetPixel");
+                Console.WriteLine(newfeatures.ThisDepth);
+                WorkspaceSetPixel(intX, intY, newfeatures);
             }
         }
 
@@ -898,7 +1006,8 @@ namespace Manual_Screen_Renderer
                     var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
                     if (features != newfeatures)
                     {
-                        ccPaint.AddToUndoBuffer(new BufferAction(intX, intY, features));
+                        ccPaint.workingBuffer.Add(new BufferAction(intX, intY, features));
+                        //ccPaint.AddToUndoBuffer(new BufferAction(intX, intY, features));
                     }
                     Color colRend = CursorColors.ColorRendered(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
                     imgRendered.SetPixel(intX, intY, colRend);
@@ -1248,62 +1357,6 @@ namespace Manual_Screen_Renderer
             }
             lblMessages.Text = "Decomposing rendered screen into components.";
             FastDecompose();
-
-            /*imgDepth = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgEColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgLColor = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgLight = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgPipe = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgRainbow = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgShading = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgSky = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format32bppRgb);
-            imgIndex = new Bitmap(imgRendered.Width, imgRendered.Height, PixelFormat.Format8bppIndexed);
-
-            for (int i = 0; i < imgRendered.Height; i++)
-            {
-                for (int j = 0; j < imgRendered.Width; j++)
-                {
-                    Color colPixel = imgRendered.GetPixel(j, i);
-                    CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(j, i));
-                    int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
-                    int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
-                    int tSky = features.ThisSky;
-
-                    ccPaint.Depth = tDepth;
-                    ccPaint.IndexID = tIndexID;
-                    ccPaint.EColor = tEColor;
-                    ccPaint.LColor = tLColor;
-                    ccPaint.Light = tLight;
-                    ccPaint.Pipe = tPipe;
-                    ccPaint.Grime = tGrime;
-                    ccPaint.Shading = tShading;
-                    ccPaint.Sky = tSky;
-                    if (tIndexID != 0)
-                    {
-                        ccPaint.IndexPalette.Entries[tIndexID] = imgRendered.GetPixel(255 - tIndexID, 0);
-                        //imgIndex.SetPixel(j, i, ccPaint.IndexPalette.Entries[tIndexID]);
-                        imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, tIndexID, j, i);
-                    }
-                    else
-                    {
-                        //imgIndex.SetPixel(j, i, Color.Transparent);
-                        imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, 0, j, i);
-                    }
-                    imgSky.SetPixel(j, i, ccPaint.ColorSky());
-                    imgLight.SetPixel(j, i, ccPaint.ColorLight());
-                    imgLColor.SetPixel(j, i, ccPaint.ColorLColor());
-                    imgPipe.SetPixel(j, i, ccPaint.ColorPipe());
-                    imgDepth.SetPixel(j, i, ccPaint.ColorDepth());
-                    imgRainbow.SetPixel(j, i, ccPaint.ColorGrime());
-                    imgEColor.SetPixel(j, i, ccPaint.ColorEColor());
-                    imgShading.SetPixel(j, i, ccPaint.ColorShading());
-                }//end for width
-            }//end for height
-            */
-            //for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
-            //{
-            //    imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
-            //}
             imgIndex.Palette = ccPaint.IndexPalette;
             MakePreview();
             RefreshWorkspace();
@@ -1653,14 +1706,9 @@ namespace Manual_Screen_Renderer
         {
             if (ccPaint.undoBuffer.Count > 0)
             {
-                CursorColors.BufferAction act = ccPaint.undoBuffer[ccPaint.undoBuffer.Count - 1];
-                var (x, y, features) = (act.X, act.Y, act.Components);
-                //Console.WriteLine("buffer coord"+x.ToString(),y.ToString());
-                CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
-                var oldState = new CursorColors.BufferAction(x, y, features2);
-                //Console.WriteLine("Undo at (" + x.ToString() + ", " + y.ToString() + ") from " + features2.ToString() + " to " + features.ToString());
+                var act = ccPaint.undoBuffer[ccPaint.undoBuffer.Count - 1];
+                var oldState = ApplyBufferActs(act);
                 ccPaint.AddToRedoBuffer(oldState);
-                WorkspaceSetPixel(x, y, features);
                 ccPaint.RemoveFromUndoBuffer();
             }
         }
@@ -1675,15 +1723,24 @@ namespace Manual_Screen_Renderer
         {
             if(ccPaint.redoBuffer.Count > 0)
             {
-                CursorColors.BufferAction act = ccPaint.redoBuffer[ccPaint.redoBuffer.Count - 1];
-                var (x, y, features) = (act.X, act.Y, act.Components);
-                CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
-                var oldState = new CursorColors.BufferAction(x, y, features2);
-                //Console.WriteLine("Redo at (" + x.ToString() + ", " + y.ToString() + ") from " + features2.ToString() + " to " + features.ToString());
+                var act = ccPaint.redoBuffer[ccPaint.redoBuffer.Count - 1];
+                var oldState = ApplyBufferActs(act);
                 ccPaint.AddToUndoBuffer(oldState);
-                WorkspaceSetPixel(x, y, features);
                 ccPaint.RemoveFromRedoBuffer();
             }
+        }
+
+        private List<CursorColors.BufferAction> ApplyBufferActs(List<CursorColors.BufferAction>  act)
+        {
+            var oldState = new List<CursorColors.BufferAction>(act);
+            for (int i = 0; i < act.Count; i++)
+            {
+                var (x, y, features) = (act[i].X, act[i].Y, act[i].Components);
+                CursorColors.Features features2 = CursorColors.FeaturesRendered(imgRendered.GetPixel(x, y));
+                oldState[i] = new CursorColors.BufferAction(x, y, features2);
+                WorkspaceSetPixel(x, y, features);
+            }
+            return oldState;
         }
 
         private void paletteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
@@ -1757,6 +1814,11 @@ namespace Manual_Screen_Renderer
                 ccPaint.colB = colorDialog1.Color;
                 changed = true;
             }
+        }
+
+        private void nudPenSize_ValueChanged(object sender, EventArgs e)
+        {
+            ccPaint.PenSize = (int)nudPenSize.Value;
         }
     }
 }
