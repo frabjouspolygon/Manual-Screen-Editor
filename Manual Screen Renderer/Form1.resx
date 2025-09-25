@@ -192,6 +192,9 @@
   <data name="&gt;&gt;nudPenSize.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>426, 17</value>
+  </metadata>
   <data name="btnCompose.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
@@ -216,9 +219,6 @@
   <data name="btnCompose.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>TextAboveImage</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>426, 17</value>
-  </metadata>
   <data name="btnCompose.ToolTip" xml:space="preserve">
     <value>Create components from rendered screen</value>
   </data>
@@ -1734,29 +1734,11 @@
   <data name="&gt;&gt;btnShowRendered.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="pbxWorkspace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="pbxWorkspace.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pbxWorkspace.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 6, 7, 6</value>
-  </data>
-  <data name="pbxWorkspace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>915, 711</value>
-  </data>
-  <data name="pbxWorkspace.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="pbxWorkspace.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;pbxWorkspace.Name" xml:space="preserve">
     <value>pbxWorkspace</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, Manual Screen Renderer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
     <value>pnlWorkspace</value>
@@ -1783,7 +1765,7 @@
     <value>pnlWorkspace</value>
   </data>
   <data name="&gt;&gt;pnlWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.ScrollingPanel, Manual Screen Renderer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.ScrollingPanel, ManualScreenEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pnlWorkspace.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -2934,29 +2916,41 @@
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="pbxWorkspace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pbxWorkspace.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pbxWorkspace.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 6, 7, 6</value>
+  </data>
+  <data name="pbxWorkspace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>915, 711</value>
+  </data>
+  <data name="pbxWorkspace.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pbxWorkspace.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.Name" xml:space="preserve">
+    <value>pbxWorkspace</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
+    <value>pnlWorkspace</value>
+  </data>
+  <data name="&gt;&gt;pbxWorkspace.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>518, 17</value>
   </metadata>
   <data name="statusStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
-  </data>
-  <data name="tlblMessages.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="tlblMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 21</value>
-  </data>
-  <data name="tlblMessages.Text" xml:space="preserve">
-    <value>Ready</value>
-  </data>
-  <data name="tlblMessages.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 20</value>
-  </data>
-  <data name="toolStripStatusLabel2.Text" xml:space="preserve">
-    <value>View layer (M1), Toggle layer editing (Shift+M1)</value>
   </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -3060,105 +3054,6 @@
   <data name="menuStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="saveToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 26</value>
-  </data>
-  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 26</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As</value>
-  </data>
-  <data name="saveACopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 26</value>
-  </data>
-  <data name="saveACopyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save A Copy</value>
-  </data>
-  <data name="exportLayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 26</value>
-  </data>
-  <data name="exportLayersToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export Layers</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 24</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="undoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Z</value>
-  </data>
-  <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 26</value>
-  </data>
-  <data name="undoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Undo</value>
-  </data>
-  <data name="redoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+Z</value>
-  </data>
-  <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 26</value>
-  </data>
-  <data name="redoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Redo</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 24</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
-    <value>View Palette</value>
-  </data>
-  <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Set Palette</value>
-  </data>
-  <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
-    <value>Effect A</value>
-  </data>
-  <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
-    <value>Effect B</value>
-  </data>
-  <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 24</value>
-  </data>
-  <data name="viewToolStripMenuItem.Text" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="version11ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 26</value>
-  </data>
-  <data name="version11ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Version 1.2</value>
-  </data>
-  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 24</value>
-  </data>
-  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>About</value>
-  </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -3210,8 +3105,128 @@
   <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="tlblMessages.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tlblMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 21</value>
+  </data>
+  <data name="tlblMessages.Text" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="tlblMessages.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>327, 20</value>
+  </data>
+  <data name="toolStripStatusLabel2.Text" xml:space="preserve">
+    <value>View layer (M1), Toggle layer editing (Shift+M1)</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 24</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="saveToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="saveACopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="saveACopyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save A Copy</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export Layers</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 24</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="undoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="undoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="redoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+Z</value>
+  </data>
+  <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="redoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 24</value>
+  </data>
+  <data name="viewToolStripMenuItem.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 26</value>
+  </data>
+  <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
+    <value>View Palette</value>
+  </data>
+  <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 26</value>
+  </data>
+  <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Set Palette</value>
+  </data>
+  <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 26</value>
+  </data>
+  <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
+    <value>Effect A</value>
+  </data>
+  <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 26</value>
+  </data>
+  <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
+    <value>Effect B</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 24</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="version11ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 26</value>
+  </data>
+  <data name="version11ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Version 1.2</value>
+  </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>215, 17</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>426, 17</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

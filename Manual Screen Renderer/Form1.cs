@@ -122,10 +122,10 @@ namespace Manual_Screen_Renderer
             R = R - LColor * 30-1;
             int Depth = Math.Min(Math.Max(R, 0), 30);//0-29
             //Depth = Math.Min((int)(Depth * 8.79), 255);
-            Console.WriteLine(Light);
-            Console.WriteLine(LColor);
-            Console.WriteLine(R);
-            Console.WriteLine(imgIndex.Palette.Entries[0].A);
+            //Console.WriteLine(Light);
+            //Console.WriteLine(LColor);
+            //Console.WriteLine(R);
+            //Console.WriteLine(imgIndex.Palette.Entries[0].A);
             RefreshWorkspace();
         }
 
@@ -253,20 +253,34 @@ namespace Manual_Screen_Renderer
             return filePath;
         }
 
+        private Bitmap LoadBitmapFromPath(string filePath)
+        {
+            Bitmap imgOutput = null;
+            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                try
+                {
+                    imgOutput = new Bitmap(Image.FromStream(fs));
+                }
+                catch {}
+            }
+            return imgOutput;
+        }
+
         private void btnDepth_Click(object sender, EventArgs e)
         {
             string filePath = ImageDialogueFiltered("_depth");// ImageDialogue();
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtDepth.Text = filePath;
                 imgDepth = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtDepth.Text = "";
                 //imgDepth = null;
             }
@@ -277,14 +291,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtEColor.Text = filePath;
                 imgEColor = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtEColor.Text = "";
                 //imgEColor = null;
             }
@@ -306,7 +320,7 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 LoadIndexFromRGBBitmap5(myBitmap);
                 //imgIndex = (Bitmap)ConvertPixelformat(ref myBitmap);
                 //imgIndex = (Bitmap)ConvertToIndexed(myBitmap);
@@ -325,8 +339,8 @@ namespace Manual_Screen_Renderer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //Console.WriteLine(ex.Message);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtIndex.Text = "";
                 //imgIndex = null;
             }
@@ -555,14 +569,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtLColor.Text = filePath;
                 imgLColor = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtLColor.Text = "";
                 //imgLColor = null;
             }
@@ -574,14 +588,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtLight.Text = filePath;
                 imgLight = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtLight.Text = "";
                 //imgLight = null;
             }
@@ -593,14 +607,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtPipe.Text = filePath;
                 imgPipe = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtPipe.Text = "";
                 //imgPipe = null;
             }
@@ -612,14 +626,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtRainbow.Text = filePath;
                 imgRainbow = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtRainbow.Text = "";
                 //imgRainbow = null;
             }
@@ -631,14 +645,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtShading.Text = filePath;
                 imgShading = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtShading.Text = "";
                 //imgShading = null;
             }
@@ -650,14 +664,14 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtSky.Text = filePath;
                 imgSky = myBitmap;
                 RefreshWorkspace();
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtSky.Text = "";
                 //imgSky = null;
             }
@@ -670,7 +684,7 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(fileFull);
+                myBitmap = LoadBitmapFromPath(filePath);
                 txtRendered.Text = filePath;
                 imgRendered = myBitmap;
                 strFileName = fileName;
@@ -679,7 +693,7 @@ namespace Manual_Screen_Renderer
             }
             catch
             {
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtRendered.Text = "";
                 //imgRendered = null;
             }
@@ -1841,6 +1855,7 @@ namespace Manual_Screen_Renderer
             if (paletteToolStripMenuItem.Checked)
             {
                 paletteMode = true;
+                MakePreview();
                 RefreshWorkspace();
             }
             else
@@ -1856,37 +1871,17 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = new Bitmap(filePath);
-                if(myBitmap.Width == 32 && (myBitmap.Height == 16 || myBitmap.Height == 8))
+                myBitmap = LoadBitmapFromPath(filePath);
+                if (myBitmap.Width == 32 && (myBitmap.Height == 16 || myBitmap.Height == 8))
                 {
-                    if(myBitmap.Height == 8)
-                    {
-                        //myBitmap = myBitmap;
-                    }
-                    else
+                    if (myBitmap.Height != 8)
                     {
                         myBitmap = cropAtRect(myBitmap, new Rectangle(0, 0, 32, 8));
                     }
-                    //Console.WriteLine("a");
-                    //imgPalette = new Bitmap(32, 8, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
-                    //Console.WriteLine(myBitmap.PixelFormat);
-                    ccPaint.imgPalette = myBitmap;//(Bitmap)ConvertToIndexed(myBitmap);
-                    //using (Graphics gr = Graphics.FromImage(imgPalette))
-                    //{
-                    //Console.WriteLine(PixelFormat);
-                    //gr.DrawImage(myBitmap, new Rectangle(0, 0, 32, 8));
-                    //}
-                }
-                else
-                {
-                    MessageBox.Show("wrong resolution", "error", MessageBoxButtons.OK);
+                    ccPaint.imgPalette = myBitmap;
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
-            }
+            catch { }
         }
 
         private void effectAToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1912,6 +1907,152 @@ namespace Manual_Screen_Renderer
         private void nudPenSize_ValueChanged(object sender, EventArgs e)
         {
             ccPaint.PenSize = (int)nudPenSize.Value;
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string filePath in filePaths)
+                {
+                    int idx = filePath.LastIndexOf('_');
+                    if (idx == -1)
+                    {
+                        int idy = filePath.LastIndexOf('\\');
+                        string name = filePath.Substring(idy + 1);
+                        if (name.StartsWith("palette"))
+                        {
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                if (myBitmap.Width == 32 && (myBitmap.Height == 16 || myBitmap.Height == 8))
+                                {
+                                    if (myBitmap.Height != 8)
+                                    {
+                                        myBitmap = cropAtRect(myBitmap, new Rectangle(0, 0, 32, 8));
+                                    }
+                                    ccPaint.imgPalette = myBitmap;
+                                    MakePreview();
+                                }
+                            }
+                            catch { }
+                        }
+                        continue;
+                    }
+                    string ending = filePath.Substring(idx + 1).ToLower();
+                    switch (ending)
+                    {
+                        case "depth.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtDepth.Text = filePath;
+                                imgDepth = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "ecolor.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtEColor.Text = filePath;
+                                imgEColor = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "index.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtIndex.Text = filePath;
+                                imgIndex = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "lcolor.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtLColor.Text = filePath;
+                                imgLColor = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "light.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtLight.Text = filePath;
+                                imgLight = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "pipe.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtPipe.Text = filePath;
+                                imgPipe = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "grime.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtRainbow.Text = filePath;
+                                imgRainbow = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "shading.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtShading.Text = filePath;
+                                imgShading = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        case "sky.png":
+                            try
+                            {
+                                Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                txtSky.Text = filePath;
+                                imgSky = myBitmap;
+                            }
+                            catch { }
+                            break;
+                        default:
+                            try
+                            {
+                                int i;
+                                if(int.TryParse(ending.Substring(0, ending.LastIndexOf('.')) ,out i ))
+                                {
+                                    Bitmap myBitmap = LoadBitmapFromPath(filePath);
+                                    txtRendered.Text = filePath;
+                                    imgRendered = myBitmap;
+                                }
+                            }
+                            catch { }
+                            break;
+                    }
+                }
+                RefreshWorkspace();
+            }
         }
     }
 }

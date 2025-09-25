@@ -94,6 +94,7 @@
             this.lblMinLayer = new System.Windows.Forms.Label();
             this.nudMaxLayer = new System.Windows.Forms.NumericUpDown();
             this.nudMinLayer = new System.Windows.Forms.NumericUpDown();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tlblMessages = new System.Windows.Forms.ToolStripStatusLabel();
@@ -116,7 +117,6 @@
             this.version11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.splitter1 = new System.Windows.Forms.Splitter();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -771,6 +771,14 @@
             0});
             this.nudMinLayer.ValueChanged += new System.EventHandler(this.nudMinLayer_ValueChanged);
             // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.splitter1, "splitter1");
+            this.splitter1.Name = "splitter1";
+            this.splitter1.TabStop = false;
+            // 
             // toolStripContainer1
             // 
             // 
@@ -929,21 +937,16 @@
             this.colorDialog1.FullOpen = true;
             this.colorDialog1.SolidColorOnly = true;
             // 
-            // splitter1
-            // 
-            this.splitter1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.splitter1, "splitter1");
-            this.splitter1.Name = "splitter1";
-            this.splitter1.TabStop = false;
-            // 
             // Form1
             // 
+            this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
