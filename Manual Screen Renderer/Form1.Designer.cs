@@ -600,7 +600,6 @@
             // pbxWorkspace
             // 
             this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
             resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
             this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
             this.pbxWorkspace.Name = "pbxWorkspace";
