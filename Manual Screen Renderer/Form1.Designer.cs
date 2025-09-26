@@ -830,40 +830,46 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.saveACopyToolStripMenuItem,
             this.exportLayersToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             resources.ApplyResources(this.saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // saveACopyToolStripMenuItem
             // 
-            this.saveACopyToolStripMenuItem.Name = "saveACopyToolStripMenuItem";
+            this.saveACopyToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             resources.ApplyResources(this.saveACopyToolStripMenuItem, "saveACopyToolStripMenuItem");
+            this.saveACopyToolStripMenuItem.Name = "saveACopyToolStripMenuItem";
             this.saveACopyToolStripMenuItem.Click += new System.EventHandler(this.saveACopyToolStripMenuItem_Click);
             // 
             // exportLayersToolStripMenuItem
             // 
-            this.exportLayersToolStripMenuItem.Name = "exportLayersToolStripMenuItem";
+            this.exportLayersToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             resources.ApplyResources(this.exportLayersToolStripMenuItem, "exportLayersToolStripMenuItem");
+            this.exportLayersToolStripMenuItem.Name = "exportLayersToolStripMenuItem";
             this.exportLayersToolStripMenuItem.Click += new System.EventHandler(this.exportLayersToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem});
@@ -872,12 +878,14 @@
             // 
             // undoToolStripMenuItem
             // 
+            this.undoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             resources.ApplyResources(this.undoToolStripMenuItem, "undoToolStripMenuItem");
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // redoToolStripMenuItem
             // 
+            this.redoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             resources.ApplyResources(this.redoToolStripMenuItem, "redoToolStripMenuItem");
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
@@ -896,8 +904,8 @@
             // paletteToolStripMenuItem
             // 
             this.paletteToolStripMenuItem.CheckOnClick = true;
-            this.paletteToolStripMenuItem.Name = "paletteToolStripMenuItem";
             resources.ApplyResources(this.paletteToolStripMenuItem, "paletteToolStripMenuItem");
+            this.paletteToolStripMenuItem.Name = "paletteToolStripMenuItem";
             this.paletteToolStripMenuItem.CheckedChanged += new System.EventHandler(this.paletteToolStripMenuItem_CheckedChanged);
             // 
             // setPaletteToolStripMenuItem
@@ -920,6 +928,7 @@
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.version11ToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
@@ -927,6 +936,7 @@
             // 
             // version11ToolStripMenuItem
             // 
+            this.version11ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.version11ToolStripMenuItem.Name = "version11ToolStripMenuItem";
             resources.ApplyResources(this.version11ToolStripMenuItem, "version11ToolStripMenuItem");
             // 
@@ -1029,7 +1039,6 @@
         private ScrollingPanel pnlWorkspace;
         private System.Windows.Forms.Button btnColorPicker;
         private System.Windows.Forms.Button btnDecompose;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveACopyToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
@@ -1062,6 +1071,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tlblMessages;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
     }
 }
 

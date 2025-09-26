@@ -839,17 +839,22 @@ namespace Manual_Screen_Renderer
                             float tui = pbxWorkspace.PointToClient(Cursor.Position).Y;
                             float tw = pnlWorkspace.PointToClient(Cursor.Position).X;
                             float th = pnlWorkspace.PointToClient(Cursor.Position).Y;
+                            float wf = newWidth;
+                            float hf = newHeight;
+                            int df=(int)Math.Abs(wf*(tpi/wi-tw/wf));
+                            int kf = (int)Math.Abs(hf * (tui / hi - th / hf));
                             pbxWorkspace.SuspendLayout();
                             pnlWorkspace.SuspendLayout();
+                            //pnlWorkspace.Hide();
                             pbxWorkspace.Size = new Size(newWidth, newHeight);
-                            float wf=pbxWorkspace.Width;
-                            int df=(int)Math.Abs(wf*(tpi/wi-tw/wf));
-                            float hf = pbxWorkspace.Height;
-                            int kf = (int)Math.Abs(hf * (tui / hi - th / hf));
+                            
+                            pnlWorkspace.AutoScrollPosition = new Point(df, kf);
+                            //pbxWorkspace.Visible = true;
+                            //pnlWorkspace.Show();
                             pnlWorkspace.AutoScrollPosition = new Point(df, kf);
                             pnlWorkspace.ResumeLayout();
                             pbxWorkspace.ResumeLayout();
-                            pbxWorkspace.Refresh();
+                            //pbxWorkspace.Refresh();
                         }
                     }
                     catch { }
