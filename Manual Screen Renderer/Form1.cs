@@ -684,7 +684,8 @@ namespace Manual_Screen_Renderer
             Bitmap myBitmap = null;
             try
             {
-                myBitmap = LoadBitmapFromPath(filePath);
+
+                myBitmap = LoadBitmapFromPath(fileFull);
                 txtRendered.Text = filePath;
                 imgRendered = myBitmap;
                 strFileName = fileName;
@@ -693,7 +694,7 @@ namespace Manual_Screen_Renderer
             }
             catch
             {
-                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
+                MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtRendered.Text = "";
                 //imgRendered = null;
             }
