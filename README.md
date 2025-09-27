@@ -17,4 +17,4 @@ See [Manual Screen Editor.pdf](/Manual%20Screen%20Editor.pdf) for more informati
 
 ## License
 
-See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
+See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
