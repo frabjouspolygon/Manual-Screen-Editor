@@ -71,3 +71,9 @@ The canvas panel is below the layer panel, on the right side of the application 
 Only a single screen can edited by the program at a time.
 Pixels can be edited by left clicking on them while the desired layers are marked as editable.
 Attempting to paint without any active editing layers will yield effect.
+The canvas can be zoomed into or out of by scrolling with `Ctrl` + `Mouse Wheel`.
+The canvas can also be scrolled vertically or horizontally with `Mouse Wheel` or `Shift` + `Mouse Wheel` respectively.
+There are also two scroll bars on the right and bottom edges of the canvas that can be used as an alternative way to scroll.
+
+# Drag and Drop
+Files can be loaded by the program by dragging any number of files onto the main application window at any time. Note that images must be PNGs and of a specific naming convention to load properly. Rendered screen file names must end in and underscore `_` followed by any number of numeric characters and `.png`. Component layers must have the same naming convention used for outputting them. Palette importing through drag and drop is currently broken as of v1.3.1, however they would otherwise need to follow the same naming convention for palettes as used by the game: `palete` followed by numeric characters and `.png`.
