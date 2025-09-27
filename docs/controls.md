@@ -31,7 +31,7 @@ data for tools. Because multiple layers can be written to at once, tools use 9 "
 
 The controls for the paints behave as follows:
 - Depth: Accepts integer depths between 1 (nearest) and 30 (farthest)
-- Effect color: Cycles between `Effect Color Off` (erase), 'Effect Color A`, 'Effect Color B` and 'Effect Color Batfly Hive` (white color exclusive to swarm rooms)
+- Effect color: Cycles between `Effect Color Off` (erase), 'Effect Color A` , 'Effect Color B` and 'Effect Color Batfly Hive` (white color exclusive to swarm rooms)
 - Color Index: Two buttons. One for selecting and managing index colors in a pop-up window and another, labled `E`, for ereaseing index colors.
 - Level color: Cycles between `Dark`, `Light` and `Neutral` (These corespond to the red, blue and green false colors used in level editor tiles/props).
 - Light: Cycles between `Shadow` and `Sunlight` (analog to "Light" tab found in most level editors).
