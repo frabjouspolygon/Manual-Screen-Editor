@@ -346,7 +346,6 @@ namespace Manual_Screen_Renderer
             }
         }
 
-
         private void LoadIndexFromRGBBitmap()
         {
             for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
@@ -2060,5 +2059,23 @@ namespace Manual_Screen_Renderer
                 RefreshWorkspace();
             }
         }
+
+
+        /*private void DashedLine()
+        {
+            Bitmap mybitmap = SolidBitmap(pnlWorkspace.Width-18, pnlWorkspace.Height-18, Color.Transparent);
+            
+            using (Graphics g = Graphics.FromImage(mybitmap))
+            {
+                using (Pen dashedPen = new Pen(Color.Blue, 2))
+                {
+                    dashedPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    g.DrawLine(dashedPen, 0, 0, 100, 100);
+                }
+            }
+            pbxOverlay.Image = mybitmap;
+
+        }*/
+
     }
 }

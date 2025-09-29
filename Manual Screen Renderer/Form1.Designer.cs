@@ -137,6 +137,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.splitContainer1, "splitContainer1");
             this.splitContainer1.Name = "splitContainer1";
@@ -194,6 +195,7 @@
             // splitContainer1.Panel2
             // 
             resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.Panel2.Controls.Add(this.btnShowRendered);
             this.splitContainer1.Panel2.Controls.Add(this.pnlWorkspace);
             this.splitContainer1.Panel2.Controls.Add(this.lblCursorCoords);
@@ -593,13 +595,14 @@
             // 
             // pnlWorkspace
             // 
+            this.pnlWorkspace.BackColor = System.Drawing.Color.Transparent;
             this.pnlWorkspace.Controls.Add(this.pbxWorkspace);
             resources.ApplyResources(this.pnlWorkspace, "pnlWorkspace");
             this.pnlWorkspace.Name = "pnlWorkspace";
             // 
             // pbxWorkspace
             // 
-            this.pbxWorkspace.BackColor = System.Drawing.SystemColors.Control;
+            this.pbxWorkspace.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
             this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
             this.pbxWorkspace.Name = "pbxWorkspace";
@@ -788,6 +791,7 @@
             // toolStripContainer1.ContentPanel
             // 
             resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            this.toolStripContainer1.ContentPanel.BackColor = System.Drawing.Color.Transparent;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
             resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -951,6 +955,7 @@
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -1020,7 +1025,6 @@
         private System.Windows.Forms.TextBox txtRendered;
         private System.Windows.Forms.Label lblRendered;
         private Manual_Screen_Renderer.PictureBoxWithInterpolationMode pbxWorkspace;
-        private PictureBoxWithInterpolationMode pbxWork;
         private System.Windows.Forms.NumericUpDown nudMaxLayer;
         private System.Windows.Forms.NumericUpDown nudMinLayer;
         private System.Windows.Forms.Label lblMinLayer;
