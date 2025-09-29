@@ -14,3 +14,7 @@ See [Manual Screen Editor.pdf](/Manual%20Screen%20Editor.pdf) for more informati
 
 > [!NOTE]
 > The Manual Screen Editor only supports Windows.
+
+## License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
