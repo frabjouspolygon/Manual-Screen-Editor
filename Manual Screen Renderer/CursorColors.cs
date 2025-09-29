@@ -302,7 +302,7 @@ namespace Manual_Screen_Renderer
                 }
                 else
                 {
-                    valBlue = tShading;
+                    valBlue = tShading* (tEColor==0 ? 0:1);
                 }
                 valRed = 1+tDepth + tLColor * 30 + tLight * 90;
                 valGreen = tEColor + tGrime * 4 + useIndex * 8 + tLight * 16;

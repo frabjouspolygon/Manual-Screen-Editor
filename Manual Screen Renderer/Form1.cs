@@ -114,6 +114,8 @@ namespace Manual_Screen_Renderer
             pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             lastCursor = Cursor.Position;
             this.DoubleBuffered = true;
+            //pnlWorkspace.ScrollControlIntoView(pbxWorkspace);
+            //pbxWorkspace.Size = pbxWorkspace.Size;
             int R = 180;
             ccPaint.EColor = CursorColors.NoEffectColor;
             int Light = R > 90 ? 1 : 0;// 0 or 1
@@ -127,6 +129,7 @@ namespace Manual_Screen_Renderer
             //Console.WriteLine(R);
             //Console.WriteLine(imgIndex.Palette.Entries[0].A);
             RefreshWorkspace();
+            FakeScroll();
         }
 
         public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
@@ -276,6 +279,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtDepth.Text = filePath;
                 imgDepth = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -294,6 +298,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtEColor.Text = filePath;
                 imgEColor = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -322,27 +327,13 @@ namespace Manual_Screen_Renderer
             {
                 myBitmap = LoadBitmapFromPath(filePath);
                 LoadIndexFromRGBBitmap5(myBitmap);
-                //imgIndex = (Bitmap)ConvertPixelformat(ref myBitmap);
-                //imgIndex = (Bitmap)ConvertToIndexed(myBitmap);
-                //Console.WriteLine("converted");
-                //imgIndex = new Bitmap(myBitmap.Width, myBitmap.Height, PixelFormat.Format8bppIndexed);
-                //using (Graphics gr = Graphics.FromImage(imgIndex))
-                //{
-                //    gr.DrawImage(myBitmap, new Rectangle(0, 0, imgIndex.Width, imgIndex.Height));
-                //}
                 txtIndex.Text = filePath;
-                //LoadIndexFromRGBBitmap2();
-                //LoadIndexFromRGBBitmap3();
-                Console.WriteLine("loaded index");
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
-                Console.WriteLine("refresh");
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message);
-                //MessageBox.Show("could not read file", "error", MessageBoxButtons.OK);
                 txtIndex.Text = "";
-                //imgIndex = null;
             }
         }
 
@@ -571,6 +562,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtLColor.Text = filePath;
                 imgLColor = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -590,6 +582,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtLight.Text = filePath;
                 imgLight = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -609,6 +602,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtPipe.Text = filePath;
                 imgPipe = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -628,6 +622,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtRainbow.Text = filePath;
                 imgRainbow = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -647,6 +642,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtShading.Text = filePath;
                 imgShading = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -666,6 +662,7 @@ namespace Manual_Screen_Renderer
                 myBitmap = LoadBitmapFromPath(filePath);
                 txtSky.Text = filePath;
                 imgSky = myBitmap;
+                btnCompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -689,6 +686,7 @@ namespace Manual_Screen_Renderer
                 imgRendered = myBitmap;
                 strFileName = fileName;
                 strFilePath = filePath;
+                btnDecompose.Enabled = true;
                 RefreshWorkspace();
             }
             catch
@@ -860,6 +858,49 @@ namespace Manual_Screen_Renderer
                 }
             }
             
+        }
+
+        private void FakeScroll()
+        {
+
+            if (pbxWorkspace.Image != null)
+            {
+                pbxWorkspace.Focus();
+                try
+                {
+                    int height = pbxWorkspace.Size.Height;
+                    int width = pbxWorkspace.Size.Width;
+                    int factor = (int)(width / 50) * 1;
+                    int newHeight = height + factor;
+                    int newWidth = newHeight * pbxWorkspace.Image.Width / pbxWorkspace.Image.Height;
+                    if ((1 >= 0 && newHeight <= pbxWorkspace.Image.Height * 20) || (1 <= 0 && pbxWorkspace.Image.Height / newHeight < 4))
+                    {
+                        float wi = pbxWorkspace.Width;
+                        float hi = pbxWorkspace.Height;
+                        float tpi = pbxWorkspace.PointToClient(Cursor.Position).X;
+                        float tui = pbxWorkspace.PointToClient(Cursor.Position).Y;
+                        float tw = pnlWorkspace.PointToClient(Cursor.Position).X;
+                        float th = pnlWorkspace.PointToClient(Cursor.Position).Y;
+                        float wf = newWidth;
+                        float hf = newHeight;
+                        int df = (int)Math.Abs(wf * (tpi / wi - tw / wf));
+                        int kf = (int)Math.Abs(hf * (tui / hi - th / hf));
+                        pbxWorkspace.SuspendLayout();
+                        pnlWorkspace.SuspendLayout();
+                        //pnlWorkspace.Hide();
+                        pbxWorkspace.Size = new Size(newWidth, newHeight);
+
+                        pnlWorkspace.AutoScrollPosition = new Point(df, kf);
+                        //pbxWorkspace.Visible = true;
+                        //pnlWorkspace.Show();
+                        pnlWorkspace.AutoScrollPosition = new Point(df, kf);
+                        pnlWorkspace.ResumeLayout();
+                        pbxWorkspace.ResumeLayout();
+                        //pbxWorkspace.Refresh();
+                    }
+                }
+                catch { }
+            }
         }
 
         private void pbxWorkspace_MouseEnter(object sender, EventArgs e)
@@ -1140,7 +1181,7 @@ namespace Manual_Screen_Renderer
             imgLight.SetPixel(intX, intY, CursorColors.ToLight(features.ThisLight));
             imgPipe.SetPixel(intX, intY, CursorColors.ToPipe(features.ThisPipe));
             imgRainbow.SetPixel(intX, intY, CursorColors.ToGrime(features.ThisGrime));
-            imgShading.SetPixel(intX, intY, CursorColors.ToShading(features.ThisSky));
+            imgShading.SetPixel(intX, intY, CursorColors.ToShading(features.ThisShading));
             imgSky.SetPixel(intX, intY, CursorColors.ToSky(features.ThisSky));
             Color colRend = CursorColors.ColorRendered(features);
             imgRendered.SetPixel(intX, intY, colRend);
@@ -1387,6 +1428,8 @@ namespace Manual_Screen_Renderer
 
         private void MakePreview()
         {
+            tlblMessages.Text = "Applying palette";
+            Application.DoEvents();
             for (int y = 0; y < imgRendered.Height; y++)
             {
                 for (int x = 0; x < imgRendered.Width; x++)
@@ -1395,6 +1438,7 @@ namespace Manual_Screen_Renderer
                     imgPreview.SetPixel(x, y, c);
                 }
             }
+            tlblMessages.Text = "Ready";
         }
 
         private void RefreshWorkspace()
@@ -1448,13 +1492,18 @@ namespace Manual_Screen_Renderer
 
         private void btnCompose_Click(object sender, EventArgs e)
         {
+            tlblMessages.Text = "Syncronizing render with layers";
+            Application.DoEvents();
             FastCompose();
             //RenderFromComponenets();
             RefreshWorkspace();
+            btnCompose.Enabled = false;
+            tlblMessages.Text = "Ready";
         }
 
         private void btnDecompose_Click(object sender, EventArgs e)
         {
+            tlblMessages.Text = "Populating layers";
             if (imgRendered == null)
             {
                 return;
@@ -1472,6 +1521,7 @@ namespace Manual_Screen_Renderer
             imgIndex.Palette = ccPaint.IndexPalette;
             MakePreview();
             RefreshWorkspace();
+            btnDecompose.Enabled = false;
             tlblMessages.Text = "Ready";
         }
 
@@ -1933,11 +1983,14 @@ namespace Manual_Screen_Renderer
                 string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string filePath in filePaths)
                 {
-                    int idx = filePath.LastIndexOf('_');
+                    
+                    int idy = filePath.LastIndexOf('\\');
+                    string name = filePath.Substring(idy + 1);
+                    int idx = name.LastIndexOf('_');
+                    Console.WriteLine("Try to import " + name+" at " + filePath + " with idx = "+ idx.ToString());
                     if (idx == -1)
                     {
-                        int idy = filePath.LastIndexOf('\\');
-                        string name = filePath.Substring(idy + 1);
+                        Console.WriteLine("Try to import "+name);
                         if (name.StartsWith("palette"))
                         {
                             try
@@ -1949,15 +2002,19 @@ namespace Manual_Screen_Renderer
                                     {
                                         myBitmap = cropAtRect(myBitmap, new Rectangle(0, 0, 32, 8));
                                     }
+                                    Console.WriteLine("updated Palette");
                                     ccPaint.imgPalette = myBitmap;
-                                    MakePreview();
+                                    if (paletteMode)
+                                    {
+                                        MakePreview();
+                                    }
                                 }
                             }
-                            catch { }
+                            catch { Console.WriteLine("error with Palette"); }
                         }
                         continue;
                     }
-                    string ending = filePath.Substring(idx + 1).ToLower();
+                    string ending = name.Substring(idx + 1).ToLower();
                     switch (ending)
                     {
                         case "depth.png":
@@ -1966,6 +2023,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtDepth.Text = filePath;
                                 imgDepth = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -1975,6 +2033,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtEColor.Text = filePath;
                                 imgEColor = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -1984,6 +2043,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtIndex.Text = filePath;
                                 imgIndex = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -1993,6 +2053,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtLColor.Text = filePath;
                                 imgLColor = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -2002,6 +2063,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtLight.Text = filePath;
                                 imgLight = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -2011,6 +2073,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtPipe.Text = filePath;
                                 imgPipe = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -2020,6 +2083,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtRainbow.Text = filePath;
                                 imgRainbow = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -2029,6 +2093,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtShading.Text = filePath;
                                 imgShading = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -2038,6 +2103,7 @@ namespace Manual_Screen_Renderer
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 txtSky.Text = filePath;
                                 imgSky = myBitmap;
+                                btnCompose.Enabled = true;
                             }
                             catch { }
                             break;
@@ -2050,6 +2116,7 @@ namespace Manual_Screen_Renderer
                                     Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                     txtRendered.Text = filePath;
                                     imgRendered = myBitmap;
+                                    btnDecompose.Enabled = true;
                                 }
                             }
                             catch { }
