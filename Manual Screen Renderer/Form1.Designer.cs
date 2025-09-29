@@ -115,6 +115,8 @@
             this.version11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
             this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -881,7 +883,9 @@
             this.paletteToolStripMenuItem,
             this.setPaletteToolStripMenuItem,
             this.effectAToolStripMenuItem,
-            this.effectBToolStripMenuItem});
+            this.effectBToolStripMenuItem,
+            this.toolStripComboBox1,
+            this.toolStripComboBox2});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
             // 
@@ -900,14 +904,14 @@
             // 
             // effectAToolStripMenuItem
             // 
-            this.effectAToolStripMenuItem.Name = "effectAToolStripMenuItem";
             resources.ApplyResources(this.effectAToolStripMenuItem, "effectAToolStripMenuItem");
+            this.effectAToolStripMenuItem.Name = "effectAToolStripMenuItem";
             this.effectAToolStripMenuItem.Click += new System.EventHandler(this.effectAToolStripMenuItem_Click);
             // 
             // effectBToolStripMenuItem
             // 
-            this.effectBToolStripMenuItem.Name = "effectBToolStripMenuItem";
             resources.ApplyResources(this.effectBToolStripMenuItem, "effectBToolStripMenuItem");
+            this.effectBToolStripMenuItem.Name = "effectBToolStripMenuItem";
             this.effectBToolStripMenuItem.Click += new System.EventHandler(this.effectBToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
@@ -929,6 +933,64 @@
             this.colorDialog1.AnyColor = true;
             this.colorDialog1.FullOpen = true;
             this.colorDialog1.SolidColorOnly = true;
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            resources.GetString("toolStripComboBox1.Items"),
+            resources.GetString("toolStripComboBox1.Items1"),
+            resources.GetString("toolStripComboBox1.Items2"),
+            resources.GetString("toolStripComboBox1.Items3"),
+            resources.GetString("toolStripComboBox1.Items4"),
+            resources.GetString("toolStripComboBox1.Items5"),
+            resources.GetString("toolStripComboBox1.Items6"),
+            resources.GetString("toolStripComboBox1.Items7"),
+            resources.GetString("toolStripComboBox1.Items8"),
+            resources.GetString("toolStripComboBox1.Items9"),
+            resources.GetString("toolStripComboBox1.Items10"),
+            resources.GetString("toolStripComboBox1.Items11"),
+            resources.GetString("toolStripComboBox1.Items12"),
+            resources.GetString("toolStripComboBox1.Items13"),
+            resources.GetString("toolStripComboBox1.Items14"),
+            resources.GetString("toolStripComboBox1.Items15"),
+            resources.GetString("toolStripComboBox1.Items16"),
+            resources.GetString("toolStripComboBox1.Items17"),
+            resources.GetString("toolStripComboBox1.Items18"),
+            resources.GetString("toolStripComboBox1.Items19"),
+            resources.GetString("toolStripComboBox1.Items20"),
+            resources.GetString("toolStripComboBox1.Items21")});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
+            this.toolStripComboBox1.TextChanged += new System.EventHandler(this.toolStripComboBox1_TextChanged);
+            // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.Items.AddRange(new object[] {
+            resources.GetString("toolStripComboBox2.Items"),
+            resources.GetString("toolStripComboBox2.Items1"),
+            resources.GetString("toolStripComboBox2.Items2"),
+            resources.GetString("toolStripComboBox2.Items3"),
+            resources.GetString("toolStripComboBox2.Items4"),
+            resources.GetString("toolStripComboBox2.Items5"),
+            resources.GetString("toolStripComboBox2.Items6"),
+            resources.GetString("toolStripComboBox2.Items7"),
+            resources.GetString("toolStripComboBox2.Items8"),
+            resources.GetString("toolStripComboBox2.Items9"),
+            resources.GetString("toolStripComboBox2.Items10"),
+            resources.GetString("toolStripComboBox2.Items11"),
+            resources.GetString("toolStripComboBox2.Items12"),
+            resources.GetString("toolStripComboBox2.Items13"),
+            resources.GetString("toolStripComboBox2.Items14"),
+            resources.GetString("toolStripComboBox2.Items15"),
+            resources.GetString("toolStripComboBox2.Items16"),
+            resources.GetString("toolStripComboBox2.Items17"),
+            resources.GetString("toolStripComboBox2.Items18"),
+            resources.GetString("toolStripComboBox2.Items19"),
+            resources.GetString("toolStripComboBox2.Items20"),
+            resources.GetString("toolStripComboBox2.Items21")});
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            resources.ApplyResources(this.toolStripComboBox2, "toolStripComboBox2");
+            this.toolStripComboBox2.TextChanged += new System.EventHandler(this.toolStripComboBox2_TextChanged);
             // 
             // pnlWorkspace
             // 
@@ -1076,6 +1138,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
     }
 }
 

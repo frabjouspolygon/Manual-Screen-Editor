@@ -17,6 +17,10 @@ namespace Manual_Screen_Renderer
         public static int EffectColorA = 1;
         public static int EffectColorB = 2;
         public static int EffectColorC = 3;
+        public static int NoEffectColorD = 4;
+        public static int EffectColorAD = 5;
+        public static int EffectColorBD = 6;
+        public static int EffectColorCD = 7;
         public static int GeometryDark = 0;
         public static int GeometryNeutral = 1;
         public static int GeometryLight = 2;
@@ -41,6 +45,73 @@ namespace Manual_Screen_Renderer
         public int Grime { get; set; }//0?1
         public int Shading { get; set; }//0-255
         public int Sky { get; set; }//0?1
+
+        public struct ECol
+        {
+            public ECol(WeatherECol dry, WeatherECol wet)
+            {Wet = wet;Dry = dry;}
+            public WeatherECol Wet { get; }
+            public WeatherECol Dry { get; }
+            public override bool Equals(Object obj)
+            {return obj is ECol && Equals((ECol)obj);}
+            public bool Equals(ECol other)
+            {return Wet == other.Wet && Dry == other.Dry;}
+            public static bool operator ==(ECol lhs, ECol rhs)
+            {return lhs.Equals(rhs);}
+            public static bool operator !=(ECol lhs, ECol rhs)
+            {return !lhs.Equals(rhs);}
+            public override string ToString() => $"({Wet}, {Dry})";
+            public struct WeatherECol
+            {
+                public WeatherECol(ShadeECol sun, ShadeECol shadow)
+                {Sun = sun;Shadow = shadow;}
+                public ShadeECol Sun { get; }
+                public ShadeECol Shadow { get; }
+                public override bool Equals(Object obj)
+                {return obj is WeatherECol && Equals((WeatherECol)obj);}
+                public bool Equals(WeatherECol other)
+                {return Sun == other.Sun && Shadow == other.Shadow;}
+                public static bool operator ==(WeatherECol lhs, WeatherECol rhs)
+                {return lhs.Equals(rhs);}
+                public static bool operator !=(WeatherECol lhs, WeatherECol rhs)
+                {return !lhs.Equals(rhs);}
+                public override string ToString() => $"({Sun}, {Shadow})";
+                public struct ShadeECol
+                {
+                    public ShadeECol(Color light, Color dark)
+                    {
+                        Light = light;
+                        Dark = dark;
+                    }
+
+                    public Color Light { get; }
+                    public Color Dark { get; }
+
+                    public override bool Equals(Object obj)
+                    {
+                        return obj is ShadeECol && Equals((ShadeECol)obj);
+                    }
+                    public bool Equals(ShadeECol other)
+                    {
+                        return Light == other.Light && Dark == other.Dark;
+                    }
+
+                    public static bool operator ==(ShadeECol lhs, ShadeECol rhs)
+                    {
+                        return lhs.Equals(rhs);
+                    }
+
+                    public static bool operator !=(ShadeECol lhs, ShadeECol rhs)
+                    {
+                        return !lhs.Equals(rhs);
+                    }
+                    public override string ToString() => $"({Light}, {Dark})";
+                }
+            }
+        }
+
+
+        public List<ECol> BaseECols { get; set; }
         //public List<Color> IndexPalette { get; set; }
 
         public List<List<CursorColors.BufferAction>> undoBuffer = new List<List<CursorColors.BufferAction>>();
@@ -50,6 +121,11 @@ namespace Manual_Screen_Renderer
         public Bitmap imgGrimeMask { get; set; }
         public Color colA { get; set; }
         public Color colB { get; set; }
+
+        public int icolA { get; set; }
+        public int icolB { get; set; }
+
+
         public ColorPalette IndexPalette { get; set; }
         public int PenSize { get; set; }
         public CursorColors()
@@ -59,7 +135,22 @@ namespace Manual_Screen_Renderer
             imgGrimeMask = new Bitmap(Properties.Resources.GrimeMask);
             colA = Color.FromArgb(255, 0, 255);
             colB = Color.FromArgb(0, 255, 255);
+            icolA = 0;
+            icolB = 0;
+            BaseECols = new List<ECol>();
+            PopulateBaseECols();
             PenSize = 1;
+        }
+
+        public void PopulateBaseECols()
+        {
+            Bitmap cols = new Bitmap(Properties.Resources.effectcolors);
+            for (int i = 0;i<22; i++)
+            {
+                BaseECols.Add(new ECol(
+                    new ECol.WeatherECol(new ECol.WeatherECol.ShadeECol(cols.GetPixel(2*i,0), cols.GetPixel(2*i, 1)), new ECol.WeatherECol.ShadeECol(cols.GetPixel(2*i+1, 0), cols.GetPixel(2*i+1, 1))),
+                    new ECol.WeatherECol(new ECol.WeatherECol.ShadeECol(cols.GetPixel(2*i, 2), cols.GetPixel(2*i, 3)), new ECol.WeatherECol.ShadeECol(cols.GetPixel(2*i+1,2), cols.GetPixel(2*i+1,3)))));
+            }
         }
 
         public static Color ToDepth(int tDepth)
@@ -81,6 +172,22 @@ namespace Manual_Screen_Renderer
             else if (tEColor == EffectColorC)
             {
                 return Color.FromArgb(255, 255, 255);
+            }
+            else if (tEColor == NoEffectColorD)
+            {
+                return Color.FromArgb(50, 50, 50);
+            }
+            else if (tEColor == EffectColorAD)
+            {
+                return Color.FromArgb(150, 0, 150);
+            }
+            else if (tEColor == EffectColorBD)
+            {
+                return Color.FromArgb(0, 150, 150);
+            }
+            else if (tEColor == EffectColorCD)
+            {
+                return Color.FromArgb(150, 150, 150);
             }
             return Color.FromArgb(0, 0, 0);
         }
@@ -164,6 +271,22 @@ namespace Manual_Screen_Renderer
             else if (EColor == EffectColorC)
             {
                 return Color.FromArgb(255, 255, 255);
+            }
+            else if (EColor == NoEffectColorD)
+            {
+                return Color.FromArgb(50, 50, 50);
+            }
+            else if (EColor == EffectColorAD)
+            {
+                return Color.FromArgb(150, 0, 150);
+            }
+            else if (EColor == EffectColorBD)
+            {
+                return Color.FromArgb(0, 150, 150);
+            }
+            else if (EColor == EffectColorCD)
+            {
+                return Color.FromArgb(150, 150, 150);
             }
             return Color.FromArgb(0, 0, 0);
         }
@@ -296,8 +419,6 @@ namespace Manual_Screen_Renderer
             {
                 if (useIndex==1)
                 {
-                    //find color from list
-                    //valBlue = 255;//for now just say it's the 1st color. Come back to finish this code later
                     valBlue = tIndexID;
                 }
                 else
@@ -305,7 +426,7 @@ namespace Manual_Screen_Renderer
                     valBlue = tShading* (tEColor==0 ? 0:1);
                 }
                 valRed = 1+tDepth + tLColor * 30 + tLight * 90;
-                valGreen = tEColor + tGrime * 4 + useIndex * 8 + tLight * 16;
+                valGreen = (tEColor%4) + tGrime * 4 + useIndex * 8 + (int)(tEColor/4) * 16;
                 if(tPipe==PipeL1)
                 {
                     valGreen = 7 + PipeL1;
@@ -412,20 +533,32 @@ namespace Manual_Screen_Renderer
             else
             {
                 c = imgPalette.GetPixel(tDepth, 2 + (2 - tLColor) + 3 * (1 - tLight));
-                if (tEColor > 0)
+
+                if (tEColor != 0 && tEColor !=4)
                 {
-                    if (tEColor == 1)
-                    {
-                        c = Form1.Blend(colA, c, (double)tShading / 255);
-                    }
-                    else if (tEColor == 2)
-                    {
-                        c = Form1.Blend(colB, c, (double)tShading / 255);
-                    }
+                    ECol ThisECol = new ECol();
+                    if (tEColor == EffectColorA || tEColor == EffectColorAD)
+                        ThisECol = BaseECols[icolA];
+                    else if (tEColor == EffectColorB || tEColor == EffectColorBD)
+                        ThisECol = BaseECols[icolB];
+                    else if (tEColor == EffectColorC || tEColor == EffectColorCD)
+                        ThisECol = BaseECols[9];
+                    ECol.WeatherECol ThisEColW = new ECol.WeatherECol();
+                    if (1==1)
+                        ThisEColW = ThisECol.Dry;
                     else
-                    {
-                        c = Form1.Blend(Color.White, c, (double)tShading / 255);
-                    }
+                        ThisEColW = ThisECol.Wet;
+                    ECol.WeatherECol.ShadeECol ThisEColS = new ECol.WeatherECol.ShadeECol();
+                    if (tLight == LightOn)
+                        ThisEColS = ThisEColW.Sun;
+                    else
+                        ThisEColS = ThisEColW.Shadow;
+                    Color cOut = new Color();
+                    if ((int)(tEColor/4.0) == 0)
+                        cOut = ThisEColS.Light;
+                    else
+                        cOut = ThisEColS.Dark;
+                    c = Form1.Blend(cOut, c, (double)tShading / 255);
                 }
                 if (tGrime > 0)
                 {
@@ -536,7 +669,6 @@ namespace Manual_Screen_Renderer
 
         public static Features FeaturesRendered(Color tRendered)
         {
-            
             int R = tRendered.R;
             int G = tRendered.G;
             int B = tRendered.B;
@@ -564,7 +696,6 @@ namespace Manual_Screen_Renderer
                 if (G > 31)
                     G = 0;
                 tSky = 0;
-
                 tLight = R > 90 ? 1 : 0;// 0 or 1
                 R = R - 90 * tLight;
                 tLColor = Math.Min(Math.Max((R - 1) / 30, 0), 2);//0-2
@@ -575,21 +706,20 @@ namespace Manual_Screen_Renderer
                 else if (G == 7 + PipeL2 && B == 0) tPipe = PipeL2;
                 else if (G == 7 + PipeL3 && B == 0) tPipe = PipeL3;
                 else tPipe = NoPipe;
+                tEColor = 4*(int)(G / 16.0);
                 G = G % 16; //0-15
                 int HasIndex = Math.Min(G / 8, 1); //0 or 1
                 HasIndex = HasIndex * ( (B != 0 && tPipe == NoPipe) ? 1 : 0);
                 G = G % 8; //0-7
                 tGrime = G / 4;//0 or 1
-                tEColor = G % 4;//0-3
+                tEColor = tEColor+G % 4;//0-3
                 tShading = (1 - HasIndex) * (tEColor > 0 ? 1 : 0) * B; //0-255
                 if(HasIndex>0)
                 {
                     tIndexID = B;
-                    //tIndex = ;//for now no index support
                 }
                 else
                 {
-                    //tIndex = Color.Transparent;//for now no index support
                     tIndexID = 0;
                 }
                 if(tPipe!=NoPipe)
@@ -610,7 +740,10 @@ namespace Manual_Screen_Renderer
             var output = new CursorColors.Features(
                 (int)(tDepth.R / 8.79),
                 tIndexID,
-                (tEColor== ToEColor(EffectColorA) ? EffectColorA : 0)+ (tEColor == ToEColor(EffectColorB) ? EffectColorB : 0)+ (tEColor == ToEColor(EffectColorC) ? EffectColorC : 0),
+                (tEColor== ToEColor(EffectColorA) ? EffectColorA : 0)+ (tEColor == ToEColor(EffectColorB) ? EffectColorB : 0)
+                + (tEColor == ToEColor(EffectColorC) ? EffectColorC : 0) + (tEColor == ToEColor(NoEffectColorD) ? NoEffectColorD : 0) 
+                + (tEColor == ToEColor(EffectColorAD) ? EffectColorAD : 0) + (tEColor == ToEColor(EffectColorBD) ? EffectColorBD : 0) 
+                + (tEColor == ToEColor(EffectColorCD) ? EffectColorCD : 0),
                 (tLColor == ToLColor(GeometryNeutral) ? GeometryNeutral : 0) + (tLColor == ToLColor(GeometryLight) ? GeometryLight : 0),
                 (int)(tLight.R / 255),
                 (tPipe == ToPipe(PipeL1) ? PipeL1 : 0) + (tPipe == ToPipe(PipeL2) ? PipeL2 : 0) + (tPipe == ToPipe(PipeL3) ? PipeL3 : 0),

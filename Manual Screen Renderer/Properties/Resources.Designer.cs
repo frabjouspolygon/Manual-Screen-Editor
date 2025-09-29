@@ -63,6 +63,16 @@ namespace Manual_Screen_Renderer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap effectcolors {
+            get {
+                object obj = ResourceManager.GetObject("effectcolors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GrimeMask {
             get {
                 object obj = ResourceManager.GetObject("GrimeMask", resourceCulture);

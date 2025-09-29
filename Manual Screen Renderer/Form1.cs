@@ -1548,39 +1548,59 @@ namespace Manual_Screen_Renderer
         private void btnPickEColor_Click(object sender, EventArgs e)
         {
             int colInitial = ccPaint.EColor;//btnPickEColor.BackColor;
-            Color EffectA = Color.FromArgb(255, 0, 255);
-            Color EffectB = Color.FromArgb(0, 255, 255);
-            Color EffectC = Color.FromArgb(255, 255, 255);
-            Color Off = Color.FromArgb(0, 0, 0);
             if (colInitial == CursorColors.EffectColorA)
             {
-                btnPickEColor.BackColor = EffectB;
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorAD);
+                ccPaint.EColor = CursorColors.EffectColorAD;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color A Dark");
+            }
+            else if(colInitial == CursorColors.EffectColorAD)
+            {
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorB);
                 ccPaint.EColor = CursorColors.EffectColorB;
-                toolTip.SetToolTip(btnPickEColor, "Effect Color B");
+                toolTip.SetToolTip(btnPickEColor, "Effect Color B Light");
             }
             else if (colInitial == CursorColors.EffectColorB)
             {
-                btnPickEColor.BackColor = EffectC;
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorBD);
+                ccPaint.EColor = CursorColors.EffectColorBD;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color B Dark");
+            }
+            else if (colInitial == CursorColors.EffectColorBD)
+            {
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorC);
                 ccPaint.EColor = CursorColors.EffectColorC;
-                toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive");
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive Light");
             }
             else if (colInitial == CursorColors.EffectColorC)
             {
-                btnPickEColor.BackColor = Off;
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorCD);
+                ccPaint.EColor = CursorColors.EffectColorCD;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive Dark");
+            }
+            else if (colInitial == CursorColors.EffectColorCD)
+            {
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor);
                 ccPaint.EColor = CursorColors.NoEffectColor;
-                toolTip.SetToolTip(btnPickEColor, "Effect Color Off");
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Off Light");
             }
             else if (colInitial == CursorColors.NoEffectColor)
             {
-                btnPickEColor.BackColor = EffectA;
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColorD);
+                ccPaint.EColor = CursorColors.NoEffectColorD;
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Off Dark");
+            }
+            else if (colInitial == CursorColors.NoEffectColorD)
+            {
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorA);
                 ccPaint.EColor = CursorColors.EffectColorA;
-                toolTip.SetToolTip(btnPickEColor, "Effect Color A");
+                toolTip.SetToolTip(btnPickEColor, "Effect Color A Light");
             }
             else
             {
-                btnPickEColor.BackColor = Off;
+                btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor);
                 ccPaint.EColor = CursorColors.NoEffectColor;
-                toolTip.SetToolTip(btnPickEColor, "Effect Color Off");
+                toolTip.SetToolTip(btnPickEColor, "Effect Color Off Light");
             }
         }
 
@@ -2123,6 +2143,28 @@ namespace Manual_Screen_Renderer
                             break;
                     }
                 }
+                RefreshWorkspace();
+            }
+        }
+
+        private void toolStripComboBox1_TextChanged(object sender, EventArgs e)
+        {
+            int i;
+            if (int.TryParse(toolStripComboBox1.Text, out i) )
+            {
+                ccPaint.icolA = i;
+                MakePreview();
+                RefreshWorkspace();
+            }
+        }
+
+        private void toolStripComboBox2_TextChanged(object sender, EventArgs e)
+        {
+            int i;
+            if (int.TryParse(toolStripComboBox2.Text, out i))
+            {
+                ccPaint.icolB = i;
+                MakePreview();
                 RefreshWorkspace();
             }
         }

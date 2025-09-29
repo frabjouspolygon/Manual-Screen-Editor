@@ -1744,7 +1744,7 @@
     <value>pbxWorkspace</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.3.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
     <value>pnlWorkspace</value>
@@ -1771,7 +1771,7 @@
     <value>pnlWorkspace</value>
   </data>
   <data name="&gt;&gt;pnlWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.ScrollingPanel, ManualScreenEditor, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.ScrollingPanel, ManualScreenEditor, Version=1.3.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pnlWorkspace.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -3048,17 +3048,194 @@
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="paletteToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
+    <value>View Palette</value>
+  </data>
+  <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Set Palette</value>
+  </data>
+  <data name="effectAToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
+    <value>Effect A</value>
+  </data>
+  <data name="effectAToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="effectBToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
+    <value>Effect B</value>
+  </data>
+  <data name="effectBToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripComboBox1.Items" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="toolStripComboBox1.Items1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="toolStripComboBox1.Items2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="toolStripComboBox1.Items3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="toolStripComboBox1.Items4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="toolStripComboBox1.Items5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="toolStripComboBox1.Items6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="toolStripComboBox1.Items7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="toolStripComboBox1.Items8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="toolStripComboBox1.Items9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="toolStripComboBox1.Items10" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="toolStripComboBox1.Items11" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="toolStripComboBox1.Items12" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="toolStripComboBox1.Items13" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="toolStripComboBox1.Items14" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="toolStripComboBox1.Items15" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="toolStripComboBox1.Items16" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="toolStripComboBox1.Items17" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="toolStripComboBox1.Items18" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="toolStripComboBox1.Items19" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="toolStripComboBox1.Items20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="toolStripComboBox1.Items21" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="toolStripComboBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 28</value>
+  </data>
+  <data name="toolStripComboBox1.Text" xml:space="preserve">
+    <value>Effect A</value>
+  </data>
+  <data name="toolStripComboBox2.Items" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="toolStripComboBox2.Items1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="toolStripComboBox2.Items2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="toolStripComboBox2.Items3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="toolStripComboBox2.Items4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="toolStripComboBox2.Items5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="toolStripComboBox2.Items6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="toolStripComboBox2.Items7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="toolStripComboBox2.Items8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="toolStripComboBox2.Items9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="toolStripComboBox2.Items10" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="toolStripComboBox2.Items11" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="toolStripComboBox2.Items12" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="toolStripComboBox2.Items13" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="toolStripComboBox2.Items14" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="toolStripComboBox2.Items15" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="toolStripComboBox2.Items16" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="toolStripComboBox2.Items17" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="toolStripComboBox2.Items18" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="toolStripComboBox2.Items19" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="toolStripComboBox2.Items20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="toolStripComboBox2.Items21" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="toolStripComboBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 28</value>
+  </data>
+  <data name="toolStripComboBox2.Text" xml:space="preserve">
+    <value>Effect B</value>
+  </data>
   <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 24</value>
   </data>
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>View</value>
-  </data>
-  <data name="version11ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
-  </data>
-  <data name="version11ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Version 1.3.2</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 24</value>
@@ -3198,32 +3375,11 @@
   <data name="redoToolStripMenuItem.Text" xml:space="preserve">
     <value>Redo</value>
   </data>
-  <data name="paletteToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
+  <data name="version11ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 26</value>
   </data>
-  <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
-    <value>View Palette</value>
-  </data>
-  <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Set Palette</value>
-  </data>
-  <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
-    <value>Effect A</value>
-  </data>
-  <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 26</value>
-  </data>
-  <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
-    <value>Effect B</value>
+  <data name="version11ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Version 1.3.2</value>
   </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>215, 17</value>
@@ -3253,7 +3409,7 @@
     <value>pbxWorkspace</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.3.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
     <value>pnlWorkspace</value>
@@ -3474,6 +3630,18 @@
   </data>
   <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripComboBox1.Name" xml:space="preserve">
+    <value>toolStripComboBox1</value>
+  </data>
+  <data name="&gt;&gt;toolStripComboBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripComboBox2.Name" xml:space="preserve">
+    <value>toolStripComboBox2</value>
+  </data>
+  <data name="&gt;&gt;toolStripComboBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>
