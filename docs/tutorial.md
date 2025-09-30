@@ -83,7 +83,8 @@ Effect shading produces a pop-up window which prompts the user for a color selec
 
 5. Left click on the canvas to make your neon sign.
 
-If you make a mistake while drawing, you can use Ctrl-Z to undo your last stroke.
+You can also use the Pen Size property in the left panel to change the radius of the pen.
+Remember, if you make a mistake while drawing, you can use Ctrl-Z to undo your last stroke.
 
 ![eg1_8](/docs/figures/eg2_3.png?raw=true)
 
