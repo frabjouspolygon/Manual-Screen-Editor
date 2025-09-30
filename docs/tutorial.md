@@ -139,3 +139,5 @@ We can always reopen the index color window and modify it.
 ![eg3_6](/docs/figures/eg3_6.png?raw=true)
 
 # Example 4: Exporting/Importing component layers
+
+For any of the above examples, try using File>Export Layers. This will save the component layers to your computer where you can edit them elsewhere. This allows for more extensive work using the tools of your choice. You can always add the layers back into the Manual Screen Editor by either importing each layer individually in the left panel or by dragging and dropping them onto the main program window. After importing component layers, always use the Compose button to build the rendered view or else you will not be able to save the resulting rendered screen.
