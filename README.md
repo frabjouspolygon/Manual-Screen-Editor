@@ -10,7 +10,7 @@ There are 10 different layers: 9 component layers and rendered preview (with a c
 ![Level Color](/docs/MSE_geo.png?raw=true)
 > Viewing level color while editing, depth, level color, light and sky.
 
-See [Manual Screen Editor.pdf](/Manual%20Screen%20Editor.pdf) [tutorial.md](/docs/figures/tutorial.md) [controls.md](/docs/figures/controls.md) for more information.
+See [Manual Screen Editor.pdf](/Manual%20Screen%20Editor.pdf) [tutorial.md](/docs/tutorial.md) [controls.md](/docs/controls.md) for more information.
 
 > [!NOTE]
 > The Manual Screen Editor only supports Windows.
