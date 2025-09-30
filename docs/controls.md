@@ -32,6 +32,7 @@ data for tools. Because multiple layers can be written to at once, tools use 9 "
 The controls for the paints behave as follows:
 - Depth: Accepts integer depths between 1 (nearest) and 30 (farthest)
 - Effect color: Cycles between `Effect Color Off` (erase), 'Effect Color A` , 'Effect Color B` and 'Effect Color Batfly Hive` (white color exclusive to swarm rooms)
+(Dark varients of each setting exist however they have no visual difference from their lighter versions in-game.
 - Color Index: Two buttons. One for selecting and managing index colors in a pop-up window and another, labled `E`, for ereaseing index colors.
 - Level color: Cycles between `Dark`, `Light` and `Neutral` (These corespond to the red, blue and green false colors used in level editor tiles/props).
 - Light: Cycles between `Shadow` and `Sunlight` (analog to "Light" tab found in most level editors).
@@ -76,4 +77,4 @@ The canvas can also be scrolled vertically or horizontally with `Mouse Wheel` or
 There are also two scroll bars on the right and bottom edges of the canvas that can be used as an alternative way to scroll.
 
 # Drag and Drop
-Files can be loaded by the program by dragging any number of files onto the main application window at any time. Note that images must be PNGs and of a specific naming convention to load properly. Rendered screen file names must end in and underscore `_` followed by any number of numeric characters and `.png`. Component layers must have the same naming convention used for outputting them. Palette importing through drag and drop is currently broken as of v1.3.1, however they would otherwise need to follow the same naming convention for palettes as used by the game: `palete` followed by numeric characters and `.png`.
+Files can be loaded by the program by dragging any number of files onto the main application window at any time. Note that images must be PNGs and of a specific naming convention to load properly. Rendered screen file names must end in and underscore `_` followed by any number of numeric characters and `.png`. Component layers must have the same naming convention used for outputting them. Drag and drop palette importing needs to follow the same naming convention for palettes as used by the game: `palete` followed by numeric characters and `.png`.
