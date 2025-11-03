@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using static Manual_Screen_Renderer.CursorColors;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.Reflection;
 //using MediaColor = System.Windows.Media.Color;
 //using Color = System.Drawing.Color;
 
@@ -128,6 +129,7 @@ namespace Manual_Screen_Renderer
             //Console.WriteLine(LColor);
             //Console.WriteLine(R);
             //Console.WriteLine(imgIndex.Palette.Entries[0].A);
+            versionToolStripMenuItem.Text = "Version "+ Assembly.GetExecutingAssembly().GetName().Version.ToString();
             RefreshWorkspace();
             FakeScroll();
         }
@@ -1930,12 +1932,14 @@ namespace Manual_Screen_Renderer
             if (paletteToolStripMenuItem.Checked)
             {
                 paletteMode = true;
+                exportPalettePreviewToolStripMenuItem.Enabled = true;
                 MakePreview();
                 RefreshWorkspace();
             }
             else
             {
                 paletteMode = false;
+                exportPalettePreviewToolStripMenuItem.Enabled = false;
                 RefreshWorkspace();
             }
         }
@@ -2001,9 +2005,11 @@ namespace Manual_Screen_Renderer
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                bool queueCompose = false;
+                bool queueDecompose = false;
+                bool queuePreview = false;
                 foreach (string filePath in filePaths)
                 {
-                    
                     int idy = filePath.LastIndexOf('\\');
                     string name = filePath.Substring(idy + 1);
                     int idx = name.LastIndexOf('_');
@@ -2024,10 +2030,14 @@ namespace Manual_Screen_Renderer
                                     }
                                     Console.WriteLine("updated Palette");
                                     ccPaint.imgPalette = myBitmap;
-                                    if (paletteMode)
-                                    {
-                                        MakePreview();
-                                    }
+                                    paletteMode = true;
+                                    paletteToolStripMenuItem.Checked = true;
+                                    exportPalettePreviewToolStripMenuItem.Enabled = true;
+                                    queuePreview = true;
+                                    //if (paletteMode)
+                                    //{
+                                    //    MakePreview();
+                                    //}
                                 }
                             }
                             catch { Console.WriteLine("error with Palette"); }
@@ -2044,6 +2054,7 @@ namespace Manual_Screen_Renderer
                                 txtDepth.Text = filePath;
                                 imgDepth = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2054,6 +2065,7 @@ namespace Manual_Screen_Renderer
                                 txtEColor.Text = filePath;
                                 imgEColor = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2064,6 +2076,7 @@ namespace Manual_Screen_Renderer
                                 txtIndex.Text = filePath;
                                 imgIndex = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2074,6 +2087,7 @@ namespace Manual_Screen_Renderer
                                 txtLColor.Text = filePath;
                                 imgLColor = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2084,6 +2098,7 @@ namespace Manual_Screen_Renderer
                                 txtLight.Text = filePath;
                                 imgLight = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2094,6 +2109,7 @@ namespace Manual_Screen_Renderer
                                 txtPipe.Text = filePath;
                                 imgPipe = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2104,6 +2120,7 @@ namespace Manual_Screen_Renderer
                                 txtRainbow.Text = filePath;
                                 imgRainbow = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2114,6 +2131,7 @@ namespace Manual_Screen_Renderer
                                 txtShading.Text = filePath;
                                 imgShading = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2124,6 +2142,7 @@ namespace Manual_Screen_Renderer
                                 txtSky.Text = filePath;
                                 imgSky = myBitmap;
                                 btnCompose.Enabled = true;
+                                queueCompose = true;
                             }
                             catch { }
                             break;
@@ -2137,11 +2156,24 @@ namespace Manual_Screen_Renderer
                                     txtRendered.Text = filePath;
                                     imgRendered = myBitmap;
                                     btnDecompose.Enabled = true;
+                                    queueDecompose = true;
                                 }
                             }
                             catch { }
                             break;
                     }
+                }
+                if(queueDecompose)
+                {
+                    FastDecompose();
+                }
+                if (queueCompose)
+                {
+                    FastCompose();
+                }
+                if (queuePreview)
+                {
+                    MakePreview();
                 }
                 RefreshWorkspace();
             }
@@ -2166,6 +2198,16 @@ namespace Manual_Screen_Renderer
                 ccPaint.icolB = i;
                 MakePreview();
                 RefreshWorkspace();
+            }
+        }
+
+        private void exportPalettePreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png";
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                imgPreview.Save(sfd.FileName, ImageFormat.Png);
             }
         }
 

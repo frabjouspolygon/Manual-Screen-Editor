@@ -111,14 +111,15 @@
             this.setPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.version11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pnlWorkspace = new Manual_Screen_Renderer.ScrollingPanel();
             this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
+            this.exportPalettePreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -821,7 +822,8 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.saveACopyToolStripMenuItem,
-            this.exportLayersToolStripMenuItem});
+            this.exportLayersToolStripMenuItem,
+            this.exportPalettePreviewToolStripMenuItem});
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             // 
@@ -914,26 +916,6 @@
             this.effectBToolStripMenuItem.Name = "effectBToolStripMenuItem";
             this.effectBToolStripMenuItem.Click += new System.EventHandler(this.effectBToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.version11ToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
-            // 
-            // version11ToolStripMenuItem
-            // 
-            this.version11ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.version11ToolStripMenuItem.Name = "version11ToolStripMenuItem";
-            resources.ApplyResources(this.version11ToolStripMenuItem, "version11ToolStripMenuItem");
-            // 
-            // colorDialog1
-            // 
-            this.colorDialog1.AnyColor = true;
-            this.colorDialog1.FullOpen = true;
-            this.colorDialog1.SolidColorOnly = true;
-            // 
             // toolStripComboBox1
             // 
             this.toolStripComboBox1.Items.AddRange(new object[] {
@@ -992,6 +974,26 @@
             resources.ApplyResources(this.toolStripComboBox2, "toolStripComboBox2");
             this.toolStripComboBox2.TextChanged += new System.EventHandler(this.toolStripComboBox2_TextChanged);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.versionToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
+            // 
+            // versionToolStripMenuItem
+            // 
+            this.versionToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            resources.ApplyResources(this.versionToolStripMenuItem, "versionToolStripMenuItem");
+            // 
+            // colorDialog1
+            // 
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.FullOpen = true;
+            this.colorDialog1.SolidColorOnly = true;
+            // 
             // pnlWorkspace
             // 
             this.pnlWorkspace.BackColor = System.Drawing.Color.Transparent;
@@ -1011,6 +1013,12 @@
             this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
             this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
+            // 
+            // exportPalettePreviewToolStripMenuItem
+            // 
+            resources.ApplyResources(this.exportPalettePreviewToolStripMenuItem, "exportPalettePreviewToolStripMenuItem");
+            this.exportPalettePreviewToolStripMenuItem.Name = "exportPalettePreviewToolStripMenuItem";
+            this.exportPalettePreviewToolStripMenuItem.Click += new System.EventHandler(this.exportPalettePreviewToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1129,7 +1137,7 @@
         private System.Windows.Forms.ToolStripMenuItem effectAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem effectBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem version11ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.NumericUpDown nudPenSize;
         private System.Windows.Forms.Label lblPen;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
@@ -1140,6 +1148,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
+        private System.Windows.Forms.ToolStripMenuItem exportPalettePreviewToolStripMenuItem;
     }
 }
 
