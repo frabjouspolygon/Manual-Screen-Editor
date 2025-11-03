@@ -2157,6 +2157,7 @@ namespace Manual_Screen_Renderer
                                     imgRendered = myBitmap;
                                     btnDecompose.Enabled = true;
                                     queueDecompose = true;
+                                    
                                 }
                             }
                             catch { }
@@ -2166,10 +2167,18 @@ namespace Manual_Screen_Renderer
                 if(queueDecompose)
                 {
                     FastDecompose();
+                    if (paletteMode)
+                    {
+                        queuePreview = true;
+                    }
                 }
                 if (queueCompose)
                 {
                     FastCompose();
+                    if (paletteMode)
+                    {
+                        queuePreview = true;
+                    }
                 }
                 if (queuePreview)
                 {
