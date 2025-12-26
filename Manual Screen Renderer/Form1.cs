@@ -19,6 +19,7 @@ using AForge.Imaging.Filters;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using static Manual_Screen_Renderer.CursorColors;
+using static Manual_Screen_Renderer.MseMath;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Reflection;
 //using MediaColor = System.Windows.Media.Color;
@@ -72,6 +73,7 @@ namespace Manual_Screen_Renderer
         public Point lastCursor = new Point();
         //static Color colA = Color.FromArgb( 255, 0, 255);
         //static Color colB = Color.FromArgb(0, 255, 255);
+        public int devCounter = 0;
         public Form1()
         {
             InitializeComponent();
@@ -98,7 +100,7 @@ namespace Manual_Screen_Renderer
             }
             imgIndex.Palette = ccPaint.IndexPalette;
             ccPaint.IndexID = 255;
-            imgLColor = SolidBitmap(1400, 800, Color.FromArgb(255, 0, 0)); ;
+            imgLColor = SolidBitmap(1400, 800, Color.FromArgb(255, 0, 0));
             imgLight = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             imgPipe = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
             imgRainbow = SolidBitmap(1400, 800, Color.FromArgb(0, 0, 0));
@@ -134,8 +136,8 @@ namespace Manual_Screen_Renderer
             FakeScroll();
         }
 
-        public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
-        public static double Clamp(double min, double max, double a) => Math.Min(max,Math.Max(min,a));
+        //public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
+        //public static double Clamp(double min, double max, double a) => Math.Min(max,Math.Max(min,a));
 
         public static List<Point> GetBresenhamLine(Point p0, Point p1)
         {
@@ -1187,7 +1189,7 @@ namespace Manual_Screen_Renderer
             imgSky.SetPixel(intX, intY, CursorColors.ToSky(features.ThisSky));
             Color colRend = CursorColors.ColorRendered(features);
             imgRendered.SetPixel(intX, intY, colRend);
-            imgPreview.SetPixel(intX, intY, colRend);
+            imgPreview.SetPixel(intX, intY, ccPaint.PreviewPixel(colRend, intX, intY));
             RefreshWorkspace();
         }
 
@@ -1212,6 +1214,7 @@ namespace Manual_Screen_Renderer
             BitmapData bmpData7 = imgShading.LockBits(rect, ImageLockMode.ReadOnly, fmt);
             BitmapData bmpData8 = imgSky.LockBits(rect, ImageLockMode.ReadOnly, fmt);
             BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData10 = imgPreview.LockBits(rect, ImageLockMode.ReadOnly, fmt);
             int size1 = bmpData9.Stride * bmpData9.Height;
             int size2 = bmpData2.Stride * bmpData2.Height;
             byte[] data0 = new byte[size1];
@@ -1225,6 +1228,7 @@ namespace Manual_Screen_Renderer
             byte[] data7 = new byte[size1];
             byte[] data8 = new byte[size1];
             byte[] data9 = new byte[size1];
+            byte[] data10 = new byte[size1];
             System.Runtime.InteropServices.Marshal.Copy(bmpData0.Scan0, data0, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData1.Scan0, data1, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData2.Scan0, data2, 0, data2.Length);
@@ -1235,6 +1239,7 @@ namespace Manual_Screen_Renderer
             System.Runtime.InteropServices.Marshal.Copy(bmpData7.Scan0, data7, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData8.Scan0, data8, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData9.Scan0, data9, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData10.Scan0, data10, 0, size1);
             // loops
             for (int y = 0; y < s.Height; y++)
             {
@@ -1258,6 +1263,7 @@ namespace Manual_Screen_Renderer
                     Color c7 = Color.FromArgb(data7[index + 3], data7[index + 2], data7[index + 1], data7[index]);
                     Color c8 = Color.FromArgb(data8[index + 3], data8[index + 2], data8[index + 1], data8[index]);
                     Color c9 = ColorRendered(FeaturesFromColors(c0, idx, c1,c3,c4,c5,c6,c7,c8));
+                    Color c10 = ccPaint.PreviewPixel(c9, x, y);
                     //if (x == 900 && y == 100)
                     //    Console.WriteLine("compose at " + x.ToString() + " ," + y.ToString()+" "+ data8[index + 3].ToString());
                     // process it
@@ -1267,9 +1273,14 @@ namespace Manual_Screen_Renderer
                     data9[index + 1] = c9.G;
                     data9[index + 2] = c9.R;
                     data9[index + 3] = c9.A;
+                    data10[index + 0] = c10.B;
+                    data10[index + 1] = c10.G;
+                    data10[index + 2] = c10.R;
+                    data10[index + 3] = c10.A;
                 }
             }
             System.Runtime.InteropServices.Marshal.Copy(data9, 0, bmpData9.Scan0, data9.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data10, 0, bmpData10.Scan0, data10.Length);
             imgDepth.UnlockBits(bmpData0);
             imgEColor.UnlockBits(bmpData1);
             imgIndex.UnlockBits(bmpData2);
@@ -1280,20 +1291,18 @@ namespace Manual_Screen_Renderer
             imgShading.UnlockBits(bmpData7);
             imgSky.UnlockBits(bmpData8);
             imgRendered.UnlockBits(bmpData9);
+            imgPreview.UnlockBits(bmpData10);
             //Console.WriteLine("Done Composing");
-            MakePreview();
+            FastPreview();
         }
 
         private void FastDecompose()
         {
             int w = imgRendered.Width;
             int h = imgRendered.Height;
-
             Size s = imgDepth.Size;
             PixelFormat fmt = imgDepth.PixelFormat;
-            // we need the bit depth and we assume either 32bppArgb or 24bppRgb !
-            byte bpp = (byte)4;//(fmt == PixelFormat.Format32bppArgb ? 4 : 3);
-            // lock the bits and prepare the loop
+            byte bpp = (byte)4;
             Rectangle rect = new Rectangle(Point.Empty, s);
             BitmapData bmpData0 = imgDepth.LockBits(rect, ImageLockMode.ReadWrite, fmt);
             BitmapData bmpData1 = imgEColor.LockBits(rect, ImageLockMode.ReadWrite, fmt);
@@ -1305,6 +1314,7 @@ namespace Manual_Screen_Renderer
             BitmapData bmpData7 = imgShading.LockBits(rect, ImageLockMode.ReadWrite, fmt);
             BitmapData bmpData8 = imgSky.LockBits(rect, ImageLockMode.ReadWrite, fmt);
             BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData10 = imgPreview.LockBits(rect, ImageLockMode.ReadOnly, fmt);
             int size1 = bmpData9.Stride * bmpData9.Height;
             int size2 = bmpData2.Stride * bmpData2.Height;
             byte[] data0 = new byte[size1];
@@ -1317,6 +1327,7 @@ namespace Manual_Screen_Renderer
             byte[] data7 = new byte[size1];
             byte[] data8 = new byte[size1];
             byte[] data9 = new byte[size1];
+            byte[] data10 = new byte[size1];
             System.Runtime.InteropServices.Marshal.Copy(bmpData0.Scan0, data0, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData1.Scan0, data1, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData2.Scan0, data2, 0, data2.Length);
@@ -1327,6 +1338,7 @@ namespace Manual_Screen_Renderer
             System.Runtime.InteropServices.Marshal.Copy(bmpData7.Scan0, data7, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData8.Scan0, data8, 0, size1);
             System.Runtime.InteropServices.Marshal.Copy(bmpData9.Scan0, data9, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData10.Scan0, data10, 0, size1);
             // loops
             for (int y = 0; y < s.Height; y++)
             {
@@ -1334,38 +1346,25 @@ namespace Manual_Screen_Renderer
                 {
                     // calculate the index
                     int index = y * bmpData1.Stride + x * bpp;
-                    //int index = y * bmpData1.Stride + x * bpp;
                     // get the color
                     Color c9 = Color.FromArgb(data9[index + 3], data9[index + 2], data9[index + 1], data9[index]);
                     CursorColors.Features features = CursorColors.FeaturesRendered(c9);
                     int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
                     int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
                     int tSky = features.ThisSky;
-
-                    //ccPaint.Depth = tDepth;
-                    //ccPaint.IndexID = tIndexID;
-                    //ccPaint.EColor = tEColor;
-                    //ccPaint.LColor = tLColor;
-                    //ccPaint.Light = tLight;
-                    //ccPaint.Pipe = tPipe;
-                    //ccPaint.Grime = tGrime;
-                    //ccPaint.Shading = tShading;
-                    //ccPaint.Sky = tSky;
                     if (tIndexID != 0)
                     {
                         ccPaint.IndexPalette.Entries[tIndexID] = Color.FromArgb(data9[(255 - tIndexID) * bpp + 3], data9[(255 - tIndexID) * bpp + 2], data9[(255 - tIndexID) * bpp + 1], data9[(255 - tIndexID) * bpp]);
                     }
-                    Color c0 = CursorColors.ToDepth(tDepth);//Color.FromArgb(data0[index + 3], data0[index + 2], data0[index + 1], data0[index]);
-                    Color c1 = CursorColors.ToEColor(tEColor);//Color.FromArgb(data1[index + 3], data1[index + 2], data1[index + 1], data1[index]);
-                    //int idx = data2[y * bmpData2.Stride + x];
-                    Color c3 = CursorColors.ToLColor(tLColor);//Color.FromArgb(data3[index + 3], data3[index + 2], data3[index + 1], data3[index]);
-                    Color c4 = CursorColors.ToLight(tLight);//Color.FromArgb(data4[index + 3], data4[index + 2], data4[index + 1], data4[index]);
-                    Color c5 = CursorColors.ToPipe(tPipe);//Color.FromArgb(data5[index + 3], data5[index + 2], data5[index + 1], data5[index]);
-                    Color c6 = CursorColors.ToGrime(tGrime);//Color.FromArgb(data6[index + 3], data6[index + 2], data6[index + 1], data6[index]);
-                    Color c7 = CursorColors.ToShading(tShading);//Color.FromArgb(data7[index + 3], data7[index + 2], data7[index + 1], data7[index]);
-                    Color c8 = CursorColors.ToSky(tSky);//Color.FromArgb(data8[index + 3], data8[index + 2], data8[index + 1], data8[index]);
-
-                    //Color c9 = ColorRendered(FeaturesFromColors(c0, idx, c1, c3, c4, c5, c6, c7, c8));
+                    Color c0 = CursorColors.ToDepth(tDepth);
+                    Color c1 = CursorColors.ToEColor(tEColor);
+                    Color c3 = CursorColors.ToLColor(tLColor);
+                    Color c4 = CursorColors.ToLight(tLight);
+                    Color c5 = CursorColors.ToPipe(tPipe);
+                    Color c6 = CursorColors.ToGrime(tGrime);
+                    Color c7 = CursorColors.ToShading(tShading);
+                    Color c8 = CursorColors.ToSky(tSky);
+                    Color c10 = ccPaint.PreviewPixel(c9, x, y);
                     data0[index + 0] = c0.B;data0[index + 1] = c0.G;data0[index + 2] = c0.R;data0[index + 3] = c0.A;
                     data1[index + 0] = c1.B; data1[index + 1] = c1.G; data1[index + 2] = c1.R; data1[index + 3] = c1.A;
                     data2[y * bmpData2.Stride + x] = (byte)tIndexID;
@@ -1375,10 +1374,10 @@ namespace Manual_Screen_Renderer
                     data6[index + 0] = c6.B; data6[index + 1] = c6.G; data6[index + 2] = c6.R; data6[index + 3] = c6.A;
                     data7[index + 0] = c7.B; data7[index + 1] = c7.G; data7[index + 2] = c7.R; data7[index + 3] = c7.A;
                     data8[index + 0] = c8.B; data8[index + 1] = c8.G; data8[index + 2] = c8.R; data8[index + 3] = c8.A;
-                    //data9[index + 0] = c9.B;
-                    //data9[index + 1] = c9.G;
-                    //data9[index + 2] = c9.R;
-                    //data9[index + 3] = c9.A;
+                    data10[index + 0] = c10.B;
+                    data10[index + 1] = c10.G;
+                    data10[index + 2] = c10.R;
+                    data10[index + 3] = c10.A;
                 }
             }
             System.Runtime.InteropServices.Marshal.Copy(data0, 0, bmpData0.Scan0, data0.Length);
@@ -1390,6 +1389,7 @@ namespace Manual_Screen_Renderer
             System.Runtime.InteropServices.Marshal.Copy(data6, 0, bmpData6.Scan0, data6.Length);
             System.Runtime.InteropServices.Marshal.Copy(data7, 0, bmpData7.Scan0, data7.Length);
             System.Runtime.InteropServices.Marshal.Copy(data8, 0, bmpData8.Scan0, data8.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data10, 0, bmpData10.Scan0, data10.Length);
             imgDepth.UnlockBits(bmpData0);
             imgEColor.UnlockBits(bmpData1);
             imgIndex.UnlockBits(bmpData2);
@@ -1400,8 +1400,9 @@ namespace Manual_Screen_Renderer
             imgShading.UnlockBits(bmpData7);
             imgSky.UnlockBits(bmpData8);
             imgRendered.UnlockBits(bmpData9);
+            imgPreview.UnlockBits(bmpData10);
             //Console.WriteLine("Done Composing");
-            MakePreview();
+            FastPreview();
         }
 
         private void RenderFromComponenets()
@@ -1426,6 +1427,42 @@ namespace Manual_Screen_Renderer
                     imgRendered.SetPixel(j, i, CursorColors.ColorRendered(features));
                 }
             }
+        }
+
+        private void FastPreview()
+        {
+            tlblMessages.Text = "Applying palette";
+            Application.DoEvents();
+            int w = imgRendered.Width;
+            int h = imgRendered.Height;
+            Size s = imgDepth.Size;
+            PixelFormat fmt = imgDepth.PixelFormat;
+            byte bpp = (byte)4;
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData10 = imgPreview.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            int size1 = bmpData9.Stride * bmpData9.Height;
+            byte[] data9 = new byte[size1];
+            byte[] data10 = new byte[size1];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData9.Scan0, data9, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData10.Scan0, data10, 0, size1);
+            for (int y = 0; y < s.Height; y++)
+            {
+                for (int x = 0; x < s.Width; x++)
+                {
+                    int index = y * bmpData9.Stride + x * bpp;
+                    Color c9 = Color.FromArgb(data9[index + 3], data9[index + 2], data9[index + 1], data9[index]);
+                    Color c10 = ccPaint.PreviewPixel(c9, x, y);
+                    data10[index + 0] = c10.B;
+                    data10[index + 1] = c10.G;
+                    data10[index + 2] = c10.R;
+                    data10[index + 3] = c10.A;
+                }
+            }
+            System.Runtime.InteropServices.Marshal.Copy(data10, 0, bmpData10.Scan0, data10.Length);
+            imgRendered.UnlockBits(bmpData9);
+            imgPreview.UnlockBits(bmpData10);
+            tlblMessages.Text = "Ready";
         }
 
         private void MakePreview()
@@ -1521,7 +1558,7 @@ namespace Manual_Screen_Renderer
             tlblMessages.Text = "Decomposing rendered screen into components.";
             FastDecompose();
             imgIndex.Palette = ccPaint.IndexPalette;
-            MakePreview();
+            FastPreview();
             RefreshWorkspace();
             btnDecompose.Enabled = false;
             tlblMessages.Text = "Ready";
@@ -1542,7 +1579,7 @@ namespace Manual_Screen_Renderer
                     btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
                     //Console.WriteLine("IndexID "+selID.ToString());
                     toolTip.SetToolTip(btnPickIndex, selID.ToString());
-                    MakePreview();
+                    FastPreview();
                 }
             }
         }
@@ -1933,7 +1970,7 @@ namespace Manual_Screen_Renderer
             {
                 paletteMode = true;
                 exportPalettePreviewToolStripMenuItem.Enabled = true;
-                MakePreview();
+                FastPreview();
                 RefreshWorkspace();
             }
             else
@@ -2182,7 +2219,7 @@ namespace Manual_Screen_Renderer
                 }
                 if (queuePreview)
                 {
-                    MakePreview();
+                    FastPreview();
                 }
                 RefreshWorkspace();
             }
@@ -2194,7 +2231,7 @@ namespace Manual_Screen_Renderer
             if (int.TryParse(toolStripComboBox1.Text, out i) )
             {
                 ccPaint.icolA = i;
-                MakePreview();
+                FastPreview();
                 RefreshWorkspace();
             }
         }
@@ -2205,7 +2242,7 @@ namespace Manual_Screen_Renderer
             if (int.TryParse(toolStripComboBox2.Text, out i))
             {
                 ccPaint.icolB = i;
-                MakePreview();
+                FastPreview();
                 RefreshWorkspace();
             }
         }
@@ -2218,6 +2255,44 @@ namespace Manual_Screen_Renderer
             {
                 imgPreview.Save(sfd.FileName, ImageFormat.Png);
             }
+        }
+
+        private void btnDev_Click(object sender, EventArgs e)
+        {
+            switch (devCounter)
+            {
+                case 0:
+                    pbxWorkspace.scrollTL = new Point(0, 0);
+                    pbxWorkspace.scrollx = 0;
+                    pbxWorkspace.scrolly = 0;
+                    pbxWorkspace.fullImage = pbxWorkspace.Image;
+                    devCounter++;
+                    break;
+                case 1:
+                    pbxWorkspace.SetScale(2.0f, new Point(2, 2));
+                    pbxWorkspace.scrollx = 2;
+                    pbxWorkspace.scrolly = 2;
+                    Console.WriteLine("scale 2");
+                    devCounter++;
+                    break;
+                case 2:
+                    pbxWorkspace.scrollTL = new Point(13, 13);
+                    pbxWorkspace.scrollx = 13;
+                    pbxWorkspace.scrolly = 13;
+                    Console.WriteLine("scroll 13 13");
+                    devCounter++;
+                    break;
+                case 3:
+                    pbxWorkspace.scrollTL = new Point(-2, -2);
+                    pbxWorkspace.scrollx = -2;
+                    pbxWorkspace.scrolly = -2;
+                    Console.WriteLine("scroll -2 -2");
+                    devCounter =1;
+                    break;
+            }
+            pbxWorkspace.PrintImage();
+
+            Console.WriteLine(pbxWorkspace.scrollTL);
         }
 
 

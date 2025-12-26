@@ -66,6 +66,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CursorColors.cs" />
+    <Compile Include="MseMath.cs" />
     <Compile Include="PalettePopup.cs">
       <SubType>Form</SubType>
     </Compile>

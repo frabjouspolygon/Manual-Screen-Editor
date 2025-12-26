@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static System.Net.Mime.MediaTypeNames;
 using Color = System.Drawing.Color;
+using static Manual_Screen_Renderer.MseMath;
 
 namespace Manual_Screen_Renderer
 {
@@ -44,8 +45,8 @@ namespace Manual_Screen_Renderer
             if (pictureBox1.Image != null)
             {
                 Point clientPoint = PointToClient(System.Windows.Forms.Cursor.Position);
-                var intX = (int)(Form1.Map(pictureBox1.Left, pictureBox1.Left+pictureBox1.Width, 0, pictureBox1.Image.Width, clientPoint.X) + 0.5d);
-                var intY =  (int)(Form1.Map(pictureBox1.Top, pictureBox1.Bottom, 0, pictureBox1.Image.Height, clientPoint.Y) + 0.5d)-5;
+                var intX = (int)(Map(pictureBox1.Left, pictureBox1.Left+pictureBox1.Width, 0, pictureBox1.Image.Width, clientPoint.X) + 0.5d);
+                var intY =  (int)(Map(pictureBox1.Top, pictureBox1.Bottom, 0, pictureBox1.Image.Height, clientPoint.Y) + 0.5d)-5;
                 //Console.WriteLine("X "+clientPoint.X.ToString()+" " + pictureBox1.Left.ToString() + " " + pictureBox1.Width.ToString() + " " 
                 //    + pictureBox1.Image.Width.ToString() + " " + intX.ToString());
                 //lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
