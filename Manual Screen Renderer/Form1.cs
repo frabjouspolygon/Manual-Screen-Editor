@@ -2560,6 +2560,12 @@ namespace Manual_Screen_Renderer
             }
         }
 
+        private void tbrOpacity_ValueChanged(object sender, EventArgs e)
+        {
+            ccPaint.PenAlpha=tbrOpacity.Value;
+            toolTip.SetToolTip(tbrOpacity, tbrOpacity.Value.ToString());
+        }
+
 
 
 

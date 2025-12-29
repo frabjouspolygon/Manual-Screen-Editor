@@ -98,6 +98,8 @@
             this.btnEditEColor = new System.Windows.Forms.Button();
             this.btnEditDepth = new System.Windows.Forms.Button();
             this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
+            this.tbrOpacity = new System.Windows.Forms.TrackBar();
+            this.lblOpacity = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -113,6 +115,7 @@
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbrOpacity)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -125,6 +128,8 @@
             // splitContainer1.Panel1
             // 
             resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
+            this.splitContainer1.Panel1.Controls.Add(this.lblOpacity);
+            this.splitContainer1.Panel1.Controls.Add(this.tbrOpacity);
             this.splitContainer1.Panel1.Controls.Add(this.btnDev);
             this.splitContainer1.Panel1.Controls.Add(this.lblPen);
             this.splitContainer1.Panel1.Controls.Add(this.nudPenSize);
@@ -876,6 +881,24 @@
             this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
             // 
+            // tbrOpacity
+            // 
+            this.tbrOpacity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            resources.ApplyResources(this.tbrOpacity, "tbrOpacity");
+            this.tbrOpacity.Maximum = 255;
+            this.tbrOpacity.Name = "tbrOpacity";
+            this.tbrOpacity.TabStop = false;
+            this.tbrOpacity.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.toolTip.SetToolTip(this.tbrOpacity, resources.GetString("tbrOpacity.ToolTip"));
+            this.tbrOpacity.ValueChanged += new System.EventHandler(this.tbrOpacity_ValueChanged);
+            // 
+            // lblOpacity
+            // 
+            resources.ApplyResources(this.lblOpacity, "lblOpacity");
+            this.lblOpacity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.lblOpacity.Name = "lblOpacity";
+            this.toolTip.SetToolTip(this.lblOpacity, resources.GetString("lblOpacity.ToolTip"));
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -911,6 +934,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbrOpacity)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -984,6 +1008,8 @@
         private System.Windows.Forms.ToolStripMenuItem exportPalettePreviewToolStripMenuItem;
         private System.Windows.Forms.Button btnDev;
         private System.Windows.Forms.ToolStripMenuItem rainToolStripMenuItem;
+        private System.Windows.Forms.Label lblOpacity;
+        private System.Windows.Forms.TrackBar tbrOpacity;
     }
 }
 
