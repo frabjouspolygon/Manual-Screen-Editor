@@ -44,7 +44,7 @@ namespace Manual_Screen_Renderer
         public int Grime { get; set; }//0?1
         public int Shading { get; set; }//0-255
         public int Sky { get; set; }//0?1
-
+        public bool AllowDarkE {  get; set; }
         public struct ECol
         {
             public ECol(WeatherECol dry, WeatherECol wet)
@@ -124,13 +124,15 @@ namespace Manual_Screen_Renderer
         public int icolA { get; set; }
         public int icolB { get; set; }
 
+        public bool Rain { get; set; }
 
         public ColorPalette IndexPalette { get; set; }
         public int PenSize { get; set; }
+        public int PenAlpha { get; set; }
         public CursorColors()
         {
             //IndexPalette = new List<Color>(256);
-            imgPalette = Form1.SolidBitmap(32, 8, Color.FromArgb(0, 0, 0));
+            imgPalette = new Bitmap(Properties.Resources.palette0);//Form1.SolidBitmap(32, 16, Color.FromArgb(0, 0, 0));
             imgGrimeMask = new Bitmap(Properties.Resources.GrimeMask);
             colA = Color.FromArgb(255, 0, 255);
             colB = Color.FromArgb(0, 255, 255);
@@ -139,6 +141,9 @@ namespace Manual_Screen_Renderer
             BaseECols = new List<ECol>();
             PopulateBaseECols();
             PenSize = 1;
+            PenAlpha = 255;
+            Rain = false;
+            AllowDarkE = false;
         }
 
         public void PopulateBaseECols()
@@ -174,19 +179,19 @@ namespace Manual_Screen_Renderer
             }
             else if (tEColor == NoEffectColorD)
             {
-                return Color.FromArgb(50, 50, 50);
+                return Color.FromArgb(0, 0, 0); //return Color.FromArgb(50, 50, 50);
             }
             else if (tEColor == EffectColorAD)
             {
-                return Color.FromArgb(150, 0, 150);
+                return Color.FromArgb(255, 0, 255); //return Color.FromArgb(150, 0, 150);
             }
             else if (tEColor == EffectColorBD)
             {
-                return Color.FromArgb(0, 150, 150);
+                return Color.FromArgb(0, 255, 255); //return Color.FromArgb(0, 150, 150);
             }
             else if (tEColor == EffectColorCD)
             {
-                return Color.FromArgb(150, 150, 150);
+                return Color.FromArgb(255, 255, 255); //return Color.FromArgb(150, 150, 150);
             }
             return Color.FromArgb(0, 0, 0);
         }
@@ -505,24 +510,24 @@ namespace Manual_Screen_Renderer
             int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
             int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
             int tSky = features.ThisSky;
-
+            int tR = this.Rain ? 8 : 0;
             if (tSky == 1)
             {
-                c = imgPalette.GetPixel(0, 0);
+                c = imgPalette.GetPixel(0, tR);
             }
             else if (tPipe > 0)
             {
                 if (tPipe == PipeL1)
                 {
-                    c = imgPalette.GetPixel(10, 0);
+                    c = imgPalette.GetPixel(10, tR);
                 }
                 else if (tPipe == PipeL2)
                 {
-                    c = imgPalette.GetPixel(11, 0);
+                    c = imgPalette.GetPixel(11, tR);
                 }
                 else if(tPipe == PipeL3)
                 {
-                    c = imgPalette.GetPixel(12, 0);
+                    c = imgPalette.GetPixel(12, tR);
                 }
             }
             else if (tIndexID > 0)
@@ -531,7 +536,7 @@ namespace Manual_Screen_Renderer
             }
             else
             {
-                c = imgPalette.GetPixel(tDepth, 2 + (2 - tLColor) + 3 * (1 - tLight));
+                c = imgPalette.GetPixel(tDepth, 2 + (2 - tLColor) + 3 * (1 - tLight)+ tR);
 
                 if (tEColor != 0 && tEColor !=4)
                 {
@@ -543,7 +548,7 @@ namespace Manual_Screen_Renderer
                     else if (tEColor == EffectColorC || tEColor == EffectColorCD)
                         ThisECol = BaseECols[9];
                     ECol.WeatherECol ThisEColW = new ECol.WeatherECol();
-                    if (1==1)
+                    if (!Rain)
                         ThisEColW = ThisECol.Dry;
                     else
                         ThisEColW = ThisECol.Wet;
@@ -561,7 +566,7 @@ namespace Manual_Screen_Renderer
                 }
                 if (tGrime > 0)
                 {
-                    int a = Math.Min((int)Math.Round(imgGrimeMask.GetPixel(x, y).GetBrightness() * 31), 31);
+                    int a = Math.Min((int)Math.Round(imgGrimeMask.GetPixel(x%imgGrimeMask.Width, y%imgGrimeMask.Height).GetBrightness() * 31), 31);
                     c = Form1.Blend(imgPalette.GetPixel(a, 1), c, 0.2);
                 }
             }
