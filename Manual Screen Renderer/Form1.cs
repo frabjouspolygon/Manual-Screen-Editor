@@ -998,7 +998,7 @@ namespace Manual_Screen_Renderer
                 //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
                 Point workPoint = WorkspacePosition(Cursor.Position);
                 int intX = workPoint.X, intY = workPoint.Y;
-                lblCursorCoords.Text = "(" + intX.ToString() + "," + intY.ToString() + ")";
+                lblCursorCoords.Text = $"({ intX}, { intY})";
                 if (MouseButtons == MouseButtons.Left)
                     UseTool();
             }
@@ -1106,6 +1106,8 @@ namespace Manual_Screen_Renderer
                 }
             }
             PaintPixels(points, opacities);
+            //points.Clear();
+            //opacities.Clear();
         }
 
         private void PaintPixel(int intX, int intY)

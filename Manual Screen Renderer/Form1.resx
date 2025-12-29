@@ -1059,7 +1059,7 @@
     <value>7, 6, 7, 6</value>
   </data>
   <data name="pbxWorkspace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1290, 707</value>
+    <value>1290, 711</value>
   </data>
   <data name="pbxWorkspace.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -2299,7 +2299,7 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1521, 764</value>
+    <value>1521, 768</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
     <value>226</value>
@@ -2386,7 +2386,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1521, 764</value>
+    <value>1521, 768</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.Name" xml:space="preserve">
     <value>toolStripContainer1.ContentPanel</value>
@@ -2515,7 +2515,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="undoToolStripMenuItem.Text" xml:space="preserve">
     <value>Undo</value>
@@ -2524,7 +2524,7 @@
     <value>Ctrl+Shift+Z</value>
   </data>
   <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="redoToolStripMenuItem.Text" xml:space="preserve">
     <value>Redo</value>
@@ -2539,13 +2539,13 @@
     <value>None</value>
   </data>
   <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
     <value>View Palette</value>
   </data>
   <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
     <value>Set Palette</value>
@@ -2554,7 +2554,7 @@
     <value>False</value>
   </data>
   <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
     <value>Effect A</value>
@@ -2566,7 +2566,7 @@
     <value>False</value>
   </data>
   <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
     <value>Effect B</value>
@@ -2722,7 +2722,7 @@
     <value>None</value>
   </data>
   <data name="rainToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="rainToolStripMenuItem.Text" xml:space="preserve">
     <value>Rain</value>
@@ -2734,7 +2734,7 @@
     <value>View</value>
   </data>
   <data name="versionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>151, 26</value>
   </data>
   <data name="versionToolStripMenuItem.Text" xml:space="preserve">
     <value>Version ?</value>
@@ -2890,9 +2890,6 @@
         ///4Q///+EP///gD///4A/////////////8=
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
@@ -3007,6 +3004,12 @@
   <data name="&gt;&gt;toolStripComboBox2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;rainToolStripMenuItem.Name" xml:space="preserve">
+    <value>rainToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rainToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">
     <value>aboutToolStripMenuItem</value>
   </data>
@@ -3030,12 +3033,6 @@
   </data>
   <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rainToolStripMenuItem.Name" xml:space="preserve">
-    <value>rainToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;rainToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

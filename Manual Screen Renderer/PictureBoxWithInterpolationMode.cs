@@ -73,51 +73,84 @@ namespace Manual_Screen_Renderer
             this.scale = newScale;
         }
 
+
+        /*public void Test1()
+        {
+            using (Matrix myMatrix = new Matrix())
+            {
+                PointF[] centerPoints = { this.WorkspacePosition(Cursor.Position) };
+                PointF centerPoint = centerPoints[0];
+                myMatrix.Scale(this.scale, this.scale, MatrixOrder.Append);
+                myMatrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
+                PointF[] points = { new PointF(0, 0), new PointF(this.fullImage.Width, 0), new PointF(this.fullImage.Width, this.fullImage.Height), new PointF(0, this.fullImage.Height) };
+                PointF[] points3 = { new PointF(10, 20), new PointF(40, 20), new PointF(40, 80), new PointF(10, 80) };
+                int brushSize = (int)(10 * this.scale);
+                myMatrix.TransformPoints(points);
+                myMatrix.TransformPoints(points3);
+                using (Bitmap resultBitmap = new Bitmap(this.Width, this.Height))
+                {
+                    using (Graphics g = Graphics.FromImage(resultBitmap))
+                    {
+                        g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                        g.FillRectangle(new SolidBrush(Color.Purple), new Rectangle(0, 0, this.Width, this.Height));
+                        g.DrawImage(this.fullImage, new Rectangle((int)points[0].X, (int)points[0].Y, (int)points[2].X - (int)points[0].X, (int)points[2].Y - (int)points[0].Y));
+                        using (Pen dashedPen = new Pen(Color.FromArgb(100, Color.Black), 2))//selection
+                        {
+                            dashedPen.DashStyle = DashStyle.Dash;
+                            g.DrawPolygon(dashedPen, points3);
+                        }
+                        Point cursorPos = this.WorkspacePosition(Cursor.Position);
+                        g.DrawEllipse(new Pen(Color.FromArgb(100, Color.Gray), 2f), new Rectangle(cursorPos.X - brushSize, cursorPos.Y - brushSize, brushSize * 2, brushSize * 2));
+                        Image oldImage = this.Image;
+                        this.Image = (Image)resultBitmap.Clone();
+                        if (oldImage != null)
+                        {
+                            oldImage.Dispose();
+                        }
+                    }
+                }
+            }
+        }*/
+
         public void PrintImage()
         {
-            Matrix myMatrix = new Matrix();
-            PointF[] centerPoints = { this.WorkspacePosition(Cursor.Position) };
-            //Console.WriteLine(this.scrollx+", "+this.scrolly+", "+this.scale);
-            /*Matrix prev = new Matrix();
-            prev.Scale(this.scale, this.scale);
-            prev.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
-            prev.TransformPoints(centerPoints);
-            Console.WriteLine(prev.OffsetY);*/
-            PointF centerPoint = centerPoints[0];
-            //myMatrix.Translate(-centerPoint.X, -centerPoint.Y, MatrixOrder.Prepend);
-            myMatrix.Scale(this.scale, this.scale, MatrixOrder.Append);
-            myMatrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
-            //e.Graphics.Transform = myMatrix;
-            //e.Graphics.DrawRectangle(Pens.Blue, 0, 0, 100, 50);
-            PointF[] points = { new PointF(0, 0), new PointF(this.fullImage.Width, 0), new PointF(this.fullImage.Width, this.fullImage.Height), new PointF(0, this.fullImage.Height) };
-            //PointF[] points2 = { new PointF(0, 0), new PointF(this.Width, 0), new PointF(this.Width, this.Height), new PointF(0, this.Height) };
-            int brushSize = (int)(this.cursorRadius * this.scale);
-            myMatrix.TransformPoints(points);
-            Bitmap resultBitmap = new Bitmap(this.Width, this.Height);
-            using (Graphics g = Graphics.FromImage(resultBitmap))
+            using (Matrix myMatrix = new Matrix())
             {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(0, 0, this.Width, this.Height));
-                g.DrawImage(this.fullImage, new Rectangle((int)points[0].X, (int)points[0].Y, (int)points[2].X - (int)points[0].X, (int)points[2].Y - (int)points[0].Y));
-                //g.DrawPolygon(new Pen(Color.Red,3.0f),points);
-                //g.DrawPolygon(new Pen(Color.Blue, 3.0f), points2);
-                if (this.selPoints != null)
+                PointF[] centerPoints = { this.WorkspacePosition(Cursor.Position) };
+                PointF centerPoint = centerPoints[0];
+                myMatrix.Scale(this.scale, this.scale, MatrixOrder.Append);
+                myMatrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
+                PointF[] points = { new PointF(0, 0), new PointF(this.fullImage.Width, 0), new PointF(this.fullImage.Width, this.fullImage.Height), new PointF(0, this.fullImage.Height) };
+                int brushSize = (int)(this.cursorRadius * this.scale);
+                myMatrix.TransformPoints(points);
+                using (Bitmap resultBitmap = new Bitmap(this.Width, this.Height))
+                using (Pen dashedPen = new Pen(Color.FromArgb(100, Color.Black), 2))//selection
+                using (Pen CursorPen = new Pen(Color.FromArgb(100, Color.Gray), 2f))//selection
+                using (Graphics g = Graphics.FromImage(resultBitmap))
                 {
-                    PointF[] selPoints = this.selPoints;
-                    myMatrix.TransformPoints(selPoints);
-                    using (Pen dashedPen = new Pen(Color.FromArgb(100, Color.Black), 2))//selection
+                    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    g.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(0, 0, this.Width, this.Height));
+                    g.DrawImage(this.fullImage, new Rectangle((int)points[0].X, (int)points[0].Y, (int)points[2].X - (int)points[0].X, (int)points[2].Y - (int)points[0].Y));
+                    if (this.selPoints != null)
                     {
+                        PointF[] selPoints = this.selPoints;
+                        myMatrix.TransformPoints(selPoints);
                         dashedPen.DashStyle = DashStyle.Dash;
                         g.DrawPolygon(dashedPen, selPoints);
                     }
-                }
-                if (this.showCursor)
-                {
-                    Point cursorPos = this.WorkspacePosition(Cursor.Position);
-                    g.DrawEllipse(new Pen(Color.FromArgb(100, Color.Gray), 2f), new Rectangle(cursorPos.X - brushSize, cursorPos.Y - brushSize, brushSize * 2, brushSize * 2));
+                    if (this.showCursor)
+                    {
+                        Point cursorPos = this.WorkspacePosition(Cursor.Position);
+                        g.DrawEllipse(CursorPen, new Rectangle(cursorPos.X - brushSize, cursorPos.Y - brushSize, brushSize * 2, brushSize * 2));
+                    }
+                    Image oldImage = this.Image;
+                    this.Image = (Image)resultBitmap.Clone();
+                    if (oldImage != null)
+                    {
+                        oldImage.Dispose();
+                    }
                 }
             }
-            this.Image = resultBitmap;
         }
 
         protected override void OnPaint(PaintEventArgs paintEventArgs)
@@ -125,22 +158,6 @@ namespace Manual_Screen_Renderer
             paintEventArgs.Graphics.InterpolationMode = InterpolationMode;
             base.OnPaint(paintEventArgs);
         }
-
-        /*protected override void OnResize(EventArgs e)
-        {
-            if (this.Image != null)
-            {
-                float screenDpi = this.DeviceDpi;
-                Bitmap dpiAwareBitmap = new Bitmap(this.Image.Width, this.Image.Height);
-                dpiAwareBitmap.SetResolution(screenDpi, screenDpi);
-                if (this.Image != null)
-                {
-                    this.Image.Dispose();
-                }
-                this.Image = dpiAwareBitmap;
-            }
-            base.OnResize(e);
-        }*/
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
