@@ -100,6 +100,8 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.composeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decomposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -729,7 +731,9 @@
             this.editToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem});
+            this.redoToolStripMenuItem,
+            this.composeToolStripMenuItem,
+            this.decomposeToolStripMenuItem});
             this.editToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(198)))));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
@@ -899,6 +903,22 @@
             // 
             this.toolTip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             // 
+            // composeToolStripMenuItem
+            // 
+            this.composeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.composeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.composeToolStripMenuItem.Name = "composeToolStripMenuItem";
+            resources.ApplyResources(this.composeToolStripMenuItem, "composeToolStripMenuItem");
+            this.composeToolStripMenuItem.Click += new System.EventHandler(this.composeToolStripMenuItem_Click);
+            // 
+            // decomposeToolStripMenuItem
+            // 
+            this.decomposeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.decomposeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.decomposeToolStripMenuItem.Name = "decomposeToolStripMenuItem";
+            resources.ApplyResources(this.decomposeToolStripMenuItem, "decomposeToolStripMenuItem");
+            this.decomposeToolStripMenuItem.Click += new System.EventHandler(this.decomposeToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -1010,6 +1030,8 @@
         private System.Windows.Forms.ToolStripMenuItem rainToolStripMenuItem;
         private System.Windows.Forms.Label lblOpacity;
         private System.Windows.Forms.TrackBar tbrOpacity;
+        private System.Windows.Forms.ToolStripMenuItem composeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decomposeToolStripMenuItem;
     }
 }
 

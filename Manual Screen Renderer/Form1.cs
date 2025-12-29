@@ -869,9 +869,8 @@ namespace Manual_Screen_Renderer
                 }
             }
             
-        }*/
-
-        /*private void FakeScroll()
+        }
+        private void FakeScroll()
         {
 
             if (pbxWorkspace.Image != null)
@@ -2437,11 +2436,8 @@ namespace Manual_Screen_Renderer
                                 if(int.TryParse(ending.Substring(0, ending.LastIndexOf('.')) ,out i ))
                                 {
                                     Bitmap myBitmap = LoadBitmapFromPath(filePath);
-                                    //txtRendered.Text = filePath;
                                     imgRendered = myBitmap;
-                                    //btnDecompose.Enabled = true;
                                     queueDecompose = true;
-                                    
                                 }
                             }
                             catch { }
@@ -2451,6 +2447,7 @@ namespace Manual_Screen_Renderer
                 if(queueDecompose)
                 {
                     FastDecompose();
+                    imgIndex.Palette = ccPaint.IndexPalette;
                     if (paletteMode)
                     {
                         queuePreview = true;
@@ -2566,6 +2563,38 @@ namespace Manual_Screen_Renderer
         {
             ccPaint.PenAlpha=tbrOpacity.Value;
             toolTip.SetToolTip(tbrOpacity, tbrOpacity.Value.ToString());
+        }
+
+        private void composeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tlblMessages.Text = "Syncronizing render with layers";
+            Application.DoEvents();
+            FastCompose();
+            RefreshWorkspace();
+            tlblMessages.Text = "Ready";
+        }
+
+        private void decomposeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (imgRendered == null)
+            {
+                return;
+            }
+            tlblMessages.Text = "Populating layers";
+            if (imgDepth != null || imgEColor != null || imgIndex != null || imgLColor != null || imgLight != null || imgPipe != null || imgRainbow != null || imgShading != null || imgSky != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Overwrite components?", "", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            tlblMessages.Text = "Decomposing rendered screen into components.";
+            FastDecompose();
+            imgIndex.Palette = ccPaint.IndexPalette;
+            FastPreview();
+            RefreshWorkspace();
+            tlblMessages.Text = "Ready";
         }
 
 
