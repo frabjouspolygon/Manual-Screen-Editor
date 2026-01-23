@@ -44,6 +44,7 @@ namespace Manual_Screen_Renderer
         public int Grime { get; set; }//0?1
         public int Shading { get; set; }//0-255
         public int Sky { get; set; }//0?1
+        public double GrimeAlpha { get; set; }
         public bool AllowDarkE {  get; set; }
         public struct ECol
         {
@@ -144,6 +145,7 @@ namespace Manual_Screen_Renderer
             PenAlpha = 255;
             Rain = false;
             AllowDarkE = false;
+            GrimeAlpha = 1.0;
         }
 
         public void PopulateBaseECols()
@@ -567,7 +569,7 @@ namespace Manual_Screen_Renderer
                 if (tGrime > 0)
                 {
                     int a = Math.Min((int)Math.Round(imgGrimeMask.GetPixel(x%imgGrimeMask.Width, y%imgGrimeMask.Height).GetBrightness() * 31), 31);
-                    c = Form1.Blend(imgPalette.GetPixel(a, 1), c, 0.2);
+                    c = Form1.Blend(imgPalette.GetPixel(a, 1), c, GrimeAlpha*0.1);
                 }
             }
             return c;

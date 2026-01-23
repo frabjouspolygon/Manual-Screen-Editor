@@ -57,6 +57,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             this.btnShowRendered = new System.Windows.Forms.Button();
             this.lblCursorCoords = new System.Windows.Forms.Label();
             this.btnEditSky = new System.Windows.Forms.Button();
@@ -87,6 +88,8 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.composeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decomposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,9 +102,7 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.composeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decomposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
+            this.previewGrimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -109,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbrOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPenSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -117,7 +119,6 @@
             this.toolStripContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -410,6 +411,28 @@
             resources.ApplyResources(this.label9, "label9");
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.label9.Name = "label9";
+            // 
+            // pbxWorkspace
+            // 
+            this.pbxWorkspace.BackColor = System.Drawing.Color.Transparent;
+            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pbxWorkspace.cursorRadius = 0;
+            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
+            this.pbxWorkspace.fullImage = null;
+            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pbxWorkspace.Name = "pbxWorkspace";
+            this.pbxWorkspace.scale = 0F;
+            this.pbxWorkspace.scrollTL = new System.Drawing.Point(0, 0);
+            this.pbxWorkspace.scrollx = 0F;
+            this.pbxWorkspace.scrolly = 0F;
+            this.pbxWorkspace.selPoints = null;
+            this.pbxWorkspace.showCursor = false;
+            this.pbxWorkspace.TabStop = false;
+            this.pbxWorkspace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseDown);
+            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
+            this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
+            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
+            this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
             // 
             // btnShowRendered
             // 
@@ -735,6 +758,22 @@
             resources.ApplyResources(this.redoToolStripMenuItem, "redoToolStripMenuItem");
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
+            // composeToolStripMenuItem
+            // 
+            this.composeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.composeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.composeToolStripMenuItem.Name = "composeToolStripMenuItem";
+            resources.ApplyResources(this.composeToolStripMenuItem, "composeToolStripMenuItem");
+            this.composeToolStripMenuItem.Click += new System.EventHandler(this.composeToolStripMenuItem_Click);
+            // 
+            // decomposeToolStripMenuItem
+            // 
+            this.decomposeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.decomposeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.decomposeToolStripMenuItem.Name = "decomposeToolStripMenuItem";
+            resources.ApplyResources(this.decomposeToolStripMenuItem, "decomposeToolStripMenuItem");
+            this.decomposeToolStripMenuItem.Click += new System.EventHandler(this.decomposeToolStripMenuItem_Click);
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.CheckOnClick = true;
@@ -745,7 +784,8 @@
             this.effectBToolStripMenuItem,
             this.toolStripComboBox1,
             this.toolStripComboBox2,
-            this.rainToolStripMenuItem});
+            this.rainToolStripMenuItem,
+            this.previewGrimeToolStripMenuItem});
             this.viewToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(198)))));
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
@@ -849,8 +889,8 @@
             // 
             this.rainToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
             this.rainToolStripMenuItem.CheckOnClick = true;
-            this.rainToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             resources.ApplyResources(this.rainToolStripMenuItem, "rainToolStripMenuItem");
+            this.rainToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.rainToolStripMenuItem.Name = "rainToolStripMenuItem";
             this.rainToolStripMenuItem.CheckedChanged += new System.EventHandler(this.rainToolStripMenuItem_CheckedChanged);
             // 
@@ -882,43 +922,16 @@
             // 
             this.toolTip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             // 
-            // composeToolStripMenuItem
+            // previewGrimeToolStripMenuItem
             // 
-            this.composeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
-            this.composeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            this.composeToolStripMenuItem.Name = "composeToolStripMenuItem";
-            resources.ApplyResources(this.composeToolStripMenuItem, "composeToolStripMenuItem");
-            this.composeToolStripMenuItem.Click += new System.EventHandler(this.composeToolStripMenuItem_Click);
-            // 
-            // decomposeToolStripMenuItem
-            // 
-            this.decomposeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
-            this.decomposeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            this.decomposeToolStripMenuItem.Name = "decomposeToolStripMenuItem";
-            resources.ApplyResources(this.decomposeToolStripMenuItem, "decomposeToolStripMenuItem");
-            this.decomposeToolStripMenuItem.Click += new System.EventHandler(this.decomposeToolStripMenuItem_Click);
-            // 
-            // pbxWorkspace
-            // 
-            this.pbxWorkspace.BackColor = System.Drawing.Color.Transparent;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pbxWorkspace.cursorRadius = 0;
-            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
-            this.pbxWorkspace.fullImage = null;
-            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pbxWorkspace.Name = "pbxWorkspace";
-            this.pbxWorkspace.scale = 0F;
-            this.pbxWorkspace.scrollTL = new System.Drawing.Point(0, 0);
-            this.pbxWorkspace.scrollx = 0F;
-            this.pbxWorkspace.scrolly = 0F;
-            this.pbxWorkspace.selPoints = null;
-            this.pbxWorkspace.showCursor = false;
-            this.pbxWorkspace.TabStop = false;
-            this.pbxWorkspace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseDown);
-            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
-            this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
-            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
-            this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
+            this.previewGrimeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.previewGrimeToolStripMenuItem.Checked = true;
+            this.previewGrimeToolStripMenuItem.CheckOnClick = true;
+            this.previewGrimeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.previewGrimeToolStripMenuItem, "previewGrimeToolStripMenuItem");
+            this.previewGrimeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.previewGrimeToolStripMenuItem.Name = "previewGrimeToolStripMenuItem";
+            this.previewGrimeToolStripMenuItem.Click += new System.EventHandler(this.previewGrimeToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -942,6 +955,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbrOpacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPenSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
@@ -955,7 +969,6 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1033,6 +1046,7 @@
         private System.Windows.Forms.TrackBar tbrOpacity;
         private System.Windows.Forms.ToolStripMenuItem composeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previewGrimeToolStripMenuItem;
     }
 }
 

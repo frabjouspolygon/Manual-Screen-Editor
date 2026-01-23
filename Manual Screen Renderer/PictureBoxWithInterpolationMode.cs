@@ -46,7 +46,7 @@ namespace Manual_Screen_Renderer
 
         public void SetScale(float newScale, Point d_focalPoint)
         {
-            Console.WriteLine("set scale "+this.scale + " > " + newScale);
+            //Console.WriteLine("set scale "+this.scale + " > " + newScale);
             PointF[] newCenterPoints = { this.WorkspacePosition(d_focalPoint) };
             PointF[] centerPoints = { this.WorkspacePosition(d_focalPoint) };
             Matrix prev = new Matrix();

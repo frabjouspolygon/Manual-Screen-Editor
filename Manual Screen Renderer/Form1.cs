@@ -724,30 +724,27 @@ namespace Manual_Screen_Renderer
 
             bool blnControl = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
 
-            if (!blnControl)
+            if (!blnControl && mode != 9)
             {
-                if (mode != 9)
+                if (toggle)
                 {
-                    if (toggle)
-                    {
-                        toggle = false;
-                        button.BackColor = Color.White;
-                    }
-                    else
-                    {
-                        toggle = true;
-                        button.BackColor = Color.LightGray;
-                    }
-                    if (button == btnEditDepth) { blnDepth = toggle; }
-                    else if (button == btnEditEColor) { blnEColor = toggle; }
-                    else if (button == btnEditIndex) { blnIndex = toggle; }
-                    else if (button == btnEditLColor) { blnLColor = toggle; }
-                    else if (button == btnEditLight) { blnLight = toggle; }
-                    else if (button == btnEditPipe) { blnPipe = toggle; }
-                    else if (button == btnEditRainbow) { blnRainbow = toggle; }
-                    else if (button == btnEditShading) { blnShading = toggle; }
-                    else if (button == btnEditSky) { blnSky = toggle; }
+                    toggle = false;
+                    button.BackColor = Color.White;
                 }
+                else
+                {
+                    toggle = true;
+                    button.BackColor = Color.LightGray;
+                }
+                if (button == btnEditDepth) { blnDepth = toggle; }
+                else if (button == btnEditEColor) { blnEColor = toggle; }
+                else if (button == btnEditIndex) { blnIndex = toggle; }
+                else if (button == btnEditLColor) { blnLColor = toggle; }
+                else if (button == btnEditLight) { blnLight = toggle; }
+                else if (button == btnEditPipe) { blnPipe = toggle; }
+                else if (button == btnEditRainbow) { blnRainbow = toggle; }
+                else if (button == btnEditShading) { blnShading = toggle; }
+                else if (button == btnEditSky) { blnSky = toggle; }
             }
             else
             {
@@ -980,7 +977,6 @@ namespace Manual_Screen_Renderer
 
         private void pbxWorkspace_MouseDown(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("clicked");
             if (e.Button == MouseButtons.Left)
             {
                 lastCursor = Cursor.Position;
@@ -1042,6 +1038,8 @@ namespace Manual_Screen_Renderer
             btnPickPipe.BackColor = ccPaint.ColorPipe();
             btnPickRainbow.BackColor = ccPaint.ColorGrime();
             btnPickShading.BackColor = ccPaint.ColorShading();
+            toolTip.SetToolTip(btnPickShading, tShading.ToString());
+            colorDialog1.Color = btnPickShading.BackColor;
             btnPickSky.BackColor = ccPaint.ColorSky();
             btnColorPicker.FlatAppearance.BorderColor = Color.Black;
         }
@@ -1152,14 +1150,14 @@ namespace Manual_Screen_Renderer
                 int tSky = features.ThisSky;
                 if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
                     return;
-                if (blnDepth){tDepth = (int)(ccPaint.Depth * opacities[t]/255f + tDepth * (255-opacities[t]) / 255f);}
+                if (blnDepth) {tDepth = Mix(ccPaint.Depth, tDepth, opacities[t] / 255d);}
                 if (blnEColor) { tEColor = ccPaint.EColor; }
                 if (blnIndex) { tIndexID = ccPaint.IndexID; }
-                if (blnLColor) { tLColor = (int)(ccPaint.LColor * opacities[t] / 255f + tLColor * (255 - opacities[t]) / 255f); }
+                if (blnLColor) { tLColor = Mix(ccPaint.LColor, tLColor, opacities[t] / 255d); }
                 if (blnLight) { tLight = ccPaint.Light; }
                 if (blnPipe) { tPipe = ccPaint.Pipe; }
                 if (blnRainbow) { tGrime = ccPaint.Grime; }
-                if (blnShading) { tShading = (int)(ccPaint.Shading * opacities[t] / 255f + tShading * (255 - opacities[t]) / 255f); }
+                if (blnShading) { tShading = Mix(ccPaint.Shading, tShading, opacities[t] / 255d); }
                 if (blnSky) { tSky = ccPaint.Sky; }
                 var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
                 if (features != newfeatures)
@@ -1169,7 +1167,7 @@ namespace Manual_Screen_Renderer
                     pixelsCoords.Add(points[t]);
                 }
             }
-            Console.WriteLine(pixelsCoords.Count);
+            //Console.WriteLine(pixelsCoords.Count);
             if (pixelsFeatures.Count > 0)
             {
                 WorkspaceSetPixels(pixelsCoords, pixelsFeatures);
@@ -1276,7 +1274,7 @@ namespace Manual_Screen_Renderer
 
         private void WorkspaceSetPixels(List<Point> coords, List<CursorColors.Features> pixelsFeatures)
         {
-            Console.WriteLine(coords.Count);
+            //Console.WriteLine(coords.Count);
             int w = imgRendered.Width;
             int h = imgRendered.Height;
             int minX = coords.Min(p => p.X);
@@ -1336,7 +1334,7 @@ namespace Manual_Screen_Renderer
                 Color c6 = CursorColors.ToGrime(features.ThisGrime);
                 Color c7 = CursorColors.ToShading(features.ThisShading);
                 Color c8 = CursorColors.ToSky(features.ThisSky);
-                Color c9 = ColorRendered(FeaturesFromColors(c0, features.ThisIndexID, c1, c3, c4, c5, c6, c7, c8));
+                Color c9 = ColorRendered(features);//ColorRendered(FeaturesFromColors(c0, features.ThisIndexID, c1, c3, c4, c5, c6, c7, c8));
                 Color c10 = ccPaint.PreviewPixel(c9, x, y);
                 data0[index + 0] = c0.B; data0[index + 1] = c0.G; data0[index + 2] = c0.R; data0[index + 3] = c0.A;
                 data1[index + 0] = c1.B; data1[index + 1] = c1.G; data1[index + 2] = c1.R; data1[index + 3] = c1.A;
@@ -2214,6 +2212,8 @@ namespace Manual_Screen_Renderer
             {
                 paletteMode = true;
                 exportPalettePreviewToolStripMenuItem.Enabled = true;
+                previewGrimeToolStripMenuItem.Enabled = true;
+                rainToolStripMenuItem.Enabled = true;
                 FastPreview();
                 RefreshWorkspace();
             }
@@ -2221,6 +2221,8 @@ namespace Manual_Screen_Renderer
             {
                 paletteMode = false;
                 exportPalettePreviewToolStripMenuItem.Enabled = false;
+                previewGrimeToolStripMenuItem.Enabled = false;
+                rainToolStripMenuItem.Enabled = false;
                 RefreshWorkspace();
             }
         }
@@ -2508,33 +2510,17 @@ namespace Manual_Screen_Renderer
                 case 0:
                     PointF[] selPoints = { new PointF(10, 20), new PointF(40, 20), new PointF(40, 80), new PointF(10, 80) };
                     pbxWorkspace.selPoints = selPoints;
-                    /*pbxWorkspace.scrollTL = new Point(0, 0);
-                    pbxWorkspace.scrollx = 0;
-                    pbxWorkspace.scrolly = 0;
-                    pbxWorkspace.fullImage = pbxWorkspace.Image;*/
                     devCounter++;
                     break;
                 case 1:
                     pbxWorkspace.selPoints = null;
-                    /*pbxWorkspace.SetScale(2.0f, new Point(2, 2));
-                    pbxWorkspace.scrollx = 2;
-                    pbxWorkspace.scrolly = 2;
-                    Console.WriteLine("scale 2");*/
                     devCounter++;
                     break;
                 case 2:
                     pbxWorkspace.Image = pbxWorkspace.fullImage;
-                    /*pbxWorkspace.scrollTL = new Point(13, 13);
-                    pbxWorkspace.scrollx = 13;
-                    pbxWorkspace.scrolly = 13;
-                    Console.WriteLine("scroll 13 13");*/
                     devCounter++;
                     break;
                 case 3:
-                    /*pbxWorkspace.scrollTL = new Point(-2, -2);
-                    pbxWorkspace.scrollx = -2;
-                    pbxWorkspace.scrolly = -2;
-                    Console.WriteLine("scroll -2 -2");*/
                     devCounter =1;
                     break;
             }
@@ -2595,6 +2581,22 @@ namespace Manual_Screen_Renderer
             FastPreview();
             RefreshWorkspace();
             tlblMessages.Text = "Ready";
+        }
+
+        private void previewGrimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (previewGrimeToolStripMenuItem.Checked)
+            {
+                ccPaint.GrimeAlpha = 1.0;
+                FastPreview();
+                RefreshWorkspace();
+            }
+            else
+            {
+                ccPaint.GrimeAlpha = 0.0;
+                FastPreview();
+                RefreshWorkspace();
+            }
         }
 
 
