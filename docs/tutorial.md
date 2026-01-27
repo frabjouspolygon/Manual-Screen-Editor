@@ -12,44 +12,38 @@ the label "Rendered" or by dragging and droping the png file from your file expl
 
 ![eg1_1](/docs/figures/eg1_1.png?raw=true)
 
-2. Click the Decompose button.
+2. Select the view mode you want to use.
 
-This should be done every time you import a rendered layer. Without this step, you will not be able to access the base components of a screen.
-
-![eg1_2](/docs/figures/eg1_2.png?raw=true)
-
-3. Select the view mode you want to use.
-
-Do this by left clicking one of the 10 square layer buttons above the canvas.
+Do this by shift + left clicking one of the 10 square layer buttons above the canvas.
 In this case, the depth, level color, sky and rendered layers give us useful information about this particular broken object. This example will continue with rendered layer viewing for clairity.
 
 ![eg1_3](/docs/figures/eg1_3.png?raw=true)
 
-4. Zoom into the targeted area.
+3. Zoom into the targeted area.
 
-Zoom in and out by holding Ctrl and scrolling with the mouse wheel. Vertical and horizontal scrolling can be done by holding nothing and shift respectively while scrolling the mouse wheel.
+Zoom in and out by holding Ctrl and scrolling with the mouse wheel. Vertical and horizontal scrolling can be done by holding nothing and shift respectively while scrolling the mouse wheel. Push the mouse wheel down (M3) to pan.
 
 ![eg1_4](/docs/figures/eg1_4.png?raw=true)
 
-5. Use the eye dropper tool to highlight a pixel from the area that you want to extend.
+4. Use the eye dropper tool to highlight a pixel from the area that you want to extend.
 
 Click the eye dropper button. When the eye dropper tool is selected it will highlight itself in blue. Once used, it will automatically turn itself off. Use the eye dropper tool by left clicking any pixel from the canvas.
 
 ![eg1_5](/docs/figures/eg1_5.png?raw=true)
 
-6. Shift+left click the layer buttons you want to modify and ensure they are shaded gray.
+5. Left click the layer buttons you want to modify and ensure they are shaded gray.
 
 Here we want to replace sky pixels. That means that we need to supply information about the depth, level color, light and of course sky components. By marking the associated layers for editing, we are able to change only the information related to those components within the pixels we paint. All other information contained in layers we did not select will be preserved.
 
 ![eg1_6](/docs/figures/eg1_6.png?raw=true)
 
-7. left click on the canvas, paiting the pixels you want to fill.
+6. Left click on the canvas, paiting the pixels you want to fill.
 
 If you make a mistake, you can use Ctrl-Z to undo it.
 
 ![eg1_7](/docs/figures/eg1_7.png?raw=true)
 
-8. Once you have made the fixes you want, use File > Save As to save the modifed screen.
+7. Once you have made the fixes you want, use File > Save As to save the modifed screen.
 
 Ensure that your screen has the correct name once placed in the game files.
 
@@ -59,7 +53,7 @@ Ensure that your screen has the correct name once placed in the game files.
 
 A neon sign is a good example of effect colors in use. In this example, we will make our own sign.
 
-1. Import the rendered png that you want to fix and click the Decompose button.
+1. Import the rendered png that you want to fix.
 
 Thus far, these steps are the same as in example 1.
 
@@ -69,7 +63,7 @@ Thus far, these steps are the same as in example 1.
 
 In this example, we can choose to view either effect color, effect shading or rendered layers as any of these three tell us information about the sign we want to make.
 
-3. Shift + left-click the effect color and effect shading layers to edit them.
+3. Left-click the effect color and effect shading layers to edit them.
 
 Whenever using effect colors, you will likely want to edit both of these layers together. If you are painting over sky, you will want to also edit the sky, depth and level color layers.
 
@@ -107,6 +101,8 @@ Here we're getting more complicated. Building off of the previous 2 examples, we
 ![eg3_1](/docs/figures/eg3_1.png?raw=true)
 
 In this example, we want to add our own graffiti to this wall. How? Using index colors.
+
+>Index colors (or embedded colors as the wiki calls them) are a legacy implementation of decals which is still present in some places in the base game (ie. the white walls found in Five Pebbles). You can read more about index colors in the main program document. An common issue with index colors is that rooms with backgrounds like RoofTopView do not display the first index color correctly, interpretting it as sky pixels.
 
 1. Edit the index color layer (above the canvas) and click on the index color paint button (on the left panel).
 
