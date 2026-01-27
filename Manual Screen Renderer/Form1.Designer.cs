@@ -98,11 +98,11 @@
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.rainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewGrimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.previewGrimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -894,6 +894,17 @@
             this.rainToolStripMenuItem.Name = "rainToolStripMenuItem";
             this.rainToolStripMenuItem.CheckedChanged += new System.EventHandler(this.rainToolStripMenuItem_CheckedChanged);
             // 
+            // previewGrimeToolStripMenuItem
+            // 
+            this.previewGrimeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.previewGrimeToolStripMenuItem.Checked = true;
+            this.previewGrimeToolStripMenuItem.CheckOnClick = true;
+            this.previewGrimeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.previewGrimeToolStripMenuItem, "previewGrimeToolStripMenuItem");
+            this.previewGrimeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.previewGrimeToolStripMenuItem.Name = "previewGrimeToolStripMenuItem";
+            this.previewGrimeToolStripMenuItem.Click += new System.EventHandler(this.previewGrimeToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
@@ -921,17 +932,6 @@
             // toolTip
             // 
             this.toolTip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            // 
-            // previewGrimeToolStripMenuItem
-            // 
-            this.previewGrimeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
-            this.previewGrimeToolStripMenuItem.Checked = true;
-            this.previewGrimeToolStripMenuItem.CheckOnClick = true;
-            this.previewGrimeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            resources.ApplyResources(this.previewGrimeToolStripMenuItem, "previewGrimeToolStripMenuItem");
-            this.previewGrimeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            this.previewGrimeToolStripMenuItem.Name = "previewGrimeToolStripMenuItem";
-            this.previewGrimeToolStripMenuItem.Click += new System.EventHandler(this.previewGrimeToolStripMenuItem_Click);
             // 
             // Form1
             // 

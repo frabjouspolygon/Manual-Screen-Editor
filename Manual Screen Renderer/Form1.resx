@@ -132,9 +132,6 @@
   <data name="splitContainer1.Panel1.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>426, 17</value>
-  </metadata>
   <data name="lblOpacity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -156,6 +153,9 @@
   <data name="lblOpacity.Text" xml:space="preserve">
     <value>Opacity</value>
   </data>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>426, 17</value>
+  </metadata>
   <data name="lblOpacity.ToolTip" xml:space="preserve">
     <value>Pen opacity (Depth, L. Color, E. Shading)</value>
   </data>
@@ -184,7 +184,7 @@
     <value>52</value>
   </data>
   <data name="tbrOpacity.ToolTip" xml:space="preserve">
-    <value>0</value>
+    <value>255</value>
   </data>
   <data name="&gt;&gt;tbrOpacity.Name" xml:space="preserve">
     <value>tbrOpacity</value>
@@ -1074,7 +1074,7 @@
     <value>pbxWorkspace</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -2331,6 +2331,24 @@
   <data name="statusStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="tlblMessages.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tlblMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 21</value>
+  </data>
+  <data name="tlblMessages.Text" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="tlblMessages.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>611, 20</value>
+  </data>
+  <data name="toolStripStatusLabel2.Text" xml:space="preserve">
+    <value>View layer (Shift+M1), Toggle layer editing (M1), Drag/drop cameras/components/palettes</value>
+  </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -2433,6 +2451,60 @@
   <data name="menuStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="saveToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="saveToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 26</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="saveToolStripMenuItem.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>TextAboveImage</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 26</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>TextAboveImage</value>
+  </data>
+  <data name="saveACopyToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="saveACopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 26</value>
+  </data>
+  <data name="saveACopyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save A Copy</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 26</value>
+  </data>
+  <data name="exportLayersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export Layers</value>
+  </data>
+  <data name="exportPalettePreviewToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="exportPalettePreviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 26</value>
+  </data>
+  <data name="exportPalettePreviewToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export Palette Preview</value>
+  </data>
   <data name="fileToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -2441,6 +2513,36 @@
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>File</value>
+  </data>
+  <data name="undoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="undoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="redoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+Z</value>
+  </data>
+  <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="redoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="composeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="composeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Compose</value>
+  </data>
+  <data name="decomposeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="decomposeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Decompose</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 24</value>
@@ -2452,13 +2554,13 @@
     <value>None</value>
   </data>
   <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
     <value>View Palette</value>
   </data>
   <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
     <value>Set Palette</value>
@@ -2467,7 +2569,7 @@
     <value>False</value>
   </data>
   <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
     <value>Effect A</value>
@@ -2479,7 +2581,7 @@
     <value>False</value>
   </data>
   <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
     <value>Effect B</value>
@@ -2638,7 +2740,7 @@
     <value>None</value>
   </data>
   <data name="rainToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="rainToolStripMenuItem.Text" xml:space="preserve">
     <value>Rain</value>
@@ -2650,7 +2752,7 @@
     <value>None</value>
   </data>
   <data name="previewGrimeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="previewGrimeToolStripMenuItem.Text" xml:space="preserve">
     <value>Preview Grime</value>
@@ -2660,6 +2762,12 @@
   </data>
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>View</value>
+  </data>
+  <data name="versionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 26</value>
+  </data>
+  <data name="versionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Version ?</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 24</value>
@@ -2718,119 +2826,8 @@
   <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tlblMessages.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="tlblMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 21</value>
-  </data>
-  <data name="tlblMessages.Text" xml:space="preserve">
-    <value>Ready</value>
-  </data>
-  <data name="tlblMessages.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>611, 20</value>
-  </data>
-  <data name="toolStripStatusLabel2.Text" xml:space="preserve">
-    <value>View layer (Shift+M1), Toggle layer editing (M1), Drag/drop cameras/components/palettes</value>
-  </data>
-  <data name="saveToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="saveToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 26</value>
-  </data>
-  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="saveToolStripMenuItem.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>TextAboveImage</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 26</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>TextAboveImage</value>
-  </data>
-  <data name="saveACopyToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="saveACopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 26</value>
-  </data>
-  <data name="saveACopyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save A Copy</value>
-  </data>
-  <data name="exportLayersToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="exportLayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 26</value>
-  </data>
-  <data name="exportLayersToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export Layers</value>
-  </data>
-  <data name="exportPalettePreviewToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="exportPalettePreviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 26</value>
-  </data>
-  <data name="exportPalettePreviewToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export Palette Preview</value>
-  </data>
-  <data name="undoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Z</value>
-  </data>
-  <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
-  </data>
-  <data name="undoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Undo</value>
-  </data>
-  <data name="redoToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+Z</value>
-  </data>
-  <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
-  </data>
-  <data name="redoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Redo</value>
-  </data>
-  <data name="composeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
-  </data>
-  <data name="composeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Compose</value>
-  </data>
-  <data name="decomposeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
-  </data>
-  <data name="decomposeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Decompose</value>
-  </data>
-  <data name="versionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
-  </data>
-  <data name="versionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Version ?</value>
-  </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>215, 17</value>
-  </metadata>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>426, 17</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3055,6 +3052,12 @@
   <data name="&gt;&gt;rainToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;previewGrimeToolStripMenuItem.Name" xml:space="preserve">
+    <value>previewGrimeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;previewGrimeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">
     <value>aboutToolStripMenuItem</value>
   </data>
@@ -3078,12 +3081,6 @@
   </data>
   <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;previewGrimeToolStripMenuItem.Name" xml:space="preserve">
-    <value>previewGrimeToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;previewGrimeToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

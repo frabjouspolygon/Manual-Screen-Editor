@@ -132,12 +132,15 @@ namespace Manual_Screen_Renderer
             //Console.WriteLine(R);
             //Console.WriteLine(imgIndex.Palette.Entries[0].A);
             versionToolStripMenuItem.Text = "Version "+ Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            RefreshWorkspace();
             //FakeScroll();
             pbxWorkspace.scale = 1f;
             ccPaint.PenSize = (int)nudPenSize.Value;
             pbxWorkspace.cursorRadius = ccPaint.PenSize;
             pbxWorkspace.selPoints = null;
+            InitializeButtons();
+            
+            ccPaint.IndexID = 0;
+            toolTip.SetToolTip(btnPickIndex, "0");
             RefreshWorkspace();
         }
 
@@ -706,7 +709,16 @@ namespace Manual_Screen_Renderer
             }
         }*/
 
-
+        private void InitializeButtons()
+        {
+            List<Button> buttons = new List<Button> { btnEditDepth, btnEditEColor, btnEditIndex, btnEditLColor, btnEditLight, btnEditPipe, btnEditRainbow, btnEditShading, btnEditSky, btnShowRendered };
+            foreach (Button btn in buttons)
+            {
+                btn.BackColor = Color.LightGray;
+            }
+            blnDepth=blnEColor=blnIndex=blnLColor=blnLight=blnPipe=blnRainbow=blnShading=blnSky = true;
+        }
+        
         private void LayerButtons(Button button)
         {
             int mode;
