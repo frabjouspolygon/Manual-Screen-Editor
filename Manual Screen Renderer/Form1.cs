@@ -916,7 +916,11 @@ namespace Manual_Screen_Renderer
         }
         private void pbxWorkspace_MouseUp(object sender, MouseEventArgs e)
         {
-            ReleasePaint();
+            if (ccPaint.workingBuffer.Count >0)
+            {
+                ReleasePaint();
+            }
+            
         }
         private void pbxWorkspace_MouseLeave(object sender, EventArgs e)
         {
@@ -926,7 +930,13 @@ namespace Manual_Screen_Renderer
         }
         private void ReleasePaint()
         {
-            ccPaint.AddToUndoBuffer(new List<BufferAction>(ccPaint.workingBuffer));
+            if (ccPaint.workingBuffer.Count > 0)
+            {
+                ccPaint.AddToUndoBuffer(new List<BufferAction>(ccPaint.workingBuffer));
+                undoToolStripMenuItem.Enabled = true;
+                ccPaint.redoBuffer.Clear();
+                redoToolStripMenuItem.Enabled = false;
+            }
             ccPaint.workingBuffer = new List<BufferAction>();
             lastCursor = new Point(-1,-1);
         }
@@ -2167,10 +2177,14 @@ namespace Manual_Screen_Renderer
                 var act = ccPaint.undoBuffer[ccPaint.undoBuffer.Count - 1];
                 var oldState = ApplyBufferActs(act);
                 ccPaint.AddToRedoBuffer(oldState);
+                redoToolStripMenuItem.Enabled = true;
                 ccPaint.RemoveFromUndoBuffer();
+                if (ccPaint.undoBuffer.Count == 0)
+                {
+                    undoToolStripMenuItem.Enabled = false;
+                }
             }
         }
-
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2184,7 +2198,12 @@ namespace Manual_Screen_Renderer
                 var act = ccPaint.redoBuffer[ccPaint.redoBuffer.Count - 1];
                 var oldState = ApplyBufferActs(act);
                 ccPaint.AddToUndoBuffer(oldState);
+                undoToolStripMenuItem.Enabled = true;
                 ccPaint.RemoveFromRedoBuffer();
+                if (ccPaint.redoBuffer.Count == 0)
+                {
+                    redoToolStripMenuItem.Enabled = false;
+                }
             }
         }
 
