@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using static Manual_Screen_Renderer.MseMath;
 using System.Drawing.Imaging;
+using System.Threading.Tasks;
 
 namespace Manual_Screen_Renderer
 {
@@ -152,6 +153,60 @@ namespace Manual_Screen_Renderer
                 }
             }
         }
+
+        /*public async void PrintImage()
+        {
+            try
+            {
+                Image result = await Task.Run(() => TransformImage((Image)this.fullImage.Clone()));
+                Image oldImage = this.Image;
+                this.Image = (Image)result.Clone();
+                if (oldImage != null)
+                {
+                    oldImage.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }*/
+
+        /*private Bitmap TransformImage(Image image)
+        {
+            using (Matrix myMatrix = new Matrix())
+            {
+                PointF[] centerPoints = { this.WorkspacePosition(Cursor.Position) };
+                PointF centerPoint = centerPoints[0];
+                myMatrix.Scale(this.scale, this.scale, MatrixOrder.Append);
+                myMatrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
+                PointF[] points = { new PointF(0, 0), new PointF(this.fullImage.Width, 0), new PointF(this.fullImage.Width, this.fullImage.Height), new PointF(0, this.fullImage.Height) };
+                int brushSize = (int)(this.cursorRadius * this.scale);
+                myMatrix.TransformPoints(points);
+                using (Bitmap resultBitmap = new Bitmap(this.Width, this.Height))
+                using (Pen dashedPen = new Pen(Color.FromArgb(100, Color.Black), 2))//selection
+                using (Pen CursorPen = new Pen(Color.FromArgb(100, Color.Gray), 2f))//selection
+                using (Graphics g = Graphics.FromImage(resultBitmap))
+                {
+                    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    g.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(0, 0, this.Width, this.Height));
+                    g.DrawImage(this.fullImage, new Rectangle((int)points[0].X, (int)points[0].Y, (int)points[2].X - (int)points[0].X, (int)points[2].Y - (int)points[0].Y));
+                    if (this.selPoints != null)
+                    {
+                        PointF[] selPoints = this.selPoints;
+                        myMatrix.TransformPoints(selPoints);
+                        dashedPen.DashStyle = DashStyle.Dash;
+                        g.DrawPolygon(dashedPen, selPoints);
+                    }
+                    if (this.showCursor)
+                    {
+                        Point cursorPos = this.WorkspacePosition(Cursor.Position);
+                        g.DrawEllipse(CursorPen, new Rectangle(cursorPos.X - brushSize, cursorPos.Y - brushSize, brushSize * 2, brushSize * 2));
+                    }
+                    return resultBitmap;
+                }
+            }
+        }*/
 
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {

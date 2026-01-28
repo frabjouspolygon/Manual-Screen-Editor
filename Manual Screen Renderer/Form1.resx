@@ -213,9 +213,6 @@
   <data name="btnDev.Text" xml:space="preserve">
     <value>DEV</value>
   </data>
-  <data name="btnDev.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;btnDev.Name" xml:space="preserve">
     <value>btnDev</value>
   </data>
@@ -1074,7 +1071,7 @@
     <value>pbxWorkspace</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.3.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>

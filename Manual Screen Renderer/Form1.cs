@@ -721,6 +721,11 @@ namespace Manual_Screen_Renderer
         
         private void LayerButtons(Button button)
         {
+            /*List<Button> buttons = new List<Button> { btnEditDepth, btnEditEColor, btnEditIndex, btnEditLColor, btnEditLight, btnEditPipe, btnEditRainbow, btnEditShading, btnEditSky, btnShowRendered };
+            foreach (Button btn in buttons)
+            {
+                btn.Enabled = false;
+            }*/
             int mode;
             bool toggle;
             if (button == btnEditDepth){mode = 0;toggle = blnDepth;}
@@ -2534,30 +2539,32 @@ namespace Manual_Screen_Renderer
             }
         }
 
-        private void btnDev_Click(object sender, EventArgs e)
+        private async void btnDev_Click(object sender, EventArgs e)
         {
-            switch (devCounter)
+            btnDev.Enabled = false;
+            try
             {
-                case 0:
-                    PointF[] selPoints = { new PointF(10, 20), new PointF(40, 20), new PointF(40, 80), new PointF(10, 80) };
-                    pbxWorkspace.selPoints = selPoints;
-                    devCounter++;
-                    break;
-                case 1:
-                    pbxWorkspace.selPoints = null;
-                    devCounter++;
-                    break;
-                case 2:
-                    pbxWorkspace.Image = pbxWorkspace.fullImage;
-                    devCounter++;
-                    break;
-                case 3:
-                    devCounter =1;
-                    break;
-            }
-            pbxWorkspace.PrintImage();
+                // Time-consuming work (e.g., I/O operation) on a background thread
+                string result = await Task.Run(() => LongRunningOperation());
 
-            //Console.WriteLine(pbxWorkspace.scrollTL);
+                // Code after await automatically runs on the UI thread
+                Console.WriteLine(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                btnDev.Enabled = true;
+            }
+        }
+
+        private string LongRunningOperation()
+        {
+            // Simulate work
+            System.Threading.Thread.Sleep(3000);
+            return "Operation Complete";
         }
 
         private void rainToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
