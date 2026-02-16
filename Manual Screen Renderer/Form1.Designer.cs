@@ -433,6 +433,7 @@
             this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
             this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
+            this.pbxWorkspace.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseWheel);
             // 
             // btnShowRendered
             // 

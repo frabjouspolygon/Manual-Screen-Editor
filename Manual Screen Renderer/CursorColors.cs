@@ -499,6 +499,45 @@ namespace Manual_Screen_Renderer
             public override string ToString() => $"({ThisDepth}, {ThisIndexID}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
         }
 
+        public ScreenBrush GetScreenBrush()
+        {
+            return new ScreenBrush(GetFeatures(),PenAlpha,PenSize);
+        }
+
+        public struct ScreenBrush
+        {
+            public ScreenBrush(Features tFeatures, int tOpacity, int tSize)
+            {
+                features = tFeatures;
+                opacity = tOpacity;
+                size = tSize;
+            }
+            public Features features { get; }
+            public int opacity { get; }
+            public int size { get; }
+            public override bool Equals(Object obj)
+            {
+                return obj is ScreenBrush && Equals((ScreenBrush)obj);
+            }
+            public bool Equals(ScreenBrush other)
+            {
+                return features.ThisDepth == other.features.ThisDepth && features.ThisIndexID == other.features.ThisIndexID && features.ThisEColor == other.features.ThisEColor
+                     && features.ThisLColor == other.features.ThisLColor && features.ThisLight == other.features.ThisLight && features.ThisPipe == other.features.ThisPipe
+                      && features.ThisGrime == other.features.ThisGrime && features.ThisShading == other.features.ThisShading && features.ThisSky == other.features.ThisSky;
+            }
+            public static bool operator ==(ScreenBrush lhs, ScreenBrush rhs)
+            {
+                return lhs.Equals(rhs);
+            }
+            public static bool operator !=(ScreenBrush lhs, ScreenBrush rhs)
+            {
+                return !lhs.Equals(rhs);
+            }
+            public override string ToString() => $"({features.ThisDepth}, {features.ThisIndexID}, {features.ThisEColor}, {features.ThisLColor}, {features.ThisLight}, {features.ThisPipe}, {features.ThisGrime}, {features.ThisShading}, {features.ThisSky}, {opacity}, {size})";
+        }
+
+        
+
         public int IndexColorID(Color colInput)
         {
             //return IndexPalette.FindIndex(a => a == colInput);
@@ -739,6 +778,11 @@ namespace Manual_Screen_Renderer
             }//end not sky
             var output = new Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
             return output;
+        }
+
+        public Features GetFeatures()
+        {
+            return new Features(Depth, IndexID, EColor, LColor, Light, Pipe, Grime, Shading, Sky);
         }
 
         public static Features FeaturesFromColors(Color tDepth, int tIndexID, Color tEColor, Color tLColor, Color tLight, Color tPipe, Color tGrime, Color tShading, Color tSky)

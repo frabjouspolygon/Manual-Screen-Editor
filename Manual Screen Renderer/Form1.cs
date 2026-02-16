@@ -22,6 +22,7 @@ using static Manual_Screen_Renderer.CursorColors;
 using static Manual_Screen_Renderer.MseMath;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Reflection;
+using System.Drawing.Drawing2D;
 //using MediaColor = System.Windows.Media.Color;
 //using Color = System.Drawing.Color;
 
@@ -71,7 +72,7 @@ namespace Manual_Screen_Renderer
         static bool paletteMode = false;
         static bool changed = true;
         public Point lastCursor = new Point();
-        //static Color colA = Color.FromArgb( 255, 0, 255);
+        //static Color colA = Color.FromArgb( 255, 0, 255;
         //static Color colB = Color.FromArgb(0, 255, 255);
         public int devCounter = 0;
         public Form1()
@@ -212,7 +213,78 @@ namespace Manual_Screen_Renderer
         {
             return b.Clone(r, b.PixelFormat);
         }
+        public List<Bitmap> GetAllBitmaps()
+        {
+            return new List<Bitmap>() {(Bitmap)imgDepth.Clone(), (Bitmap)imgEColor.Clone(), (Bitmap)imgIndex.Clone(), (Bitmap)imgLColor.Clone(), (Bitmap)imgLight.Clone(), (Bitmap)imgPipe.Clone(), (Bitmap)imgRainbow.Clone(), (Bitmap)imgShading.Clone(), (Bitmap)imgSky.Clone(), (Bitmap)imgRendered.Clone(), (Bitmap)imgPreview.Clone()};
+        }
 
+        /*public List<Bitmap> GetAllBitmaps()
+        {
+            return new List<Bitmap>() { imgDepth, imgEColor, imgIndex, imgLColor, imgLight, imgPipe, imgRainbow, imgShading, imgSky, imgRendered, imgPreview };
+        }*/
+
+        public void SetAllBitmaps(List<Bitmap> bitmaps)
+        {
+            /*List<Bitmap> destinations = new List<Bitmap>() { imgDepth, imgEColor, imgIndex, imgLColor, imgLight, imgPipe, imgRainbow, imgShading, imgSky, imgRendered, imgPreview };
+            for (int i = 0; i < destinations.Count(); i++)
+            {
+                Bitmap oldImage = destinations[i];
+                destinations[i] = (Bitmap)bitmaps[i].Clone();
+                if (oldImage != null)
+                {
+                    oldImage.Dispose();
+                }
+            }*/
+            imgDepth = bitmaps[0];
+            imgEColor = bitmaps[1];
+            imgIndex = bitmaps[2];
+            imgLColor = bitmaps[3];
+            imgLight = bitmaps[4];
+            imgPipe = bitmaps[5];
+            imgRainbow = bitmaps[6];
+            imgShading = bitmaps[7];
+            imgSky = bitmaps[8];
+            imgRendered = bitmaps[9];
+            /*Bitmap oldImage = imgRendered;
+            imgRendered = (Bitmap)bitmaps[9].Clone();
+            if (oldImage != null)
+            {
+                oldImage.Dispose();
+            }*/
+            imgPreview = bitmaps[10];
+        }
+        public struct ScreenMask
+        {
+            public ScreenMask(bool tblnDepth, bool tblnEColor, bool tblnIndex, bool tblnLColor, bool tblnLight, bool tblnPipe, bool tblnRainbow, bool tblnShading, bool tblnSky, int tminDepth, int tmaxDepth)
+            {
+                blnDepth = tblnDepth;
+                blnEColor = tblnEColor;
+                blnIndex = tblnIndex;
+                blnLColor = tblnLColor;
+                blnLight = tblnLight;
+                blnPipe = tblnPipe;
+                blnRainbow = tblnRainbow;
+                blnShading = tblnShading;
+                blnSky = tblnSky;
+                minDepth = tminDepth;
+                maxDepth = tmaxDepth;
+            }
+            public bool blnDepth { get; }
+            public bool blnEColor { get; }
+            public bool blnIndex { get; }
+            public bool blnLColor { get; }
+            public bool blnLight { get; }
+            public bool blnPipe { get; }
+            public bool blnRainbow { get; }
+            public bool blnShading { get; }
+            public bool blnSky { get; }
+            public int minDepth { get; }
+            public int maxDepth { get; }
+        }
+        public ScreenMask GetMasks()
+        {
+            return new ScreenMask(blnDepth, blnEColor, blnIndex, blnLColor, blnLight, blnPipe, blnRainbow, blnShading, blnSky, (int)(nudMinLayer.Value-1), (int)(nudMaxLayer.Value - 1));
+        }
         public string ImageDialogue()
         {
             var filePath = string.Empty;
@@ -839,111 +911,97 @@ namespace Manual_Screen_Renderer
             //btnColorPicker.BackColor = colorDialog1.Color;
         }
 
-        /*private void pbxWorkspace_MouseWheel(object sender, MouseEventArgs e)
+
+        private void pbxWorkspace_MouseWheel(object sender, MouseEventArgs e)
         {
-            if((Control.ModifierKeys & Keys.Control) == Keys.Control)
+            int scrollDir = Math.Sign(e.Delta);
+            float speed = 5.0f;
+            float zoomSpeed = 0.1f;
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)//horiz
             {
-                if (pbxWorkspace.Image != null)
-                {
-                    pbxWorkspace.Focus();
-                    try
-                    {
-                        int height = pbxWorkspace.Size.Height;
-                        int width = pbxWorkspace.Size.Width;
-                        int factor = (int)(width/50) * Math.Sign(e.Delta);
-                        int newHeight = height + factor;
-                        int newWidth = newHeight * pbxWorkspace.Image.Width / pbxWorkspace.Image.Height;
-                        if ((Math.Sign(e.Delta)>=0 && newHeight <= pbxWorkspace.Image.Height*20 )|| (Math.Sign(e.Delta) <= 0 && pbxWorkspace.Image.Height / newHeight < 4))
-                        {
-                            float wi = pbxWorkspace.Width;
-                            float hi = pbxWorkspace.Height;
-                            float tpi = pbxWorkspace.PointToClient(Cursor.Position).X;
-                            float tui = pbxWorkspace.PointToClient(Cursor.Position).Y;
-                            float tw = pnlWorkspace.PointToClient(Cursor.Position).X;
-                            float th = pnlWorkspace.PointToClient(Cursor.Position).Y;
-                            float wf = newWidth;
-                            float hf = newHeight;
-                            int df=(int)Math.Abs(wf*(tpi/wi-tw/wf));
-                            int kf = (int)Math.Abs(hf * (tui / hi - th / hf));
-                            pbxWorkspace.SuspendLayout();
-                            pnlWorkspace.SuspendLayout();
-                            //pnlWorkspace.Hide();
-                            pbxWorkspace.Size = new Size(newWidth, newHeight);
-                            
-                            pnlWorkspace.AutoScrollPosition = new Point(df, kf);
-                            //pbxWorkspace.Visible = true;
-                            //pnlWorkspace.Show();
-                            pnlWorkspace.AutoScrollPosition = new Point(df, kf);
-                            pnlWorkspace.ResumeLayout();
-                            pbxWorkspace.ResumeLayout();
-                            //pbxWorkspace.Refresh();
-                        }
-                    }
-                    catch { }
-                }
+                pbxWorkspace.scrollx = pbxWorkspace.scrollx + speed * scrollDir;
             }
-            
+            else if ((Control.ModifierKeys & Keys.Control) == Keys.Control)//zoom
+            {
+                pbxWorkspace.SetScale(pbxWorkspace.scale * (1 + scrollDir * zoomSpeed), Cursor.Position);
+            }
+            else//vert
+            {
+                pbxWorkspace.scrolly = pbxWorkspace.scrolly + speed * scrollDir;
+            }
+            pbxWorkspace.PrintImage();
+            base.OnMouseWheel(e);
         }
-        private void FakeScroll()
-        {
-
-            if (pbxWorkspace.Image != null)
-            {
-                pbxWorkspace.Focus();
-                try
-                {
-                    int height = pbxWorkspace.Size.Height;
-                    int width = pbxWorkspace.Size.Width;
-                    int factor = (int)(width / 50) * 1;
-                    int newHeight = height + factor;
-                    int newWidth = newHeight * pbxWorkspace.Image.Width / pbxWorkspace.Image.Height;
-                    if ((1 >= 0 && newHeight <= pbxWorkspace.Image.Height * 20) || (1 <= 0 && pbxWorkspace.Image.Height / newHeight < 4))
-                    {
-                        float wi = pbxWorkspace.Width;
-                        float hi = pbxWorkspace.Height;
-                        float tpi = pbxWorkspace.PointToClient(Cursor.Position).X;
-                        float tui = pbxWorkspace.PointToClient(Cursor.Position).Y;
-                        float tw = pnlWorkspace.PointToClient(Cursor.Position).X;
-                        float th = pnlWorkspace.PointToClient(Cursor.Position).Y;
-                        float wf = newWidth;
-                        float hf = newHeight;
-                        int df = (int)Math.Abs(wf * (tpi / wi - tw / wf));
-                        int kf = (int)Math.Abs(hf * (tui / hi - th / hf));
-                        pbxWorkspace.SuspendLayout();
-                        pnlWorkspace.SuspendLayout();
-                        //pnlWorkspace.Hide();
-                        pbxWorkspace.Size = new Size(newWidth, newHeight);
-
-                        pnlWorkspace.AutoScrollPosition = new Point(df, kf);
-                        //pbxWorkspace.Visible = true;
-                        //pnlWorkspace.Show();
-                        pnlWorkspace.AutoScrollPosition = new Point(df, kf);
-                        pnlWorkspace.ResumeLayout();
-                        pbxWorkspace.ResumeLayout();
-                        //pbxWorkspace.Refresh();
-                    }
-                }
-                catch { }
-            }
-        }*/
-
         private void pbxWorkspace_MouseEnter(object sender, EventArgs e)
         {
             pbxWorkspace.showCursor = true;
         }
-        private void pbxWorkspace_MouseUp(object sender, MouseEventArgs e)
+        private async void pbxWorkspace_MouseUp(object sender, MouseEventArgs e)
         {
             if (ccPaint.workingBuffer.Count >0)
             {
-                ReleasePaint();
+                await Task.Run(() => ReleasePaint());
             }
-            
         }
-        private void pbxWorkspace_MouseLeave(object sender, EventArgs e)
+        
+        private async void pbxWorkspace_MouseLeave(object sender, EventArgs e)
         {
-            ReleasePaint();
             pbxWorkspace.showCursor = false;
-            RefreshWorkspace();
+            await Task.Run(() => ReleasePaint());
+        }
+        private async void pbxWorkspace_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                pbxWorkspace.panPoint = pbxWorkspace.RemapVisualToTrue(pbxWorkspace.WorkspacePosition(Cursor.Position));
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+                lastCursor = Cursor.Position;
+                Point workPoint = WorkspacePosition(Cursor.Position);
+                //await Task.Run(() => UseTool(imgRendered, ccPaint.GetScreenBrush(), workPoint, workPoint));
+                //Tuple<List<Bitmap>, List<BufferAction>> result = await UseTool(GetAllBitmaps(), GetMasks(), ccPaint.GetScreenBrush(), workPoint, workPoint);
+                Tuple<List<Bitmap>, List<BufferAction>> result = await Task.Run(() => UseTool(GetAllBitmaps(), GetMasks(), ccPaint.GetScreenBrush(), workPoint, workPoint));
+                SetAllBitmaps(result.Item1);
+                if (result.Item2 != null && result.Item2.Count > 0)
+                    ccPaint.workingBuffer.AddRange(result.Item2);
+            }
+        }
+        private async void pbxWorkspace_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (pbxWorkspace.Image != null && pbxWorkspace.fullImage != null)
+            {
+                //Point clientPoint = PointToClient(Cursor.Position);
+                //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
+                //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
+                Point workPoint = WorkspacePosition(Cursor.Position);
+                Point workPointLast = WorkspacePosition(lastCursor);
+                int intX = workPoint.X, intY = workPoint.Y;
+                lblCursorCoords.Text = $"({ intX}, { intY})";
+                if (e.Button == MouseButtons.Middle && pbxWorkspace.panPoint != null)//pan
+                {
+                    Point newPoint = pbxWorkspace.RemapVisualToTrue(pbxWorkspace.WorkspacePosition(Cursor.Position));
+                    int dx = newPoint.X - pbxWorkspace.panPoint.X;
+                    int dy = newPoint.Y - pbxWorkspace.panPoint.Y;
+                    pbxWorkspace.scrollx += dx * pbxWorkspace.scale;
+                    pbxWorkspace.scrolly += dy * pbxWorkspace.scale;
+                    SoftUpdateWorkspace();
+                }
+                if (MouseButtons == MouseButtons.Left)//tool
+                {
+                    //await Task.Run(() => UseTool(GetAllBitmaps(), GetMasks(), ccPaint.GetScreenBrush(), workPoint, workPointLast));
+                    List<Bitmap> a = GetAllBitmaps();
+                    //Tuple<List<Bitmap>, List<BufferAction>> result = await UseTool(a, GetMasks(), ccPaint.GetScreenBrush(), workPoint, workPointLast);
+                    Tuple<List<Bitmap>, List<BufferAction>> result = await Task.Run(() => UseTool(a, GetMasks(), ccPaint.GetScreenBrush(), workPoint, workPointLast));
+                    lastCursor = Cursor.Position;
+                    SetAllBitmaps(result.Item1);
+                    pbxWorkspace.fullImage = result.Item1[9];
+                    if (result.Item2 != null && result.Item2.Count > 0) 
+                        ccPaint.workingBuffer.AddRange(result.Item2);
+                    //SoftUpdateWorkspace();
+                }
+                //pbxWorkspace.PrintImage();
+            }
         }
         private void ReleasePaint()
         {
@@ -958,92 +1016,52 @@ namespace Manual_Screen_Renderer
             lastCursor = new Point(-1,-1);
         }
 
-        private Point WorkspacePosition(Point clientPoint)
+        private Point WorkspacePosition(Point clientPoint)//, int height, int width, float scale, float scrollx, float scrolly)
         {
-            //Point clientPoint = Cursor.Position;//PointToClient(Cursor.Position);
-            /*var workRect = pbxWorkspace.DisplayRectangle;//ClientRectangle;
-            
-            workRect = pbxWorkspace.RectangleToScreen(workRect);
-            var intX = (int)(Map(workRect.Left,workRect.Right,0,pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
-            var intY = (int)(Map(workRect.Top, workRect.Bottom, 0,pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
-            intX = (int)Clamp(0, pbxWorkspace.Image.Width-1, intX);
-            intY = (int)Clamp(0, pbxWorkspace.Image.Height-1, intY);*/
-
             Point outputPoint = pbxWorkspace.RemapVisualToTrue(pbxWorkspace.WorkspacePosition(clientPoint));
-            //var intX = newPoint.X;
-            //var intY = newPoint.Y;
 
-            /*dynamic myvar = pbxWorkspace;
-            Type type = myvar.GetType();
-            System.Reflection.PropertyInfo property = type.GetProperty("Parent");
-            while (property != null)
-            {
-                type = myvar.GetType();
-                property = type.GetProperty("Parent");
-                dynamic myvar = property.GetValue;
-                Type type = myvar.GetType();
-                property = type.GetProperty("Parent");
-            }
-            if (property != null)
-            {
-                property.SetValue(obj, 123);
-            }
-            if (myvar.GetType is PictureBoxWithInterpolationMode)
-            {
+            /*var workRect = this.DisplayRectangle;
+            workRect = this.RectangleToScreen(workRect);
+            var intX = (int)(Map(workRect.Left, workRect.Right, 0, width, clientPoint.X) + 0.5d);
+            var intY = (int)(Map(workRect.Top, workRect.Bottom, 0, height, clientPoint.Y) + 0.5d);
+            intX = (int)Clamp(0, width - 1, intX);
+            intY = (int)Clamp(0, height - 1, intY);
+            Point inputPoint = new Point(intX, intY);
 
+            Point[] inputPoints = { inputPoint };
+            Matrix matrix = new Matrix();
+            matrix.Scale(scale, scale);
+            matrix.Translate(scrollx, scrolly, MatrixOrder.Append);
+            if (matrix.IsInvertible)
+            {
+                matrix.Invert();
+                matrix.TransformPoints(inputPoints);
             }
-            var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, 
-                splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 
-                0, 
-                pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
-            var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
-            */
-            //Point outputPoint = new Point(intX, intY);
+            return inputPoints[0];*/
+
             return outputPoint;
         }
 
-        private void pbxWorkspace_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                lastCursor = Cursor.Position;
-                UseTool();
-            }
-        }
 
-        private void pbxWorkspace_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (pbxWorkspace.Image != null && pbxWorkspace.fullImage != null)
-            {
-                //Point clientPoint = PointToClient(Cursor.Position);
-                //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
-                //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
-                Point workPoint = WorkspacePosition(Cursor.Position);
-                int intX = workPoint.X, intY = workPoint.Y;
-                lblCursorCoords.Text = $"({ intX}, { intY})";
-                if (MouseButtons == MouseButtons.Left)
-                    UseTool();
-            }
-        }
-
-        private void UseTool()
+        private Tuple<List<Bitmap>, List<BufferAction>> UseTool(List<Bitmap> bmpsWorking, ScreenMask masks, ScreenBrush brush, Point workPoint,Point workPointLast)
         {
             //Point clientPoint = PointToClient(Cursor.Position);
             //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
             //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
-            Point workPoint = WorkspacePosition(Cursor.Position);
+            //Point workPoint = WorkspacePosition(Cursor.Position, height, width, scale, scrollx, scrolly);
             int intX = workPoint.X, intY = workPoint.Y;
             if (pickerMode)
             {
-                ToolPicker(intX, intY);
-                return;
+                ToolPicker(bmpsWorking[9], workPoint);
+                return new Tuple<List<Bitmap>, List<BufferAction>> (bmpsWorking, new List<BufferAction>());
             }
-            PenPaint(intX, intY);
+            return PenPaint(bmpsWorking, masks, brush, workPoint, workPointLast);
         }
 
-        private void ToolPicker(int intX, int intY)
+        private void ToolPicker(Bitmap bmpWorking, Point workPoint)
         {
-            CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
+            int intX = workPoint.X, intY = workPoint.Y;
+            CursorColors.Features features = CursorColors.FeaturesRendered(bmpWorking.GetPixel(intX, intY));
             int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
             int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
             int tSky = features.ThisSky;
@@ -1071,22 +1089,23 @@ namespace Manual_Screen_Renderer
             btnColorPicker.FlatAppearance.BorderColor = Color.Black;
         }
 
-        private void PenPaint(int intX, int intY)
+        private Tuple<List<Bitmap>, List<BufferAction>> PenPaint(List<Bitmap> bmpsWorking, ScreenMask masks, ScreenBrush brush, Point workPoint, Point workPointLast)
         {
+            List<BufferAction> buffer = new List<BufferAction>();
             if (pbxWorkspace.Image != null && pbxWorkspace.fullImage != null)
             {
                 if (lastCursor.X == -1)
                 {
                     lastCursor = Cursor.Position;
                 }
-                //Point clientPoint = PointToClient(Cursor.Position);
-                //var intX = (int)(Map(splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left, splitContainer1.Left + splitContainer1.Panel2.Left + pnlWorkspace.Left + pbxWorkspace.Left + pbxWorkspace.Width, 0, pbxWorkspace.Image.Width, clientPoint.X) + 0.5d);
-                //var intY = (int)(Map(splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top, splitContainer1.Top + splitContainer1.Panel2.Top + pnlWorkspace.Top + pbxWorkspace.Top + pbxWorkspace.Height, 0, pbxWorkspace.Image.Height, clientPoint.Y) + 0.5d);
                 int r = ccPaint.PenSize;
-                List<Point> interp = GetBresenhamLine(WorkspacePosition(Cursor.Position), WorkspacePosition(lastCursor));
+                List<Point> interp = GetBresenhamLine(workPoint, workPointLast);
+
                 for (int t = 0; t< interp.Count; t++)
                 {
-                    PaintFromBrush(interp[t]);
+                    Tuple<List<Bitmap>, List<BufferAction>> outputTuple = PaintFromBrush(bmpsWorking, masks, brush, interp[t]);
+                    bmpsWorking = outputTuple.Item1;
+                    buffer.AddRange(outputTuple.Item2);
                     /*int cx = interp[t].X;
                     int cy = interp[t].Y;
                     for (int x = 1 - r; x < r; x++)
@@ -1105,16 +1124,14 @@ namespace Manual_Screen_Renderer
                     }*/
                 }
             }
-            //PaintWorkspace();
-            //PaintPixel(intX, intY);
-            lastCursor = Cursor.Position;
+            return new Tuple<List<Bitmap>, List<BufferAction>> (bmpsWorking,buffer);
         }
 
-        private void PaintFromBrush(Point center)
+        private Tuple<List<Bitmap>, List<BufferAction>> PaintFromBrush(List<Bitmap> bmpsWorking, ScreenMask masks, ScreenBrush brush, Point center)
         {
             List<Point> points = new List<Point>();
             List<int> opacities = new List<int>();
-            int r = ccPaint.PenSize;
+            int r = brush.size;
             for (int x = 1 - r; x < r; x++)
             {
                 int ry = (int)Math.Max(Math.Sqrt(Math.Abs(x * x - r * r)), 1);
@@ -1122,14 +1139,14 @@ namespace Manual_Screen_Renderer
                 {
                     int px = center.X + x;
                     int py = center.Y + y;
-                    if ((px >= 0 && px < pbxWorkspace.fullImage.Width) && (py >= 0 && py < pbxWorkspace.fullImage.Height))
+                    if ((px >= 0 && px < bmpsWorking[0].Width) && (py >= 0 && py < bmpsWorking[0].Height))
                     {
                         points.Add(new Point(px, py));
-                        opacities.Add(ccPaint.PenAlpha);
+                        opacities.Add(brush.opacity);
                     }
                 }
             }
-            PaintPixels(points, opacities);
+            return PaintPixels(bmpsWorking, masks, brush.features, points, opacities);
             //points.Clear();
             //opacities.Clear();
         }
@@ -1162,34 +1179,36 @@ namespace Manual_Screen_Renderer
             }
         }
 
-        private void PaintPixels(List<Point> points, List<int> opacities)
+        private Tuple<List<Bitmap>, List<BufferAction>> PaintPixels(List<Bitmap> bmpsWorking, ScreenMask masks, Features brushFeatures, List<Point> points, List<int> opacities)
         {
             //Console.WriteLine("Paint Pixel");
             List<CursorColors.Features> pixelsFeatures = new List<CursorColors.Features>();
             List<Point> pixelsCoords = new List<Point>();
+            List<BufferAction> buffer = new List<BufferAction>();
             for (int t = 0; t< points.Count; t++)
             {
                 int intX = points[t].X;
                 int intY = points[t].Y;
-                CursorColors.Features features = CursorColors.FeaturesRendered(imgRendered.GetPixel(intX, intY));
+                CursorColors.Features features = CursorColors.FeaturesRendered(bmpsWorking[9].GetPixel(intX, intY));
                 int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
                 int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
                 int tSky = features.ThisSky;
-                if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
-                    return;
-                if (blnDepth) {tDepth = Mix(ccPaint.Depth, tDepth, opacities[t] / 255d);}
-                if (blnEColor) { tEColor = ccPaint.EColor; }
-                if (blnIndex) { tIndexID = ccPaint.IndexID; }
-                if (blnLColor) { tLColor = Mix(ccPaint.LColor, tLColor, opacities[t] / 255d); }
-                if (blnLight) { tLight = ccPaint.Light; }
-                if (blnPipe) { tPipe = ccPaint.Pipe; }
-                if (blnRainbow) { tGrime = ccPaint.Grime; }
-                if (blnShading) { tShading = Mix(ccPaint.Shading, tShading, opacities[t] / 255d); }
-                if (blnSky) { tSky = ccPaint.Sky; }
+                if (tDepth > masks.maxDepth || tDepth < masks.minDepth)
+                    continue;
+                if (masks.blnDepth) {tDepth = Mix(brushFeatures.ThisDepth, tDepth, opacities[t] / 255d);}
+                if (masks.blnEColor) { tEColor = brushFeatures.ThisEColor; }
+                if (masks.blnIndex) { tIndexID = brushFeatures.ThisIndexID; }
+                if (masks.blnLColor) { tLColor = Mix(brushFeatures.ThisLColor, tLColor, opacities[t] / 255d); }
+                if (masks.blnLight) { tLight = brushFeatures.ThisLight; }
+                if (masks.blnPipe) { tPipe = brushFeatures.ThisPipe; }
+                if (masks.blnRainbow) { tGrime = brushFeatures.ThisGrime; }
+                if (masks.blnShading) { tShading = Mix(brushFeatures.ThisShading, tShading, opacities[t] / 255d); }
+                if (masks.blnSky) { tSky = brushFeatures.ThisSky; }
                 var newfeatures = new CursorColors.Features(tDepth, tIndexID, tEColor, tLColor, tLight, tPipe, tGrime, tShading, tSky);
                 if (features != newfeatures)
                 {
-                    ccPaint.workingBuffer.Add(new BufferAction(intX, intY, features));
+                    //ccPaint.workingBuffer.
+                    buffer.Add(new BufferAction(intX, intY, features));
                     pixelsFeatures.Add(newfeatures);
                     pixelsCoords.Add(points[t]);
                 }
@@ -1197,8 +1216,9 @@ namespace Manual_Screen_Renderer
             //Console.WriteLine(pixelsCoords.Count);
             if (pixelsFeatures.Count > 0)
             {
-                WorkspaceSetPixels(pixelsCoords, pixelsFeatures);
+                bmpsWorking = WorkspaceSetPixels(bmpsWorking, pixelsCoords, pixelsFeatures);
             }
+            return new Tuple<List<Bitmap>, List<BufferAction>> (bmpsWorking, buffer);
         }
 
         private void PaintWorkspace()
@@ -1299,11 +1319,10 @@ namespace Manual_Screen_Renderer
             RefreshWorkspace();
         }
 
-        private void WorkspaceSetPixels(List<Point> coords, List<CursorColors.Features> pixelsFeatures)
+        private List<Bitmap> WorkspaceSetPixels(List<Bitmap> bmpsWorking, List<Point> coords, List<CursorColors.Features> pixelsFeatures)
         {
-            //Console.WriteLine(coords.Count);
-            int w = imgRendered.Width;
-            int h = imgRendered.Height;
+            int w = bmpsWorking[0].Width;
+            int h = bmpsWorking[0].Height;
             int minX = coords.Min(p => p.X);
             int maxX = coords.Max(p => p.X);
             int minY = coords.Min(p => p.Y);
@@ -1312,17 +1331,17 @@ namespace Manual_Screen_Renderer
             PixelFormat fmt = imgDepth.PixelFormat;
             byte bpp = (byte)4;
             Rectangle rect = new Rectangle(Point.Empty, s);
-            BitmapData bmpData0 = imgDepth.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData1 = imgEColor.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData2 = imgIndex.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
-            BitmapData bmpData3 = imgLColor.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData4 = imgLight.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData5 = imgPipe.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData6 = imgRainbow.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData7 = imgShading.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData8 = imgSky.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadWrite, fmt);
-            BitmapData bmpData10 = imgPreview.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData0 = bmpsWorking[0].LockBits(rect, ImageLockMode.ReadWrite, fmt);//depth
+            BitmapData bmpData1 = bmpsWorking[1].LockBits(rect, ImageLockMode.ReadWrite, fmt);//ecolor
+            BitmapData bmpData2 = bmpsWorking[2].LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);//embedded
+            BitmapData bmpData3 = bmpsWorking[3].LockBits(rect, ImageLockMode.ReadWrite, fmt);//lcolor
+            BitmapData bmpData4 = bmpsWorking[4].LockBits(rect, ImageLockMode.ReadWrite, fmt);//light
+            BitmapData bmpData5 = bmpsWorking[5].LockBits(rect, ImageLockMode.ReadWrite, fmt);//shortcut
+            BitmapData bmpData6 = bmpsWorking[6].LockBits(rect, ImageLockMode.ReadWrite, fmt);//grime
+            BitmapData bmpData7 = bmpsWorking[7].LockBits(rect, ImageLockMode.ReadWrite, fmt);//intensity
+            BitmapData bmpData8 = bmpsWorking[8].LockBits(rect, ImageLockMode.ReadWrite, fmt);//sky
+            BitmapData bmpData9 = bmpsWorking[9].LockBits(rect, ImageLockMode.ReadWrite, fmt);//rendered
+            BitmapData bmpData10 = bmpsWorking[10].LockBits(rect, ImageLockMode.ReadWrite, fmt);//palette preview
             int size1 = bmpData9.Stride * bmpData9.Height;
             int size2 = bmpData2.Stride * bmpData2.Height;
             byte[] data0 = new byte[size1];
@@ -1386,17 +1405,18 @@ namespace Manual_Screen_Renderer
             System.Runtime.InteropServices.Marshal.Copy(data8, 0, bmpData8.Scan0, data8.Length);
             System.Runtime.InteropServices.Marshal.Copy(data9, 0, bmpData9.Scan0, data9.Length);
             System.Runtime.InteropServices.Marshal.Copy(data10, 0, bmpData10.Scan0, data10.Length);
-            imgDepth.UnlockBits(bmpData0);
-            imgEColor.UnlockBits(bmpData1);
-            imgIndex.UnlockBits(bmpData2);
-            imgLColor.UnlockBits(bmpData3);
-            imgLight.UnlockBits(bmpData4);
-            imgPipe.UnlockBits(bmpData5);
-            imgRainbow.UnlockBits(bmpData6);
-            imgShading.UnlockBits(bmpData7);
-            imgSky.UnlockBits(bmpData8);
-            imgRendered.UnlockBits(bmpData9);
-            imgPreview.UnlockBits(bmpData10);
+            bmpsWorking[0].UnlockBits(bmpData0);
+            bmpsWorking[1].UnlockBits(bmpData1);
+            bmpsWorking[2].UnlockBits(bmpData2);
+            bmpsWorking[3].UnlockBits(bmpData3);
+            bmpsWorking[4].UnlockBits(bmpData4);
+            bmpsWorking[5].UnlockBits(bmpData5);
+            bmpsWorking[6].UnlockBits(bmpData6);
+            bmpsWorking[7].UnlockBits(bmpData7);
+            bmpsWorking[8].UnlockBits(bmpData8);
+            bmpsWorking[9].UnlockBits(bmpData9);
+            bmpsWorking[10].UnlockBits(bmpData10);
+            return bmpsWorking;
         }
 
 
@@ -1687,6 +1707,65 @@ namespace Manual_Screen_Renderer
             tlblMessages.Text = "Ready";
         }
 
+        private void SoftUpdateWorkspace()
+        {
+            switch (intMode)
+            {
+                case 0:
+                    UpdateAndDisposeWorkspace((Image)imgDepth);//pbxWorkspace.fullImage = (Image)imgDepth;
+                    break;
+                case 1:
+                    UpdateAndDisposeWorkspace((Image)imgEColor);//pbxWorkspace.fullImage = (Image)imgEColor;
+                    break;
+                case 2:
+                    UpdateAndDisposeWorkspace((Image)imgIndex);//pbxWorkspace.fullImage = (Image)imgIndex;
+                    break;
+                case 3:
+                    UpdateAndDisposeWorkspace((Image)imgLColor);//pbxWorkspace.fullImage = (Image)imgLColor;
+                    break;
+                case 4:
+                    UpdateAndDisposeWorkspace((Image)imgLight);//pbxWorkspace.fullImage = (Image)imgLight;
+                    break;
+                case 5:
+                    UpdateAndDisposeWorkspace((Image)imgPipe);//pbxWorkspace.fullImage = (Image)imgPipe;
+                    break;
+                case 6:
+                    UpdateAndDisposeWorkspace((Image)imgRainbow);//pbxWorkspace.fullImage = (Image)imgRainbow;
+                    break;
+                case 7:
+                    UpdateAndDisposeWorkspace((Image)imgShading);//pbxWorkspace.fullImage = (Image)imgShading;
+                    break;
+                case 8:
+                    UpdateAndDisposeWorkspace((Image)imgSky);//pbxWorkspace.fullImage = (Image)imgSky;
+                    break;
+                case 9:
+                    if (paletteMode)
+                    {
+                        if (true)
+                        {
+                            changed = false;
+                        }
+                        UpdateAndDisposeWorkspace((Image)imgPreview);//pbxWorkspace.fullImage = (Image)imgPreview;
+                    }
+                    else
+                    {
+                        Console.WriteLine("bitmap H = " + imgRendered.Height);
+                        UpdateAndDisposeWorkspace((Image)imgRendered.Clone());//pbxWorkspace.fullImage = (Image)imgRendered;
+                    }
+                    break;
+            }
+        }
+
+
+        private void UpdateAndDisposeWorkspace(Image newImage)
+        {
+            Image oldImage = pbxWorkspace.fullImage;
+            pbxWorkspace.fullImage = (Image)newImage.Clone();
+            if (oldImage != null)
+            {
+                oldImage.Dispose(); // Dispose of the old image on the UI thread
+            }
+        }
         private void RefreshWorkspace()
         {
             switch (intMode)
@@ -1740,7 +1819,7 @@ namespace Manual_Screen_Renderer
                     }
                     else
                     {
-                        pbxWorkspace.fullImage = imgRendered;
+                        pbxWorkspace.fullImage = (Image)imgRendered;
                         SetCanvas(imgRendered);
                     }
                     break;
@@ -1751,7 +1830,7 @@ namespace Manual_Screen_Renderer
 
         private void SetCanvas(Bitmap image)
         {
-            pbxWorkspace.fullImage = image;
+            pbxWorkspace.fullImage = (Image)image;
             pbxWorkspace.PrintImage();
         }
 
@@ -2238,7 +2317,8 @@ namespace Manual_Screen_Renderer
             List<int> ys = act.Select(p => p.Y).ToList();
             List<Features> c = act.Select(p => p.Components).ToList();
             List<Point> points = xs.Zip(ys, (x, y) => new Point(x, y)).ToList();
-            WorkspaceSetPixels(points, c);
+            List<Bitmap> bmps = WorkspaceSetPixels(GetAllBitmaps(), points, c);
+            SetAllBitmaps(bmps);
             return oldState;
         }
 
@@ -2545,10 +2625,32 @@ namespace Manual_Screen_Renderer
             try
             {
                 // Time-consuming work (e.g., I/O operation) on a background thread
-                string result = await Task.Run(() => LongRunningOperation());
-
+                //string result = await Task.Run(() => LongRunningOperation());
+                Random random = new Random();
+                int rndint = random.Next(2, 10);
+                List<Bitmap> result = await Task.Run(() => WorkspaceSetPixels(GetAllBitmaps(), new List<Point>() {new Point(rndint, 4)}, new List<CursorColors.Features>() {ccPaint.GetFeatures()}));
                 // Code after await automatically runs on the UI thread
                 Console.WriteLine(result);
+
+                Image oldImage = pbxWorkspace.fullImage;
+                Bitmap oldBitmap = imgRendered;
+                imgRendered = (Bitmap)result[9].Clone();
+                pbxWorkspace.fullImage = (Image)result[9].Clone();
+
+                if (oldImage != null)
+                {
+                    oldImage.Dispose();
+                }
+                if (oldBitmap != null)
+                {
+                    oldBitmap.Dispose();
+                }
+                foreach (var control in result)
+                {
+                    control.Dispose();
+                }
+                result.Clear();
+                //pbxWorkspace.fullImage = imgRendered;
             }
             catch (Exception ex)
             {

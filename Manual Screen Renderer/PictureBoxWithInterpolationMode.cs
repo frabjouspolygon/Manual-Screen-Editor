@@ -19,8 +19,7 @@ namespace Manual_Screen_Renderer
         public int cursorRadius { get; set; }
         public bool showCursor { get; set; }
         public PointF[] selPoints { get; set; }
-
-        private Point panPoint { get; set; }
+        public Point panPoint { get; set; }
 
         public PictureBoxWithInterpolationMode()
         {
@@ -44,7 +43,6 @@ namespace Manual_Screen_Renderer
             }
             return clientPoint;
         }
-
         public void SetScale(float newScale, Point d_focalPoint)
         {
             //Console.WriteLine("set scale "+this.scale + " > " + newScale);
@@ -73,8 +71,6 @@ namespace Manual_Screen_Renderer
             }
             this.scale = newScale;
         }
-
-
         /*public void Test1()
         {
             using (Matrix myMatrix = new Matrix())
@@ -112,15 +108,20 @@ namespace Manual_Screen_Renderer
                 }
             }
         }*/
-
         public void PrintImage()
         {
+            if (this.fullImage == null)
+                return;
             using (Matrix myMatrix = new Matrix())
             {
                 PointF[] centerPoints = { this.WorkspacePosition(Cursor.Position) };
                 PointF centerPoint = centerPoints[0];
                 myMatrix.Scale(this.scale, this.scale, MatrixOrder.Append);
                 myMatrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
+
+                //Console.WriteLine("image? " + (this.Image != null).ToString() + " " + this.Image.GetType() );
+                Console.WriteLine("fullimage? " + (this.fullImage != null).ToString() + " " + this.fullImage.GetType());
+                Console.WriteLine(" w=" + ((Image)this.fullImage).Width );
                 PointF[] points = { new PointF(0, 0), new PointF(this.fullImage.Width, 0), new PointF(this.fullImage.Width, this.fullImage.Height), new PointF(0, this.fullImage.Height) };
                 int brushSize = (int)(this.cursorRadius * this.scale);
                 myMatrix.TransformPoints(points);
@@ -153,7 +154,6 @@ namespace Manual_Screen_Renderer
                 }
             }
         }
-
         /*public async void PrintImage()
         {
             try
@@ -171,7 +171,6 @@ namespace Manual_Screen_Renderer
                 Console.WriteLine(ex.Message);
             }
         }*/
-
         /*private Bitmap TransformImage(Image image)
         {
             using (Matrix myMatrix = new Matrix())
@@ -207,14 +206,34 @@ namespace Manual_Screen_Renderer
                 }
             }
         }*/
-
+        public Point RemapVisualToTrue(Point inputPoint)
+        {
+            Point[] inputPoints = { inputPoint };
+            Matrix matrix = new Matrix();
+            matrix.Scale(this.scale, this.scale);
+            matrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
+            if (matrix.IsInvertible)
+            {
+                matrix.Invert();
+                matrix.TransformPoints(inputPoints);
+            }
+            return inputPoints[0];
+        }
+        public Point RemapTrueToVisual(Point inputPoint)
+        {
+            Point[] inputPoints = { inputPoint };
+            Matrix matrix = new Matrix();
+            matrix.Scale(this.scale, this.scale);
+            matrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
+            matrix.TransformPoints(inputPoints);
+            return inputPoints[0];
+        }
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
             paintEventArgs.Graphics.InterpolationMode = InterpolationMode;
             base.OnPaint(paintEventArgs);
         }
-
-        protected override void OnMouseWheel(MouseEventArgs e)
+        /*protected override void OnMouseWheel(MouseEventArgs e)
         {
             int scrollDir = Math.Sign(e.Delta);
             float speed = 5.0f;
@@ -233,33 +252,8 @@ namespace Manual_Screen_Renderer
             }
             PrintImage();
             base.OnMouseWheel(e);
-        }
-
-        public Point RemapVisualToTrue(Point inputPoint)
-        {
-            Point[] inputPoints = { inputPoint };
-            Matrix matrix = new Matrix();
-            matrix.Scale(this.scale, this.scale);
-            matrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
-            if (matrix.IsInvertible)
-            {
-                matrix.Invert();
-                matrix.TransformPoints(inputPoints);
-            }
-            return inputPoints[0];
-        }
-
-        public Point RemapTrueToVisual(Point inputPoint)
-        {
-            Point[] inputPoints = { inputPoint };
-            Matrix matrix = new Matrix();
-            matrix.Scale(this.scale, this.scale);
-            matrix.Translate(this.scrollx, this.scrolly, MatrixOrder.Append);
-            matrix.TransformPoints(inputPoints);
-            return inputPoints[0];
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
+        }*/
+        /*protected override void OnMouseMove(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle && this.panPoint != null)
             {
@@ -271,15 +265,14 @@ namespace Manual_Screen_Renderer
             }
             PrintImage();
             base.OnMouseMove(e);
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
+        }*/
+        /*protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
             {
                 this.panPoint = RemapVisualToTrue(this.WorkspacePosition(Cursor.Position));
             }
             base.OnMouseDown(e);
-        }
+        }*/
     }
 }
