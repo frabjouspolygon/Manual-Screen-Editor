@@ -531,6 +531,9 @@ namespace Manual_Screen_Renderer
                 {
                     Color color = imgInput.GetPixel(j,i);// imgIndex.Palette.Entries[GetPixelIndexedBitmap(imgIndex, j, i)];
                     
+
+
+
                     if (slot > 0 && color.A == 255)
                     {
                         bool claimed = false;
@@ -564,6 +567,26 @@ namespace Manual_Screen_Renderer
                 imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
             }
         }
+
+        private void IndexFromRGBBitmap(Bitmap imgInput)
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;//empty out the index palette
+            }
+            Bitmap oldImage = imgIndex;
+            imgIndex = imgInput.Clone( new Rectangle(0, 0, imgInput.Width, imgInput.Height),  PixelFormat.Format8bppIndexed);
+            if (oldImage != null)
+            {
+                oldImage.Dispose();
+            }
+            for (int i = 0; i < imgIndex.Palette.Entries.Length; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = imgIndex.Palette.Entries[i];
+            }
+        }
+
+        
 
         /*private void btnLColor_Click(object sender, EventArgs e)
         {
@@ -1054,15 +1077,22 @@ namespace Manual_Screen_Renderer
             pickerMode = false;
             nudDepth.Value = ccPaint.Depth + 1;
             btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
+            toolTip.SetToolTip(btnPickIndex, ccPaint.IndexID.ToString());
             btnPickEColor.BackColor = ccPaint.ColorEColor();
+            toolTip.SetToolTip(btnPickEColor, CursorColors.dictLblEColor[ccPaint.EColor]);
             btnPickLColor.BackColor = ccPaint.ColorLColor();
+            toolTip.SetToolTip(btnPickLColor, CursorColors.dictLblLColor[ccPaint.LColor]);
             btnPickLight.BackColor = ccPaint.ColorLight();
+            toolTip.SetToolTip(btnPickLight, CursorColors.dictLblLight[ccPaint.Light]);
             btnPickPipe.BackColor = ccPaint.ColorPipe();
+            toolTip.SetToolTip(btnPickPipe, CursorColors.dictLblPipe[ccPaint.Pipe]);
             btnPickRainbow.BackColor = ccPaint.ColorGrime();
+            toolTip.SetToolTip(btnPickRainbow, CursorColors.dictLblGrime[ccPaint.Grime]);
             btnPickShading.BackColor = ccPaint.ColorShading();
             toolTip.SetToolTip(btnPickShading, tShading.ToString());
             colorDialog1.Color = btnPickShading.BackColor;
             btnPickSky.BackColor = ccPaint.ColorSky();
+            toolTip.SetToolTip(btnPickSky, CursorColors.dictLblSky[ccPaint.Sky]);
             btnColorPicker.FlatAppearance.BorderColor = Color.Black;
         }
 
@@ -1171,7 +1201,7 @@ namespace Manual_Screen_Renderer
                 int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
                 int tSky = features.ThisSky;
                 if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
-                    return;
+                    continue;
                 if (blnDepth) {tDepth = Mix(ccPaint.Depth, tDepth, opacities[t] / 255d);}
                 if (blnEColor) { tEColor = ccPaint.EColor; }
                 if (blnIndex) { tIndexID = ccPaint.IndexID; }
@@ -1394,12 +1424,10 @@ namespace Manual_Screen_Renderer
             imgPreview.UnlockBits(bmpData10);
         }
 
-
         private void FastCompose()
         {
             int w = imgRendered.Width;
             int h = imgRendered.Height;
-
             Size s = imgDepth.Size;
             PixelFormat fmt = imgDepth.PixelFormat;
             // we need the bit depth and we assume either 32bppArgb or 24bppRgb !
@@ -1447,7 +1475,6 @@ namespace Manual_Screen_Renderer
             {
                 for (int x = 0; x < s.Width; x++)
                 {
-                    
                     // calculate the index
                     int index = y * bmpData1.Stride + x * bpp;
                     //int index = y * bmpData1.Stride + x * bpp;
@@ -1500,6 +1527,10 @@ namespace Manual_Screen_Renderer
 
         private void FastDecompose()
         {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;
+            }
             int w = imgRendered.Width;
             int h = imgRendered.Height;
             Size s = imgDepth.Size;
@@ -1576,10 +1607,7 @@ namespace Manual_Screen_Renderer
                     data6[index + 0] = c6.B; data6[index + 1] = c6.G; data6[index + 2] = c6.R; data6[index + 3] = c6.A;
                     data7[index + 0] = c7.B; data7[index + 1] = c7.G; data7[index + 2] = c7.R; data7[index + 3] = c7.A;
                     data8[index + 0] = c8.B; data8[index + 1] = c8.G; data8[index + 2] = c8.R; data8[index + 3] = c8.A;
-                    data10[index + 0] = c10.B;
-                    data10[index + 1] = c10.G;
-                    data10[index + 2] = c10.R;
-                    data10[index + 3] = c10.A;
+                    data10[index + 0] = c10.B;data10[index + 1] = c10.G;data10[index + 2] = c10.R;data10[index + 3] = c10.A;
                 }
             }
             System.Runtime.InteropServices.Marshal.Copy(data0, 0, bmpData0.Scan0, data0.Length);
@@ -1605,6 +1633,67 @@ namespace Manual_Screen_Renderer
             imgPreview.UnlockBits(bmpData10);
             //Console.WriteLine("Done Composing");
             FastPreview();
+        }
+        private void FastIndexFromRGBBitmap(Bitmap imgInput)
+        {
+            for (int i = 0; i < ccPaint.IndexPalette.Entries.Length; i++)
+            {
+                ccPaint.IndexPalette.Entries[i] = Color.Transparent;
+            }
+            int w = imgInput.Width;
+            int h = imgInput.Height;
+            Size s = imgInput.Size;
+            PixelFormat fmt = imgInput.PixelFormat;
+            byte bpp = (byte)4;
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData0 = imgInput.LockBits(rect, ImageLockMode.ReadWrite, fmt);
+            BitmapData bmpData2 = imgIndex.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
+            int size1 = bmpData0.Stride * bmpData0.Height;
+            int size2 = bmpData2.Stride * bmpData2.Height;
+            byte[] data0 = new byte[size1];
+            byte[] data2 = new byte[bmpData2.Stride * s.Height];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData0.Scan0, data0, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData2.Scan0, data2, 0, data2.Length);
+            int newIndexID = 255;
+            for (int y = 0; y < s.Height; y++)
+            {
+                for (int x = 0; x < s.Width; x++)
+                {
+                    int index = y * bmpData0.Stride + x * bpp;
+                    Color c0 = Color.FromArgb(data0[index + 3], data0[index + 2], data0[index + 1], data0[index]);
+                    byte idx = (byte)0;
+                    if (c0.A > 0)
+                    {
+                        bool claimed = false;
+                        for (int i = 0; i<ccPaint.IndexPalette.Entries.Length; i++)
+                        {
+                            if (c0 == ccPaint.IndexPalette.Entries[i])
+                            {
+                                claimed = true;
+                                idx = (byte)i;
+                                break;
+                            }
+                        }
+                        if (!claimed)
+                        {
+                            if (newIndexID > 0)
+                            {
+                                ccPaint.IndexPalette.Entries[newIndexID] = c0;
+                                idx = (byte)newIndexID;
+                                newIndexID--;
+                            }
+                        }
+                    }
+                    data2[y * bmpData2.Stride + x] = idx;
+                }
+            }
+            System.Runtime.InteropServices.Marshal.Copy(data2, 0, bmpData2.Scan0, data2.Length);
+            imgInput.UnlockBits(bmpData0);
+            imgIndex.UnlockBits(bmpData2);
+            for (int i = 1; i < imgIndex.Palette.Entries.Length; i++)
+            {
+                imgIndex.Palette.Entries[i] = ccPaint.IndexPalette.Entries[i];
+            }
         }
 
         private void RenderFromComponenets()
@@ -1740,6 +1829,7 @@ namespace Manual_Screen_Renderer
                     }
                     break;
             }
+            btnPickIndex.BackColor = ccPaint.IndexPalette.Entries[ccPaint.IndexID];
             //pbxWorkspace.PrintImage();
             //pbxWorkspace.Image = pbxWorkspace.fullImage;
         }
@@ -2390,7 +2480,8 @@ namespace Manual_Screen_Renderer
                             {
                                 Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                 //txtIndex.Text = filePath;
-                                imgIndex = myBitmap;
+                                FastIndexFromRGBBitmap(myBitmap);
+                                //imgIndex = myBitmap;
                                 //btnCompose.Enabled = true;
                                 queueCompose = true;
                             }

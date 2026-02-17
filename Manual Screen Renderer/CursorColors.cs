@@ -34,6 +34,45 @@ namespace Manual_Screen_Renderer
         public static int SkyOff = 0;
         public static int SkyOn = 1;
 
+        public static Dictionary<int, string> dictLblEColor = new Dictionary<int, string>()
+        {
+            {0, "Effect Color Off"},
+            {1, "Effect Color A"},
+            {2, "Effect Color B"},
+            {3, "Effect Color Batfly Hive"},
+            {4, "Effect Color Off Dark"},
+            {5, "Effect Color A Dark"},
+            {6, "Effect Color B Dark"},
+            {7, "Effect Color Batfly Hive Dark"}
+        };
+        public static Dictionary<int, string> dictLblLColor = new Dictionary<int, string>()
+        {
+            {0, "Dark"},
+            {1, "Neutral"},
+            {2, "Light"}
+        };
+        public static Dictionary<int, string> dictLblLight = new Dictionary<int, string>()
+        {
+            {0, "Shadow"},
+            {1, "Sunlight"}
+        };
+        public static Dictionary<int, string> dictLblPipe = new Dictionary<int, string>()
+        {
+            {0, "No Shortcuts"},
+            {1, "Shortcut Layer 1"},
+            {2, "Shortcut Layer 2"},
+            {3, "Shortcut Layer 3"}
+        };
+        public static Dictionary<int, string> dictLblGrime = new Dictionary<int, string>()
+        {
+            {0, "Grime Off"},
+            {1, "Grime On"}
+        };
+        public static Dictionary<int, string> dictLblSky = new Dictionary<int, string>()
+        {
+            {0, "Geometry"},
+            {1, "Sky"}
+        };
         public int Depth { get; set; }//0-29
         public int EColor { get; set; }//0-3
         public Color Index { get; set; }//a:0?1,r,g,b
@@ -167,7 +206,11 @@ namespace Manual_Screen_Renderer
 
         public static Color ToEColor(int tEColor)
         {
-            if (tEColor == EffectColorA)
+            if (tEColor == NoEffectColor)
+            {
+                return Color.FromArgb(0, 0, 0);
+            }
+            else if(tEColor == EffectColorA)
             {
                 return Color.FromArgb(255, 0, 255);
             }
@@ -357,6 +400,8 @@ namespace Manual_Screen_Renderer
             return Color.FromArgb(0, 0, 0);
         }
 
+        
+
         public struct BufferAction
         {
             public BufferAction(int x, int y, CursorColors.Features components)
@@ -498,6 +543,8 @@ namespace Manual_Screen_Renderer
             }
             public override string ToString() => $"({ThisDepth}, {ThisIndexID}, {ThisEColor}, {ThisLColor}, {ThisLight}, {ThisPipe}, {ThisGrime}, {ThisShading}, {ThisSky})";
         }
+
+        
 
         public int IndexColorID(Color colInput)
         {
@@ -746,10 +793,14 @@ namespace Manual_Screen_Renderer
             var output = new CursorColors.Features(
                 (int)(tDepth.R / 8.79),
                 tIndexID,
-                (tEColor== ToEColor(EffectColorA) ? EffectColorA : 0)+ (tEColor == ToEColor(EffectColorB) ? EffectColorB : 0)
-                + (tEColor == ToEColor(EffectColorC) ? EffectColorC : 0) + (tEColor == ToEColor(NoEffectColorD) ? NoEffectColorD : 0) 
-                + (tEColor == ToEColor(EffectColorAD) ? EffectColorAD : 0) + (tEColor == ToEColor(EffectColorBD) ? EffectColorBD : 0) 
-                + (tEColor == ToEColor(EffectColorCD) ? EffectColorCD : 0),
+                //(tEColor== ToEColor(EffectColorA) ? EffectColorA : 0)+ (tEColor == ToEColor(EffectColorB) ? EffectColorB : 0)
+                //+ (tEColor == ToEColor(EffectColorC) ? EffectColorC : 0) + (tEColor == ToEColor(NoEffectColorD) ? NoEffectColorD : 0) 
+                //+ (tEColor == ToEColor(EffectColorAD) ? EffectColorAD : 0) + (tEColor == ToEColor(EffectColorBD) ? EffectColorBD : 0) 
+                //+ (tEColor == ToEColor(EffectColorCD) ? EffectColorCD : 0),
+                ((tEColor == ToEColor(EffectColorA) || tEColor == ToEColor(EffectColorAD)) ? EffectColorA : 0)
+                + ((tEColor == ToEColor(EffectColorB) || tEColor == ToEColor(EffectColorBD)) ? EffectColorB : 0)
+                + ((tEColor == ToEColor(EffectColorC) || tEColor == ToEColor(EffectColorCD)) ? EffectColorC : 0)
+                + ((tEColor == ToEColor(NoEffectColor) || tEColor == ToEColor(NoEffectColorD)) ? NoEffectColor : 0),
                 (tLColor == ToLColor(GeometryNeutral) ? GeometryNeutral : 0) + (tLColor == ToLColor(GeometryLight) ? GeometryLight : 0),
                 (int)(tLight.R / 255),
                 (tPipe == ToPipe(PipeL1) ? PipeL1 : 0) + (tPipe == ToPipe(PipeL2) ? PipeL2 : 0) + (tPipe == ToPipe(PipeL3) ? PipeL3 : 0),
