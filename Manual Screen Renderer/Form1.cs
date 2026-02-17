@@ -2562,6 +2562,9 @@ namespace Manual_Screen_Renderer
                                     Bitmap myBitmap = LoadBitmapFromPath(filePath);
                                     imgRendered = myBitmap;
                                     queueDecompose = true;
+                                    strFileName = Path.GetFileNameWithoutExtension(filePath);
+                                    strFilePath = Path.GetDirectoryName(filePath);
+                                    saveToolStripMenuItem.Enabled = true;
                                 }
                             }
                             catch { }
