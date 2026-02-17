@@ -63,7 +63,7 @@ namespace Manual_Screen_Renderer
                     ToggleSelection(colorID);
                     RefreshPaletteImg();
                 }
-                else if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
+                else
                 {
                     if(selectedColorID == colorID)
                     {
@@ -75,33 +75,45 @@ namespace Manual_Screen_Renderer
                     }
                     RefreshPaletteImg();
                 }
-                else
+            }
+        }
+
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image != null)
+            {
+                Point clientPoint = PointToClient(System.Windows.Forms.Cursor.Position);
+                var intX = (int)(Map(pictureBox1.Left, pictureBox1.Left + pictureBox1.Width, 0, pictureBox1.Image.Width, clientPoint.X) + 0.5d);
+                var intY = (int)(Map(pictureBox1.Top, pictureBox1.Bottom, 0, pictureBox1.Image.Height, clientPoint.Y) + 0.5d) - 5;
+                intY = Math.Max(Math.Min(intY, pictureBox1.Image.Height - 1), 0);
+                intX = Math.Max(Math.Min(intX, pictureBox1.Image.Width - 1), 0);
+                int celX = intX / (pictureBox1.Image.Width / w);
+                int celY = intY / (pictureBox1.Image.Height / h);
+                int colorID = GetIDFromCell(celX, celY);
+                Color color = IndexPalette.Entries[colorID];
+                if (color == Color.Transparent) color = Color.White;
+                colorDialog1.Color = color;
+                var result = colorDialog1.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    Color color = IndexPalette.Entries[colorID];
-                    if (color == Color.Transparent) color = Color.White;
-                    colorDialog1.Color = color;
-                    var result = colorDialog1.ShowDialog();
-                    if (result == DialogResult.OK)
+                    Color colSelection = colorDialog1.Color;
+                    IndexPalette.Entries[colorID] = colSelection;
+                    Bitmap bitmap = (Bitmap)pictureBox1.Image;
+                    bitmap = DrawSwatch(bitmap, celX, celY, colSelection);
+                    for (int i = 0; i < selections.Count; i++)
                     {
-                        Color colSelection = colorDialog1.Color;
-                        IndexPalette.Entries[colorID] = colSelection;
-                        Bitmap bitmap = (Bitmap)pictureBox1.Image;
-                        bitmap = DrawSwatch(bitmap, celX, celY, colSelection);
-                        for (int i = 0; i < selections.Count; i++)
+                        int tcolorID = selections[i];
+                        var (tcelX, tcelY) = GetCellFromID(tcolorID);
+                        Color tcolor = IndexPalette.Entries[tcolorID];
+                        if (IndexPalette.Entries[tcolorID] == Color.Transparent)
                         {
-                            int tcolorID = selections[i];
-                            var (tcelX, tcelY) = GetCellFromID(tcolorID);
-                            Color tcolor = IndexPalette.Entries[tcolorID];
-                            if (IndexPalette.Entries[tcolorID] == Color.Transparent)
-                            {
-                                tcolor = Color.White;
-                            }
-                            bitmap = DrawSwatch(bitmap, tcelX, tcelY, tcolor);
+                            tcolor = Color.White;
                         }
-                        selections.Clear();
-                        pictureBox1.Image = bitmap;
-                        RefreshPaletteImg();
+                        bitmap = DrawSwatch(bitmap, tcelX, tcelY, tcolor);
                     }
+                    selections.Clear();
+                    pictureBox1.Image = bitmap;
+                    RefreshPaletteImg();
                 }
             }
         }
@@ -243,5 +255,7 @@ namespace Manual_Screen_Renderer
             pictureBox1.Image = bitmap;
             RefreshPaletteImg();
         }
+
+        
     }
 }

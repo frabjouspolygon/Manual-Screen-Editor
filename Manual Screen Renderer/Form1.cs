@@ -2081,7 +2081,7 @@ namespace Manual_Screen_Renderer
             {
                 if (ccPaint.IndexPalette.Entries[i] != Color.Transparent)
                 {
-                    bitmap.SetPixel(i, 0, ccPaint.IndexPalette.Entries[i]);
+                    bitmap.SetPixel(255-i, 0, ccPaint.IndexPalette.Entries[i]);
                 }
             }
             return bitmap;
@@ -2630,6 +2630,82 @@ namespace Manual_Screen_Renderer
             }
         }
 
+        private void backgroundFixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FixBackground();
+        }
+
+        private void FixBackground()
+        {
+            //ccPaint.IndexPalette.Entries[0]
+            int target = 0;
+            for (int i = 254; i > 0; i--)
+            {
+                if (ccPaint.IndexPalette.Entries[i] == Color.Transparent)
+                {
+                    target = i;
+                    break;
+                }
+            }
+            if (target == 0)
+            {
+                return;
+            }
+            ccPaint.IndexPalette.Entries[target] = ccPaint.IndexPalette.Entries[255];
+            ccPaint.IndexPalette.Entries[255] = Color.Transparent;
+            int w = imgRendered.Width;
+            int h = imgRendered.Height;
+            Size s = imgDepth.Size;
+            PixelFormat fmt = imgDepth.PixelFormat;
+            byte bpp = (byte)4;
+            Rectangle rect = new Rectangle(Point.Empty, s);
+            BitmapData bmpData2 = imgIndex.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format8bppIndexed);
+            BitmapData bmpData7 = imgShading.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData9 = imgRendered.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            BitmapData bmpData10 = imgPreview.LockBits(rect, ImageLockMode.ReadOnly, fmt);
+            int size1 = bmpData9.Stride * bmpData9.Height;
+            int size2 = bmpData2.Stride * bmpData2.Height;
+            byte[] data2 = new byte[bmpData2.Stride * s.Height];
+            byte[] data7 = new byte[size1];
+            byte[] data9 = new byte[size1];
+            byte[] data10 = new byte[size1];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData2.Scan0, data2, 0, data2.Length);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData7.Scan0, data7, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData9.Scan0, data9, 0, size1);
+            System.Runtime.InteropServices.Marshal.Copy(bmpData10.Scan0, data10, 0, size1);
+            for (int y = 0; y < s.Height; y++)
+            {
+                for (int x = 0; x < s.Width; x++)
+                {
+                    int index = y * bmpData7.Stride + x * bpp;
+                    int idx = data2[y * bmpData2.Stride + x];
+                    Color c7 = Color.FromArgb(Math.Min(data7[index + 3],(byte)254), Math.Min(data7[index + 2],(byte)254), Math.Min(data7[index + 1],(byte)254), data7[index]);
+                    Color c9 = Color.FromArgb(data9[index + 3], data9[index + 2], data9[index + 1], data9[index]);
+                    Color c10 = Color.FromArgb(data10[index + 3], data10[index + 2], data10[index + 1], data10[index]);
+                    CursorColors.Features features = CursorColors.FeaturesRendered(c9);
+                    if (features.ThisIndexID == 255 || features.ThisShading == 255)
+                    {
+                        features.ThisShading = Math.Min(features.ThisShading, 254);
+                        features.ThisIndexID = features.ThisIndexID == 255 ? target : features.ThisIndexID;
+                        c9 = CursorColors.ColorRendered(features);
+                        c10 = ccPaint.PreviewPixel(c9, x, y);
+                    }
+                    data2[y * bmpData2.Stride + x] = (byte)features.ThisIndexID;
+                    data7[index + 0] = c7.B; data7[index + 1] = c7.G; data7[index + 2] = c7.R; data7[index + 3] = c7.A;
+                    data9[index + 0] = c9.B; data9[index + 1] = c9.G; data9[index + 2] = c9.R; data9[index + 3] = c9.A;
+                    data10[index + 0] = c10.B; data10[index + 1] = c10.G; data10[index + 2] = c10.R; data10[index + 3] = c10.A;
+                }
+            }
+            System.Runtime.InteropServices.Marshal.Copy(data7, 0, bmpData7.Scan0, data7.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data9, 0, bmpData9.Scan0, data9.Length);
+            System.Runtime.InteropServices.Marshal.Copy(data10, 0, bmpData10.Scan0, data10.Length);
+            imgIndex.UnlockBits(bmpData2);
+            imgShading.UnlockBits(bmpData7);
+            imgRendered.UnlockBits(bmpData9);
+            imgPreview.UnlockBits(bmpData10);
+
+            FastPreview();
+        }
 
 
 

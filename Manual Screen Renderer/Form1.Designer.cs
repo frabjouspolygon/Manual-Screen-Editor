@@ -57,7 +57,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             this.btnShowRendered = new System.Windows.Forms.Button();
             this.lblCursorCoords = new System.Windows.Forms.Label();
             this.btnEditSky = new System.Windows.Forms.Button();
@@ -103,6 +102,8 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
+            this.backgroundFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -110,7 +111,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbrOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPenSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).BeginInit();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -119,6 +119,7 @@
             this.toolStripContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -411,28 +412,6 @@
             resources.ApplyResources(this.label9, "label9");
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.label9.Name = "label9";
-            // 
-            // pbxWorkspace
-            // 
-            this.pbxWorkspace.BackColor = System.Drawing.Color.Transparent;
-            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pbxWorkspace.cursorRadius = 0;
-            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
-            this.pbxWorkspace.fullImage = null;
-            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pbxWorkspace.Name = "pbxWorkspace";
-            this.pbxWorkspace.scale = 0F;
-            this.pbxWorkspace.scrollTL = new System.Drawing.Point(0, 0);
-            this.pbxWorkspace.scrollx = 0F;
-            this.pbxWorkspace.scrolly = 0F;
-            this.pbxWorkspace.selPoints = null;
-            this.pbxWorkspace.showCursor = false;
-            this.pbxWorkspace.TabStop = false;
-            this.pbxWorkspace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseDown);
-            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
-            this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
-            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
-            this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
             // 
             // btnShowRendered
             // 
@@ -735,7 +714,8 @@
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem,
             this.composeToolStripMenuItem,
-            this.decomposeToolStripMenuItem});
+            this.decomposeToolStripMenuItem,
+            this.backgroundFixToolStripMenuItem});
             this.editToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(198)))));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
@@ -933,6 +913,36 @@
             // 
             this.toolTip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             // 
+            // pbxWorkspace
+            // 
+            this.pbxWorkspace.BackColor = System.Drawing.Color.Transparent;
+            this.pbxWorkspace.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pbxWorkspace.cursorRadius = 0;
+            resources.ApplyResources(this.pbxWorkspace, "pbxWorkspace");
+            this.pbxWorkspace.fullImage = null;
+            this.pbxWorkspace.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pbxWorkspace.Name = "pbxWorkspace";
+            this.pbxWorkspace.scale = 0F;
+            this.pbxWorkspace.scrollTL = new System.Drawing.Point(0, 0);
+            this.pbxWorkspace.scrollx = 0F;
+            this.pbxWorkspace.scrolly = 0F;
+            this.pbxWorkspace.selPoints = null;
+            this.pbxWorkspace.showCursor = false;
+            this.pbxWorkspace.TabStop = false;
+            this.pbxWorkspace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseDown);
+            this.pbxWorkspace.MouseEnter += new System.EventHandler(this.pbxWorkspace_MouseEnter);
+            this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
+            this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
+            this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
+            // 
+            // backgroundFixToolStripMenuItem
+            // 
+            this.backgroundFixToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.backgroundFixToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.backgroundFixToolStripMenuItem.Name = "backgroundFixToolStripMenuItem";
+            resources.ApplyResources(this.backgroundFixToolStripMenuItem, "backgroundFixToolStripMenuItem");
+            this.backgroundFixToolStripMenuItem.Click += new System.EventHandler(this.backgroundFixToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -955,7 +965,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbrOpacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPenSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLayer)).EndInit();
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
@@ -969,6 +978,7 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWorkspace)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1047,6 +1057,7 @@
         private System.Windows.Forms.ToolStripMenuItem composeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previewGrimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backgroundFixToolStripMenuItem;
     }
 }
 

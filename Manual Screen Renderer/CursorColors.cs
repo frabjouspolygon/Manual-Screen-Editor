@@ -465,16 +465,16 @@ namespace Manual_Screen_Renderer
                 ThisSky = tSky;
             }
 
-            public int ThisDepth { get; }
+            public int ThisDepth { get; set; }
             //public Color ThisIndex { get; }
-            public int ThisIndexID { get; }
-            public int ThisEColor { get; }
-            public int ThisLColor { get; }
-            public int ThisLight { get; }
-            public int ThisPipe { get; }
-            public int ThisGrime { get; }
-            public int ThisShading { get; }
-            public int ThisSky { get; }
+            public int ThisIndexID { get; set; }//none is 0, 1st is 255
+            public int ThisEColor { get; set; }
+            public int ThisLColor { get; set; }
+            public int ThisLight { get; set; }
+            public int ThisPipe { get; set; }
+            public int ThisGrime { get; set; }
+            public int ThisShading { get; set; }
+            public int ThisSky { get; set; }
 
             public override bool Equals(Object obj)
             {

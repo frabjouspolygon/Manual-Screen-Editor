@@ -47,6 +47,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // btnDelCol
@@ -94,9 +95,9 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(140, 467);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 16);
+            this.label1.Size = new System.Drawing.Size(314, 16);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Modify (Left Mouse), Select (Shift), Set Brush (CTRL)";
+            this.label1.Text = "Set brush (Click), Modify (Double click), Select (Shift)";
             // 
             // IndexPopup
             // 
