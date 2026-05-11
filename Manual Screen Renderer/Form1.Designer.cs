@@ -89,6 +89,7 @@
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.composeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decomposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,8 +103,16 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnMaskLColor = new System.Windows.Forms.Button();
+            this.btnMaskLight = new System.Windows.Forms.Button();
+            this.btnMaskSky = new System.Windows.Forms.Button();
+            this.btnMaskEColor = new System.Windows.Forms.Button();
+            this.btnMaskShading = new System.Windows.Forms.Button();
+            this.btnMaskRainbow = new System.Windows.Forms.Button();
+            this.btnMaskPipe = new System.Windows.Forms.Button();
+            this.btnMaskIndex = new System.Windows.Forms.Button();
+            this.ViewPlatformsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
-            this.backgroundFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -132,6 +141,14 @@
             // splitContainer1.Panel1
             // 
             resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskIndex);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskPipe);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskRainbow);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskShading);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskEColor);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskSky);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskLight);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMaskLColor);
             this.splitContainer1.Panel1.Controls.Add(this.lblOpacity);
             this.splitContainer1.Panel1.Controls.Add(this.tbrOpacity);
             this.splitContainer1.Panel1.Controls.Add(this.btnDev);
@@ -418,6 +435,7 @@
             this.btnShowRendered.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.btnShowRendered, "btnShowRendered");
             this.btnShowRendered.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
+            this.btnShowRendered.FlatAppearance.BorderSize = 2;
             this.btnShowRendered.Name = "btnShowRendered";
             this.toolTip.SetToolTip(this.btnShowRendered, resources.GetString("btnShowRendered.ToolTip"));
             this.btnShowRendered.UseVisualStyleBackColor = false;
@@ -715,7 +733,8 @@
             this.redoToolStripMenuItem,
             this.composeToolStripMenuItem,
             this.decomposeToolStripMenuItem,
-            this.backgroundFixToolStripMenuItem});
+            this.backgroundFixToolStripMenuItem,
+            this.ViewPlatformsMenuItem});
             this.editToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(198)))));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
@@ -753,6 +772,14 @@
             this.decomposeToolStripMenuItem.Name = "decomposeToolStripMenuItem";
             resources.ApplyResources(this.decomposeToolStripMenuItem, "decomposeToolStripMenuItem");
             this.decomposeToolStripMenuItem.Click += new System.EventHandler(this.decomposeToolStripMenuItem_Click);
+            // 
+            // backgroundFixToolStripMenuItem
+            // 
+            this.backgroundFixToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.backgroundFixToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.backgroundFixToolStripMenuItem.Name = "backgroundFixToolStripMenuItem";
+            resources.ApplyResources(this.backgroundFixToolStripMenuItem, "backgroundFixToolStripMenuItem");
+            this.backgroundFixToolStripMenuItem.Click += new System.EventHandler(this.backgroundFixToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -913,6 +940,95 @@
             // 
             this.toolTip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             // 
+            // btnMaskLColor
+            // 
+            this.btnMaskLColor.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskLColor, "btnMaskLColor");
+            this.btnMaskLColor.Name = "btnMaskLColor";
+            this.btnMaskLColor.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskLColor, resources.GetString("btnMaskLColor.ToolTip"));
+            this.btnMaskLColor.UseVisualStyleBackColor = false;
+            this.btnMaskLColor.Click += new System.EventHandler(this.btnMaskLColor_Click);
+            // 
+            // btnMaskLight
+            // 
+            this.btnMaskLight.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskLight, "btnMaskLight");
+            this.btnMaskLight.Name = "btnMaskLight";
+            this.btnMaskLight.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskLight, resources.GetString("btnMaskLight.ToolTip"));
+            this.btnMaskLight.UseVisualStyleBackColor = false;
+            this.btnMaskLight.Click += new System.EventHandler(this.btnMaskLight_Click);
+            // 
+            // btnMaskSky
+            // 
+            this.btnMaskSky.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskSky, "btnMaskSky");
+            this.btnMaskSky.Name = "btnMaskSky";
+            this.btnMaskSky.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskSky, resources.GetString("btnMaskSky.ToolTip"));
+            this.btnMaskSky.UseVisualStyleBackColor = false;
+            this.btnMaskSky.Click += new System.EventHandler(this.btnMaskSky_Click);
+            // 
+            // btnMaskEColor
+            // 
+            this.btnMaskEColor.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskEColor, "btnMaskEColor");
+            this.btnMaskEColor.Name = "btnMaskEColor";
+            this.btnMaskEColor.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskEColor, resources.GetString("btnMaskEColor.ToolTip"));
+            this.btnMaskEColor.UseVisualStyleBackColor = false;
+            this.btnMaskEColor.Click += new System.EventHandler(this.btnMaskEColor_Click);
+            // 
+            // btnMaskShading
+            // 
+            this.btnMaskShading.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskShading, "btnMaskShading");
+            this.btnMaskShading.Name = "btnMaskShading";
+            this.btnMaskShading.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskShading, resources.GetString("btnMaskShading.ToolTip"));
+            this.btnMaskShading.UseVisualStyleBackColor = false;
+            this.btnMaskShading.Click += new System.EventHandler(this.btnMaskShading_Click);
+            // 
+            // btnMaskRainbow
+            // 
+            this.btnMaskRainbow.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskRainbow, "btnMaskRainbow");
+            this.btnMaskRainbow.Name = "btnMaskRainbow";
+            this.btnMaskRainbow.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskRainbow, resources.GetString("btnMaskRainbow.ToolTip"));
+            this.btnMaskRainbow.UseVisualStyleBackColor = false;
+            this.btnMaskRainbow.Click += new System.EventHandler(this.btnMaskRainbow_Click);
+            // 
+            // btnMaskPipe
+            // 
+            this.btnMaskPipe.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskPipe, "btnMaskPipe");
+            this.btnMaskPipe.Name = "btnMaskPipe";
+            this.btnMaskPipe.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskPipe, resources.GetString("btnMaskPipe.ToolTip"));
+            this.btnMaskPipe.UseVisualStyleBackColor = false;
+            this.btnMaskPipe.Click += new System.EventHandler(this.btnMaskPipe_Click);
+            // 
+            // btnMaskIndex
+            // 
+            this.btnMaskIndex.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskIndex, "btnMaskIndex");
+            this.btnMaskIndex.Name = "btnMaskIndex";
+            this.btnMaskIndex.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskIndex, resources.GetString("btnMaskIndex.ToolTip"));
+            this.btnMaskIndex.UseVisualStyleBackColor = false;
+            this.btnMaskIndex.Click += new System.EventHandler(this.btnMaskIndex_Click);
+            // 
+            // ViewPlatformsMenuItem
+            // 
+            this.ViewPlatformsMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.ViewPlatformsMenuItem.CheckOnClick = true;
+            this.ViewPlatformsMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            resources.ApplyResources(this.ViewPlatformsMenuItem, "ViewPlatformsMenuItem");
+            this.ViewPlatformsMenuItem.Name = "ViewPlatformsMenuItem";
+            this.ViewPlatformsMenuItem.Click += new System.EventHandler(this.ViewPlatformsMenuItem_Click);
+            // 
             // pbxWorkspace
             // 
             this.pbxWorkspace.BackColor = System.Drawing.Color.Transparent;
@@ -934,14 +1050,6 @@
             this.pbxWorkspace.MouseLeave += new System.EventHandler(this.pbxWorkspace_MouseLeave);
             this.pbxWorkspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseMove);
             this.pbxWorkspace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbxWorkspace_MouseUp);
-            // 
-            // backgroundFixToolStripMenuItem
-            // 
-            this.backgroundFixToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
-            this.backgroundFixToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            this.backgroundFixToolStripMenuItem.Name = "backgroundFixToolStripMenuItem";
-            resources.ApplyResources(this.backgroundFixToolStripMenuItem, "backgroundFixToolStripMenuItem");
-            this.backgroundFixToolStripMenuItem.Click += new System.EventHandler(this.backgroundFixToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1058,6 +1166,15 @@
         private System.Windows.Forms.ToolStripMenuItem decomposeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previewGrimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backgroundFixToolStripMenuItem;
+        private System.Windows.Forms.Button btnMaskPipe;
+        private System.Windows.Forms.Button btnMaskRainbow;
+        private System.Windows.Forms.Button btnMaskShading;
+        private System.Windows.Forms.Button btnMaskEColor;
+        private System.Windows.Forms.Button btnMaskSky;
+        private System.Windows.Forms.Button btnMaskLight;
+        private System.Windows.Forms.Button btnMaskLColor;
+        private System.Windows.Forms.Button btnMaskIndex;
+        private System.Windows.Forms.ToolStripMenuItem ViewPlatformsMenuItem;
     }
 }
 

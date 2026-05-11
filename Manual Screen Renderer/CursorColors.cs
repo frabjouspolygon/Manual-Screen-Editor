@@ -169,6 +169,8 @@ namespace Manual_Screen_Renderer
         public ColorPalette IndexPalette { get; set; }
         public int PenSize { get; set; }
         public int PenAlpha { get; set; }
+
+        public Features ToolMask { get; set; }
         public CursorColors()
         {
             //IndexPalette = new List<Color>(256);
@@ -185,6 +187,7 @@ namespace Manual_Screen_Renderer
             Rain = false;
             AllowDarkE = false;
             GrimeAlpha = 1.0;
+            ToolMask = MakeMask();
         }
 
         public void PopulateBaseECols()
@@ -204,7 +207,7 @@ namespace Manual_Screen_Renderer
             return Color.FromArgb(val, val, val);
         }
 
-        public static Color ToEColor(int tEColor)
+        public static Color ToEColor(int tEColor, bool platforms = false)
         {
             if (tEColor == NoEffectColor)
             {
@@ -224,19 +227,20 @@ namespace Manual_Screen_Renderer
             }
             else if (tEColor == NoEffectColorD)
             {
-                return Color.FromArgb(0, 0, 0); //return Color.FromArgb(50, 50, 50);
+                return !platforms ? Color.FromArgb(0, 0, 0) :  Color.FromArgb(50, 50, 50);
+                //return Color.FromArgb(0, 0, 0); //return Color.FromArgb(50, 50, 50);
             }
             else if (tEColor == EffectColorAD)
             {
-                return Color.FromArgb(255, 0, 255); //return Color.FromArgb(150, 0, 150);
+                return !platforms ? Color.FromArgb(255, 0, 255) : Color.FromArgb(150, 0, 150);
             }
             else if (tEColor == EffectColorBD)
             {
-                return Color.FromArgb(0, 255, 255); //return Color.FromArgb(0, 150, 150);
+                return !platforms ? Color.FromArgb(0, 255, 255) : Color.FromArgb(0, 150, 150);
             }
             else if (tEColor == EffectColorCD)
             {
-                return Color.FromArgb(255, 255, 255); //return Color.FromArgb(150, 150, 150);
+                return !platforms ? Color.FromArgb(255, 255, 255) : Color.FromArgb(150, 150, 150);
             }
             return Color.FromArgb(0, 0, 0);
         }
@@ -559,10 +563,12 @@ namespace Manual_Screen_Renderer
             int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
             int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
             int tSky = features.ThisSky;
+            int FloorDark = colRend.G >= 16?1:0;
             int tR = this.Rain ? 8 : 0;
             if (tSky == 1)
             {
                 c = imgPalette.GetPixel(0, tR);
+                return c;
             }
             else if (tPipe > 0)
             {
@@ -579,11 +585,8 @@ namespace Manual_Screen_Renderer
                     c = imgPalette.GetPixel(12, tR);
                 }
             }
-            else if (tIndexID > 0)
-            {
-                c = IndexPalette.Entries[tIndexID];
-            }
-            else
+
+            if(1==1)
             {
                 c = imgPalette.GetPixel(tDepth, 2 + (2 - tLColor) + 3 * (1 - tLight)+ tR);
 
@@ -613,10 +616,97 @@ namespace Manual_Screen_Renderer
                         cOut = ThisEColS.Dark;
                     c = Form1.Blend(cOut, c, (double)tShading / 255);
                 }
+                if (tIndexID > 0)
+                {
+                    float shadow = 1 - tLight;
+                    Color indcolor = IndexPalette.Entries[tIndexID];
+                    if (tLColor == 2)//blue
+                        indcolor = MseMath.ColorLerp(indcolor, Color.White, 0.2f - shadow * 0.1f);
+                    indcolor = MseMath.ColorLerp(indcolor, imgPalette.GetPixel(1, tR), tDepth / 60.0f);
+                    c = MseMath.ColorLerp(MseMath.ColorLerp(c, indcolor, 0.7f), MseMath.MultCols(MseMath.MultCols(c, indcolor), 1.5f), 1f-MseMath.Lerp(0.9f, 0.3f + 0.4f * shadow, (float)MseMath.Clamp(0.0, 1.0, (tDepth - 3.5) * 0.3)) );
+                }
                 if (tGrime > 0)
                 {
                     int a = Math.Min((int)Math.Round(imgGrimeMask.GetPixel(x%imgGrimeMask.Width, y%imgGrimeMask.Height).GetBrightness() * 31), 31);
-                    c = Form1.Blend(imgPalette.GetPixel(a, 1), c, GrimeAlpha*0.1);
+                    c = Form1.Blend(imgPalette.GetPixel(a, 1), c, GrimeAlpha*0.2);
+                }
+            }
+            //float num2 = MseMath.Lerp(1-(float)FloorDark, 1f, 0.5f);//0.5 or 1
+            //float num3 = (float)(tDepth / 30.0f * imgPalette.GetPixel(9, tR).R * (tDepth < 10 ? num2 : 1f));
+            //float num = (float)MseMath.Clamp(0.0f, 1.0f, num3);
+            //setColor = lerp(setColor, fogCol, saturate(red*(red < 10 ? lerp(notFloorDark, 1, 0.5) : 1)*_fogAmount/30.0));
+            float FloorDarkFactor = (FloorDark == 1 && tDepth < 10 ? 0.5f : 1f);
+            float fogAmount = tDepth * (1f - imgPalette.GetPixel(9, tR).R/255f) / 30f * FloorDarkFactor;
+            c = MseMath.ColorLerp(c, imgPalette.GetPixel(1, tR), fogAmount);
+
+            return c;
+        }
+
+        public Color PreviewPixelOLD(Color colRend, int x, int y)
+        {
+            CursorColors.Features features = CursorColors.FeaturesRendered(colRend);
+            Color c = Color.Black;
+            int tDepth = features.ThisDepth; int tIndexID = features.ThisIndexID; int tEColor = features.ThisEColor; int tLColor = features.ThisLColor;
+            int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
+            int tSky = features.ThisSky;
+            int tR = this.Rain ? 8 : 0;
+            if (tSky == 1)
+            {
+                c = imgPalette.GetPixel(0, tR);
+            }
+            else if (tPipe > 0)
+            {
+                if (tPipe == PipeL1)
+                {
+                    c = imgPalette.GetPixel(10, tR);
+                }
+                else if (tPipe == PipeL2)
+                {
+                    c = imgPalette.GetPixel(11, tR);
+                }
+                else if (tPipe == PipeL3)
+                {
+                    c = imgPalette.GetPixel(12, tR);
+                }
+            }
+            else if (tIndexID > 0)
+            {
+                c = IndexPalette.Entries[tIndexID];
+            }
+            else
+            {
+                c = imgPalette.GetPixel(tDepth, 2 + (2 - tLColor) + 3 * (1 - tLight) + tR);
+
+                if (tEColor != 0 && tEColor != 4)
+                {
+                    ECol ThisECol = new ECol();
+                    if (tEColor == EffectColorA || tEColor == EffectColorAD)
+                        ThisECol = BaseECols[icolA];
+                    else if (tEColor == EffectColorB || tEColor == EffectColorBD)
+                        ThisECol = BaseECols[icolB];
+                    else if (tEColor == EffectColorC || tEColor == EffectColorCD)
+                        ThisECol = BaseECols[9];
+                    ECol.WeatherECol ThisEColW = new ECol.WeatherECol();
+                    if (!Rain)
+                        ThisEColW = ThisECol.Dry;
+                    else
+                        ThisEColW = ThisECol.Wet;
+                    ECol.WeatherECol.ShadeECol ThisEColS = new ECol.WeatherECol.ShadeECol();
+                    if (tLight == LightOn)
+                        ThisEColS = ThisEColW.Sun;
+                    else
+                        ThisEColS = ThisEColW.Shadow;
+                    Color cOut = new Color();
+                    if ((int)(tEColor / 4.0) == 0)
+                        cOut = ThisEColS.Light;
+                    else
+                        cOut = ThisEColS.Dark;
+                    c = Form1.Blend(cOut, c, (double)tShading / 255);
+                }
+                if (tGrime > 0)
+                {
+                    int a = Math.Min((int)Math.Round(imgGrimeMask.GetPixel(x % imgGrimeMask.Width, y % imgGrimeMask.Height).GetBrightness() * 31), 31);
+                    c = Form1.Blend(imgPalette.GetPixel(a, 1), c, GrimeAlpha * 0.1);
                 }
             }
             return c;
@@ -720,6 +810,74 @@ namespace Manual_Screen_Renderer
             return idx;
         }
 
+        public static Features MakeMask(int minDepth = -1, int maxDepth = -1, int indexID = -1, int eColor = -1, int lColor = -1, int light = -1, int pipe = -1, int grime = -1, int shading = -1, int sky = -1)
+        {
+            int depth = (minDepth != -1 && maxDepth != -1) ? ((minDepth + 1) << 5) | (maxDepth + 1) : 0;
+            return new Features(depth, indexID, eColor, lColor, light, pipe, grime, shading, sky);
+        }
+
+        public static bool MaskPixel(Features pixel, Features mask)
+        {
+            if (mask.ThisDepth != 0 && mask.ThisDepth != 95)//min and max bounds are bit packed and shifted so that 0 corresponds to (-1,-1), 95 being (1,30)
+            {
+                //Console.WriteLine("depth mask");
+                
+                int maxD = mask.ThisDepth & 0x1F;
+                int minD = mask.ThisDepth >> 5;
+                //Console.WriteLine(minD+" "+maxD);
+                if (!(pixel.ThisDepth >= minD - 1 && pixel.ThisDepth <= maxD - 1))
+                    return false;
+            }
+            if (mask.ThisIndexID != -1)//masks use -1 for features not included in the current mask
+            {
+                if (pixel.ThisIndexID != mask.ThisIndexID)
+                    return false;
+            }
+            if (mask.ThisEColor != -1)
+            {
+                //Console.WriteLine("ecolor mask");
+                if (pixel.ThisEColor != mask.ThisEColor)
+                    return false;
+            }
+            if (mask.ThisLColor != -1)
+            {
+                //Console.WriteLine("lcolor mask");
+                if (pixel.ThisLColor != mask.ThisLColor)
+                    return false;
+            }
+            if (mask.ThisLight != -1)
+            {
+                //Console.WriteLine("light mask");
+                if (pixel.ThisLight != mask.ThisLight)
+                    return false;
+            }
+            if (mask.ThisPipe != -1)
+            {
+                //Console.WriteLine("pipe mask");
+                if (pixel.ThisPipe != mask.ThisPipe)
+                    return false;
+            }
+            if (mask.ThisGrime != -1)
+            {
+                //Console.WriteLine("grime mask");
+                if (pixel.ThisGrime != mask.ThisGrime)
+                    return false;
+            }
+            if (mask.ThisShading != -1)
+            {
+                //Console.WriteLine("shade mask");
+                if (pixel.ThisShading != mask.ThisShading)
+                    return false;
+            }
+            if (mask.ThisSky != -1)
+            {
+                //Console.WriteLine("sky mask");
+                if (pixel.ThisSky != mask.ThisSky)
+                    return false;
+            }
+            return true;
+        }
+
         public static Features FeaturesRendered(Color tRendered)
         {
             int R = tRendered.R;
@@ -788,7 +946,7 @@ namespace Manual_Screen_Renderer
             return output;
         }
 
-        public static Features FeaturesFromColors(Color tDepth, int tIndexID, Color tEColor, Color tLColor, Color tLight, Color tPipe, Color tGrime, Color tShading, Color tSky)
+        public static Features FeaturesFromColors(Color tDepth, int tIndexID, Color tEColor, Color tLColor, Color tLight, Color tPipe, Color tGrime, Color tShading, Color tSky, bool platforms = false)
         {
             var output = new CursorColors.Features(
                 (int)(tDepth.R / 8.79),
@@ -797,10 +955,10 @@ namespace Manual_Screen_Renderer
                 //+ (tEColor == ToEColor(EffectColorC) ? EffectColorC : 0) + (tEColor == ToEColor(NoEffectColorD) ? NoEffectColorD : 0) 
                 //+ (tEColor == ToEColor(EffectColorAD) ? EffectColorAD : 0) + (tEColor == ToEColor(EffectColorBD) ? EffectColorBD : 0) 
                 //+ (tEColor == ToEColor(EffectColorCD) ? EffectColorCD : 0),
-                ((tEColor == ToEColor(EffectColorA) || tEColor == ToEColor(EffectColorAD)) ? EffectColorA : 0)
-                + ((tEColor == ToEColor(EffectColorB) || tEColor == ToEColor(EffectColorBD)) ? EffectColorB : 0)
-                + ((tEColor == ToEColor(EffectColorC) || tEColor == ToEColor(EffectColorCD)) ? EffectColorC : 0)
-                + ((tEColor == ToEColor(NoEffectColor) || tEColor == ToEColor(NoEffectColorD)) ? NoEffectColor : 0),
+                ((tEColor == ToEColor(EffectColorA, platforms) || tEColor == ToEColor(EffectColorAD, platforms)) ? EffectColorA : 0)
+                + ((tEColor == ToEColor(EffectColorB, platforms) || tEColor == ToEColor(EffectColorBD, platforms)) ? EffectColorB : 0)
+                + ((tEColor == ToEColor(EffectColorC, platforms) || tEColor == ToEColor(EffectColorCD, platforms)) ? EffectColorC : 0)
+                + ((tEColor == ToEColor(NoEffectColor, platforms) || tEColor == ToEColor(NoEffectColorD, platforms)) ? NoEffectColor : 0),
                 (tLColor == ToLColor(GeometryNeutral) ? GeometryNeutral : 0) + (tLColor == ToLColor(GeometryLight) ? GeometryLight : 0),
                 (int)(tLight.R / 255),
                 (tPipe == ToPipe(PipeL1) ? PipeL1 : 0) + (tPipe == ToPipe(PipeL2) ? PipeL2 : 0) + (tPipe == ToPipe(PipeL3) ? PipeL3 : 0),

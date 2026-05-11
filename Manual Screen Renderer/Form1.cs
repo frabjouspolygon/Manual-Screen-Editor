@@ -74,6 +74,14 @@ namespace Manual_Screen_Renderer
         //static Color colA = Color.FromArgb( 255, 0, 255);
         //static Color colB = Color.FromArgb(0, 255, 255);
         public int devCounter = 0;
+        static bool blnMaskLColor = false;
+        static bool blnMaskEColor = false;
+        static bool blnMaskIndex = false;
+        static bool blnMaskLight = false;
+        static bool blnMaskPipe = false;
+        static bool blnMaskRainbow = false;
+        static bool blnMaskShading = false;
+        static bool blnMaskSky = false;
         public Form1()
         {
             InitializeComponent();
@@ -138,10 +146,11 @@ namespace Manual_Screen_Renderer
             pbxWorkspace.cursorRadius = ccPaint.PenSize;
             pbxWorkspace.selPoints = null;
             InitializeButtons();
-            
+            UpdateMaskDepth();
             ccPaint.IndexID = 0;
             toolTip.SetToolTip(btnPickIndex, "0");
             RefreshWorkspace();
+            //ccPaint.ToolMask = MakeMask(1, 30, eColor: 4);
         }
 
         //public static double Map(double a1, double a2, double b1, double b2, double s) => b1 + (s-a1)*(b2-b1)/(a2-a1);
@@ -737,9 +746,10 @@ namespace Manual_Screen_Renderer
             List<Button> buttons = new List<Button> { btnEditDepth, btnEditEColor, btnEditIndex, btnEditLColor, btnEditLight, btnEditPipe, btnEditRainbow, btnEditShading, btnEditSky, btnShowRendered };
             foreach (Button btn in buttons)
             {
-                btn.BackColor = Color.LightGray;
+                btn.BackColor = Color.LightBlue;
             }
-            blnDepth=blnEColor=blnIndex=blnLColor=blnLight=blnPipe=blnRainbow=blnShading=blnSky = true;
+            btnShowRendered.BackColor = Color.White;
+            blnDepth =blnEColor=blnIndex=blnLColor=blnLight=blnPipe=blnRainbow=blnShading=blnSky = true;
         }
         
         private void LayerButtons(Button button)
@@ -757,9 +767,9 @@ namespace Manual_Screen_Renderer
             else if (button == btnEditSky){mode = 8;toggle = blnSky;}
             else{mode = 9;toggle = blnRendered;}
 
-            bool blnControl = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
-
-            if (!blnControl && mode != 9)
+            bool blnShift = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+            bool blnControl = (Control.ModifierKeys & Keys.Control) == Keys.Control;
+            if (!blnShift && !blnControl && mode != 9)
             {
                 if (toggle)
                 {
@@ -769,7 +779,7 @@ namespace Manual_Screen_Renderer
                 else
                 {
                     toggle = true;
-                    button.BackColor = Color.LightGray;
+                    button.BackColor = Color.LightBlue;
                 }
                 if (button == btnEditDepth) { blnDepth = toggle; }
                 else if (button == btnEditEColor) { blnEColor = toggle; }
@@ -780,6 +790,25 @@ namespace Manual_Screen_Renderer
                 else if (button == btnEditRainbow) { blnRainbow = toggle; }
                 else if (button == btnEditShading) { blnShading = toggle; }
                 else if (button == btnEditSky) { blnSky = toggle; }
+            }
+            else if (blnControl &&!blnShift && mode != 9)
+            {
+                blnDepth = blnEColor = blnIndex = blnLColor = blnLight = blnPipe = blnRainbow = blnShading = blnSky = false;
+                List<Button> buttons = new List<Button> { btnEditDepth, btnEditEColor, btnEditIndex, btnEditLColor, btnEditLight, btnEditPipe, btnEditRainbow, btnEditShading, btnEditSky, btnShowRendered };
+                foreach (Button btn in buttons)
+                {
+                    btn.BackColor = Color.White;
+                }
+                button.BackColor = Color.LightBlue;
+                if (button == btnEditDepth) { blnDepth = true; }
+                else if (button == btnEditEColor) { blnEColor = true; }
+                else if (button == btnEditIndex) { blnIndex = true; }
+                else if (button == btnEditLColor) { blnLColor = true; }
+                else if (button == btnEditLight) { blnLight = true; }
+                else if (button == btnEditPipe) { blnPipe = true; }
+                else if (button == btnEditRainbow) { blnRainbow = true; }
+                else if (button == btnEditShading) { blnShading = true; }
+                else if (button == btnEditSky) { blnSky = true; }
             }
             else
             {
@@ -792,7 +821,7 @@ namespace Manual_Screen_Renderer
                     {
                         btn.FlatAppearance.BorderSize = 0;
                     }
-                    button.FlatAppearance.BorderSize = 1;
+                    button.FlatAppearance.BorderSize = 2;
                 }
             }
         }
@@ -849,8 +878,18 @@ namespace Manual_Screen_Renderer
 
         private void btnColorPicker_Click(object sender, EventArgs e)
         {
-            pickerMode = true;
-            btnColorPicker.FlatAppearance.BorderColor = Color.Blue;
+            if (!pickerMode)
+            {
+                pickerMode = true;
+                btnColorPicker.FlatAppearance.BorderSize = 2;
+                btnColorPicker.FlatAppearance.BorderColor = Color.Blue;
+            }
+            else
+            {
+                pickerMode = false;
+                btnColorPicker.FlatAppearance.BorderSize = 1;
+                btnColorPicker.FlatAppearance.BorderColor = Color.Black;
+            }
             //colorDialog1.ShowDialog();
             //Color colSelection = colorDialog1.Color;
             //colCursor = colSelection;
@@ -1187,6 +1226,8 @@ namespace Manual_Screen_Renderer
             }
         }
 
+        
+
         private void PaintPixels(List<Point> points, List<int> opacities)
         {
             //Console.WriteLine("Paint Pixel");
@@ -1201,6 +1242,8 @@ namespace Manual_Screen_Renderer
                 int tLight = features.ThisLight; int tPipe = features.ThisPipe; int tGrime = features.ThisGrime; int tShading = features.ThisShading;
                 int tSky = features.ThisSky;
                 if (tDepth > nudMaxLayer.Value - 1 || tDepth < nudMinLayer.Value - 1)
+                    continue;
+                if (!MaskPixel(features,ccPaint.ToolMask))
                     continue;
                 if (blnDepth) {tDepth = Mix(ccPaint.Depth, tDepth, opacities[t] / 255d);}
                 if (blnEColor) { tEColor = ccPaint.EColor; }
@@ -1310,7 +1353,7 @@ namespace Manual_Screen_Renderer
         {
             changed = true;
             imgDepth.SetPixel(intX, intY, CursorColors.ToDepth(features.ThisDepth));
-            imgEColor.SetPixel(intX, intY, CursorColors.ToEColor(features.ThisEColor));
+            imgEColor.SetPixel(intX, intY, CursorColors.ToEColor(features.ThisEColor, ccPaint.AllowDarkE));
             imgIndex = CursorColors.SetPixelIndexedBitmap(imgIndex, features.ThisIndexID, intX, intY);
             imgLColor.SetPixel(intX, intY, CursorColors.ToLColor(features.ThisLColor));
             imgLight.SetPixel(intX, intY, CursorColors.ToLight(features.ThisLight));
@@ -1379,7 +1422,7 @@ namespace Manual_Screen_Renderer
                 int index = y * bmpData1.Stride + x * bpp;
                 CursorColors.Features features = pixelsFeatures[t];
                 Color c0 = CursorColors.ToDepth(features.ThisDepth);
-                Color c1 = CursorColors.ToEColor(features.ThisEColor);
+                Color c1 = CursorColors.ToEColor(features.ThisEColor, ccPaint.AllowDarkE);
                 Color c3 = CursorColors.ToLColor(features.ThisLColor);
                 Color c4 = CursorColors.ToLight(features.ThisLight);
                 Color c5 = CursorColors.ToPipe(features.ThisPipe);
@@ -1590,7 +1633,7 @@ namespace Manual_Screen_Renderer
                         ccPaint.IndexPalette.Entries[tIndexID] = Color.FromArgb(data9[(255 - tIndexID) * bpp + 3], data9[(255 - tIndexID) * bpp + 2], data9[(255 - tIndexID) * bpp + 1], data9[(255 - tIndexID) * bpp]);
                     }
                     Color c0 = CursorColors.ToDepth(tDepth);
-                    Color c1 = CursorColors.ToEColor(tEColor);
+                    Color c1 = CursorColors.ToEColor(tEColor, ccPaint.AllowDarkE);
                     Color c3 = CursorColors.ToLColor(tLColor);
                     Color c4 = CursorColors.ToLight(tLight);
                     Color c5 = CursorColors.ToPipe(tPipe);
@@ -1903,31 +1946,31 @@ namespace Manual_Screen_Renderer
             {
                 if (colInitial == CursorColors.EffectColorA)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorB);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorB, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorB;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color B");
                 }
                 else if (colInitial == CursorColors.EffectColorB)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorC);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorC, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorC;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive");
                 }
                 else if (colInitial == CursorColors.EffectColorC)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.NoEffectColor;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Off");
                 }
                 else if (colInitial == CursorColors.NoEffectColor)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorA);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorA, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorA;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color A");
                 }
                 else
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.NoEffectColor;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Off");
                 }
@@ -1936,55 +1979,55 @@ namespace Manual_Screen_Renderer
             {
                 if (colInitial == CursorColors.EffectColorA)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorAD);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorAD, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorAD;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color A Dark");
                 }
                 else if(colInitial == CursorColors.EffectColorAD)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorB);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorB, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorB;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color B Light");
                 }
                 else if (colInitial == CursorColors.EffectColorB)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorBD);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorBD, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorBD;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color B Dark");
                 }
                 else if (colInitial == CursorColors.EffectColorBD)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorC);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorC, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorC;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive Light");
                 }
                 else if (colInitial == CursorColors.EffectColorC)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorCD);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorCD, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorCD;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Batfly Hive Dark");
                 }
                 else if (colInitial == CursorColors.EffectColorCD)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.NoEffectColor;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Off Light");
                 }
                 else if (colInitial == CursorColors.NoEffectColor)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColorD);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColorD, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.NoEffectColorD;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Off Dark");
                 }
                 else if (colInitial == CursorColors.NoEffectColorD)
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorA);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.EffectColorA, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.EffectColorA;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color A Light");
                 }
                 else
                 {
-                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor);
+                    btnPickEColor.BackColor = CursorColors.ToEColor(CursorColors.NoEffectColor, ccPaint.AllowDarkE);
                     ccPaint.EColor = CursorColors.NoEffectColor;
                     toolTip.SetToolTip(btnPickEColor, "Effect Color Off Light");
                 }
@@ -2240,6 +2283,7 @@ namespace Manual_Screen_Renderer
             {
                 nudMinLayer.Value=nudMaxLayer.Value;
             }
+            UpdateMaskDepth();
         }
 
         private void nudMaxLayer_ValueChanged(object sender, EventArgs e)
@@ -2248,6 +2292,12 @@ namespace Manual_Screen_Renderer
             {
                 nudMaxLayer.Value = nudMinLayer.Value;
             }
+            UpdateMaskDepth();
+        }
+
+        private void UpdateMaskDepth()
+        {
+            ccPaint.ToolMask = MakeMask((int)nudMinLayer.Value, (int)nudMaxLayer.Value, ccPaint.ToolMask.ThisIndexID, ccPaint.ToolMask.ThisEColor, ccPaint.ToolMask.ThisLColor, ccPaint.ToolMask.ThisLight, ccPaint.ToolMask.ThisPipe, ccPaint.ToolMask.ThisGrime, ccPaint.ToolMask.ThisShading, ccPaint.ToolMask.ThisSky);
         }
 
         /*protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -2633,19 +2683,26 @@ namespace Manual_Screen_Renderer
             switch (devCounter)
             {
                 case 0:
-                    PointF[] selPoints = { new PointF(10, 20), new PointF(40, 20), new PointF(40, 80), new PointF(10, 80) };
-                    pbxWorkspace.selPoints = selPoints;
+                    ccPaint.ToolMask = MakeMask((int)nudMinLayer.Value, (int)nudMaxLayer.Value, eColor: 4);
+                    Console.WriteLine("c0");
+                    //PointF[] selPoints = { new PointF(10, 20), new PointF(40, 20), new PointF(40, 80), new PointF(10, 80) };
+                    //pbxWorkspace.selPoints = selPoints;
                     devCounter++;
                     break;
                 case 1:
-                    pbxWorkspace.selPoints = null;
-                    devCounter++;
+                    Console.WriteLine("c1");
+                    ccPaint.ToolMask = MakeMask((int)nudMinLayer.Value, (int)nudMaxLayer.Value);
+                    //pbxWorkspace.selPoints = null;
+                    devCounter=0;
                     break;
                 case 2:
-                    pbxWorkspace.Image = pbxWorkspace.fullImage;
+                    Console.WriteLine("c2");
+                    ccPaint.ToolMask = MakeMask(1, 30, eColor: 4);
+                    //pbxWorkspace.Image = pbxWorkspace.fullImage;
                     devCounter++;
                     break;
                 case 3:
+                    Console.WriteLine("c3");
                     devCounter =1;
                     break;
             }
@@ -2801,7 +2858,67 @@ namespace Manual_Screen_Renderer
             FastPreview();
         }
 
+        private void MaskButtons(Button button, ref bool blnMask, int value)
+        {
+            Color color = Color.Transparent;
+            blnMask = !blnMask;
+            
+            var tempMask = ccPaint.ToolMask;
+            if (button == btnMaskLColor) {tempMask.ThisLColor = blnMask ? value : -1; color = ToLColor(value); }
+            else if (button == btnMaskLight) { tempMask.ThisLight = blnMask ? value : -1; color = ToLight(value); }
+            else if (button == btnMaskEColor) { tempMask.ThisEColor = blnMask ? value : -1; color = ToEColor(value,ccPaint.AllowDarkE); }
+            else if (button == btnMaskShading) { tempMask.ThisShading = blnMask ? value : -1; color = ToShading(value); }
+            else if (button == btnMaskSky) { tempMask.ThisSky = blnMask ? value : -1; color = ToSky(value); }
+            else if (button == btnMaskRainbow) { tempMask.ThisGrime = blnMask ? value : -1; color = ToGrime(value); }
+            else if (button == btnMaskIndex) { tempMask.ThisIndexID = blnMask ? value : -1; color = ccPaint.IndexPalette.Entries[value]; }
+            else if (button == btnMaskPipe) { tempMask.ThisPipe = blnMask ? value : -1; color = ToPipe(value); }
+            ccPaint.ToolMask = tempMask;
+            button.BackColor = blnMask ? color : Color.Transparent;
+        }
+        private void btnMaskLColor_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskLColor, ccPaint.LColor);
+        }
+        private void btnMaskLight_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskLight, ccPaint.Light);
+        }
+        private void btnMaskSky_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskSky, ccPaint.Sky);
+        }
+        private void btnMaskEColor_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskEColor, ccPaint.EColor);
+        }
+        private void btnMaskShading_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskShading, ccPaint.Shading);
+        }
+        private void btnMaskRainbow_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskRainbow, ccPaint.Grime);
+        }
+        private void btnMaskPipe_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskPipe, ccPaint.Pipe);
+        }
+        private void btnMaskIndex_Click(object sender, EventArgs e)
+        {
+            MaskButtons((Button)sender, ref blnMaskIndex, ccPaint.IndexID);
+        }
 
+        private void ViewPlatformsMenuItem_Click(object sender, EventArgs e)
+        {
+            if (viewToolStripMenuItem.Checked)
+            {
+                ccPaint.AllowDarkE = true;
+            }
+            else
+            {
+                ccPaint.AllowDarkE = false;
+            }
+        }
 
         /*private void DashedLine()
         {
