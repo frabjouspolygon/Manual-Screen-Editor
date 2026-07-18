@@ -463,10 +463,10 @@
     <value>NoControl</value>
   </data>
   <data name="tbrOpacity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>157, 396</value>
+    <value>114, 396</value>
   </data>
   <data name="tbrOpacity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 56</value>
+    <value>96, 56</value>
   </data>
   <data name="tbrOpacity.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -500,6 +500,9 @@
   </data>
   <data name="btnDev.Text" xml:space="preserve">
     <value>DEV</value>
+  </data>
+  <data name="btnDev.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;btnDev.Name" xml:space="preserve">
     <value>btnDev</value>
@@ -1359,7 +1362,7 @@
     <value>pbxWorkspace</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Type" xml:space="preserve">
-    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.6.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Manual_Screen_Renderer.PictureBoxWithInterpolationMode, ManualScreenEditor, Version=1.4.7.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbxWorkspace.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -2428,7 +2431,7 @@
     <value>NoControl</value>
   </data>
   <data name="lblMaxLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 15</value>
+    <value>188, 15</value>
   </data>
   <data name="lblMaxLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 15</value>
@@ -2461,7 +2464,7 @@
     <value>NoControl</value>
   </data>
   <data name="lblMinLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 15</value>
+    <value>7, 15</value>
   </data>
   <data name="lblMinLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 15</value>
@@ -2488,7 +2491,7 @@
     <value>Microsoft Sans Serif, 7.8pt</value>
   </data>
   <data name="nudMaxLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 14</value>
+    <value>216, 14</value>
   </data>
   <data name="nudMaxLayer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 1</value>
@@ -2629,10 +2632,10 @@
     <value>MiddleLeft</value>
   </data>
   <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>611, 20</value>
+    <value>766, 20</value>
   </data>
   <data name="toolStripStatusLabel2.Text" xml:space="preserve">
-    <value>View layer (Shift+M1), Toggle layer editing (M1), Drag/drop cameras/components/palettes</value>
+    <value>View layer (Shift+M1), Toggle layer editing (M1), Isolate layer (Ctrl+M1), Drag/drop cameras/components/palettes</value>
   </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -2803,7 +2806,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="undoToolStripMenuItem.Text" xml:space="preserve">
     <value>Undo</value>
@@ -2812,25 +2815,25 @@
     <value>Ctrl+Shift+Z</value>
   </data>
   <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="redoToolStripMenuItem.Text" xml:space="preserve">
     <value>Redo</value>
   </data>
   <data name="composeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="composeToolStripMenuItem.Text" xml:space="preserve">
     <value>Compose</value>
   </data>
   <data name="decomposeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="decomposeToolStripMenuItem.Text" xml:space="preserve">
     <value>Decompose</value>
   </data>
   <data name="backgroundFixToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="backgroundFixToolStripMenuItem.Text" xml:space="preserve">
     <value>Background Fix</value>
@@ -2839,7 +2842,7 @@
     <value>None</value>
   </data>
   <data name="ViewPlatformsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>218, 26</value>
   </data>
   <data name="ViewPlatformsMenuItem.Text" xml:space="preserve">
     <value>View Platforms</value>
@@ -2854,13 +2857,13 @@
     <value>None</value>
   </data>
   <data name="paletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="paletteToolStripMenuItem.Text" xml:space="preserve">
     <value>View Palette</value>
   </data>
   <data name="setPaletteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="setPaletteToolStripMenuItem.Text" xml:space="preserve">
     <value>Set Palette</value>
@@ -2869,7 +2872,7 @@
     <value>False</value>
   </data>
   <data name="effectAToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="effectAToolStripMenuItem.Text" xml:space="preserve">
     <value>Effect A</value>
@@ -2881,7 +2884,7 @@
     <value>False</value>
   </data>
   <data name="effectBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="effectBToolStripMenuItem.Text" xml:space="preserve">
     <value>Effect B</value>
@@ -3040,7 +3043,7 @@
     <value>None</value>
   </data>
   <data name="rainToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="rainToolStripMenuItem.Text" xml:space="preserve">
     <value>Rain</value>
@@ -3052,7 +3055,7 @@
     <value>None</value>
   </data>
   <data name="previewGrimeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>195, 26</value>
   </data>
   <data name="previewGrimeToolStripMenuItem.Text" xml:space="preserve">
     <value>Preview Grime</value>
@@ -3220,9 +3223,6 @@
         ///4Q///+EP///gD///4A/////////////8=
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
@@ -3313,6 +3313,12 @@
   <data name="&gt;&gt;backgroundFixToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ViewPlatformsMenuItem.Name" xml:space="preserve">
+    <value>ViewPlatformsMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ViewPlatformsMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;viewToolStripMenuItem.Name" xml:space="preserve">
     <value>viewToolStripMenuItem</value>
   </data>
@@ -3390,12 +3396,6 @@
   </data>
   <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ViewPlatformsMenuItem.Name" xml:space="preserve">
-    <value>ViewPlatformsMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ViewPlatformsMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

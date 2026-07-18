@@ -2910,7 +2910,7 @@ namespace Manual_Screen_Renderer
 
         private void ViewPlatformsMenuItem_Click(object sender, EventArgs e)
         {
-            if (viewToolStripMenuItem.Checked)
+            if (ViewPlatformsMenuItem.Checked)
             {
                 ccPaint.AllowDarkE = true;
             }

@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnMaskIndex = new System.Windows.Forms.Button();
+            this.btnMaskPipe = new System.Windows.Forms.Button();
+            this.btnMaskRainbow = new System.Windows.Forms.Button();
+            this.btnMaskShading = new System.Windows.Forms.Button();
+            this.btnMaskEColor = new System.Windows.Forms.Button();
+            this.btnMaskSky = new System.Windows.Forms.Button();
+            this.btnMaskLight = new System.Windows.Forms.Button();
+            this.btnMaskLColor = new System.Windows.Forms.Button();
             this.lblOpacity = new System.Windows.Forms.Label();
             this.tbrOpacity = new System.Windows.Forms.TrackBar();
             this.btnDev = new System.Windows.Forms.Button();
@@ -90,6 +98,7 @@
             this.composeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decomposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewPlatformsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,15 +112,6 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.btnMaskLColor = new System.Windows.Forms.Button();
-            this.btnMaskLight = new System.Windows.Forms.Button();
-            this.btnMaskSky = new System.Windows.Forms.Button();
-            this.btnMaskEColor = new System.Windows.Forms.Button();
-            this.btnMaskShading = new System.Windows.Forms.Button();
-            this.btnMaskRainbow = new System.Windows.Forms.Button();
-            this.btnMaskPipe = new System.Windows.Forms.Button();
-            this.btnMaskIndex = new System.Windows.Forms.Button();
-            this.ViewPlatformsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbxWorkspace = new Manual_Screen_Renderer.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -198,6 +198,86 @@
             this.splitContainer1.Panel2.Controls.Add(this.nudMinLayer);
             this.splitContainer1.Panel2.Controls.Add(this.splitter1);
             this.splitContainer1.TabStop = false;
+            // 
+            // btnMaskIndex
+            // 
+            this.btnMaskIndex.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskIndex, "btnMaskIndex");
+            this.btnMaskIndex.Name = "btnMaskIndex";
+            this.btnMaskIndex.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskIndex, resources.GetString("btnMaskIndex.ToolTip"));
+            this.btnMaskIndex.UseVisualStyleBackColor = false;
+            this.btnMaskIndex.Click += new System.EventHandler(this.btnMaskIndex_Click);
+            // 
+            // btnMaskPipe
+            // 
+            this.btnMaskPipe.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskPipe, "btnMaskPipe");
+            this.btnMaskPipe.Name = "btnMaskPipe";
+            this.btnMaskPipe.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskPipe, resources.GetString("btnMaskPipe.ToolTip"));
+            this.btnMaskPipe.UseVisualStyleBackColor = false;
+            this.btnMaskPipe.Click += new System.EventHandler(this.btnMaskPipe_Click);
+            // 
+            // btnMaskRainbow
+            // 
+            this.btnMaskRainbow.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskRainbow, "btnMaskRainbow");
+            this.btnMaskRainbow.Name = "btnMaskRainbow";
+            this.btnMaskRainbow.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskRainbow, resources.GetString("btnMaskRainbow.ToolTip"));
+            this.btnMaskRainbow.UseVisualStyleBackColor = false;
+            this.btnMaskRainbow.Click += new System.EventHandler(this.btnMaskRainbow_Click);
+            // 
+            // btnMaskShading
+            // 
+            this.btnMaskShading.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskShading, "btnMaskShading");
+            this.btnMaskShading.Name = "btnMaskShading";
+            this.btnMaskShading.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskShading, resources.GetString("btnMaskShading.ToolTip"));
+            this.btnMaskShading.UseVisualStyleBackColor = false;
+            this.btnMaskShading.Click += new System.EventHandler(this.btnMaskShading_Click);
+            // 
+            // btnMaskEColor
+            // 
+            this.btnMaskEColor.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskEColor, "btnMaskEColor");
+            this.btnMaskEColor.Name = "btnMaskEColor";
+            this.btnMaskEColor.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskEColor, resources.GetString("btnMaskEColor.ToolTip"));
+            this.btnMaskEColor.UseVisualStyleBackColor = false;
+            this.btnMaskEColor.Click += new System.EventHandler(this.btnMaskEColor_Click);
+            // 
+            // btnMaskSky
+            // 
+            this.btnMaskSky.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskSky, "btnMaskSky");
+            this.btnMaskSky.Name = "btnMaskSky";
+            this.btnMaskSky.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskSky, resources.GetString("btnMaskSky.ToolTip"));
+            this.btnMaskSky.UseVisualStyleBackColor = false;
+            this.btnMaskSky.Click += new System.EventHandler(this.btnMaskSky_Click);
+            // 
+            // btnMaskLight
+            // 
+            this.btnMaskLight.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskLight, "btnMaskLight");
+            this.btnMaskLight.Name = "btnMaskLight";
+            this.btnMaskLight.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskLight, resources.GetString("btnMaskLight.ToolTip"));
+            this.btnMaskLight.UseVisualStyleBackColor = false;
+            this.btnMaskLight.Click += new System.EventHandler(this.btnMaskLight_Click);
+            // 
+            // btnMaskLColor
+            // 
+            this.btnMaskLColor.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnMaskLColor, "btnMaskLColor");
+            this.btnMaskLColor.Name = "btnMaskLColor";
+            this.btnMaskLColor.TabStop = false;
+            this.toolTip.SetToolTip(this.btnMaskLColor, resources.GetString("btnMaskLColor.ToolTip"));
+            this.btnMaskLColor.UseVisualStyleBackColor = false;
+            this.btnMaskLColor.Click += new System.EventHandler(this.btnMaskLColor_Click);
             // 
             // lblOpacity
             // 
@@ -781,6 +861,15 @@
             resources.ApplyResources(this.backgroundFixToolStripMenuItem, "backgroundFixToolStripMenuItem");
             this.backgroundFixToolStripMenuItem.Click += new System.EventHandler(this.backgroundFixToolStripMenuItem_Click);
             // 
+            // ViewPlatformsMenuItem
+            // 
+            this.ViewPlatformsMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
+            this.ViewPlatformsMenuItem.CheckOnClick = true;
+            this.ViewPlatformsMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            resources.ApplyResources(this.ViewPlatformsMenuItem, "ViewPlatformsMenuItem");
+            this.ViewPlatformsMenuItem.Name = "ViewPlatformsMenuItem";
+            this.ViewPlatformsMenuItem.Click += new System.EventHandler(this.ViewPlatformsMenuItem_Click);
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.CheckOnClick = true;
@@ -939,95 +1028,6 @@
             // toolTip
             // 
             this.toolTip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            // 
-            // btnMaskLColor
-            // 
-            this.btnMaskLColor.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskLColor, "btnMaskLColor");
-            this.btnMaskLColor.Name = "btnMaskLColor";
-            this.btnMaskLColor.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskLColor, resources.GetString("btnMaskLColor.ToolTip"));
-            this.btnMaskLColor.UseVisualStyleBackColor = false;
-            this.btnMaskLColor.Click += new System.EventHandler(this.btnMaskLColor_Click);
-            // 
-            // btnMaskLight
-            // 
-            this.btnMaskLight.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskLight, "btnMaskLight");
-            this.btnMaskLight.Name = "btnMaskLight";
-            this.btnMaskLight.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskLight, resources.GetString("btnMaskLight.ToolTip"));
-            this.btnMaskLight.UseVisualStyleBackColor = false;
-            this.btnMaskLight.Click += new System.EventHandler(this.btnMaskLight_Click);
-            // 
-            // btnMaskSky
-            // 
-            this.btnMaskSky.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskSky, "btnMaskSky");
-            this.btnMaskSky.Name = "btnMaskSky";
-            this.btnMaskSky.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskSky, resources.GetString("btnMaskSky.ToolTip"));
-            this.btnMaskSky.UseVisualStyleBackColor = false;
-            this.btnMaskSky.Click += new System.EventHandler(this.btnMaskSky_Click);
-            // 
-            // btnMaskEColor
-            // 
-            this.btnMaskEColor.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskEColor, "btnMaskEColor");
-            this.btnMaskEColor.Name = "btnMaskEColor";
-            this.btnMaskEColor.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskEColor, resources.GetString("btnMaskEColor.ToolTip"));
-            this.btnMaskEColor.UseVisualStyleBackColor = false;
-            this.btnMaskEColor.Click += new System.EventHandler(this.btnMaskEColor_Click);
-            // 
-            // btnMaskShading
-            // 
-            this.btnMaskShading.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskShading, "btnMaskShading");
-            this.btnMaskShading.Name = "btnMaskShading";
-            this.btnMaskShading.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskShading, resources.GetString("btnMaskShading.ToolTip"));
-            this.btnMaskShading.UseVisualStyleBackColor = false;
-            this.btnMaskShading.Click += new System.EventHandler(this.btnMaskShading_Click);
-            // 
-            // btnMaskRainbow
-            // 
-            this.btnMaskRainbow.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskRainbow, "btnMaskRainbow");
-            this.btnMaskRainbow.Name = "btnMaskRainbow";
-            this.btnMaskRainbow.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskRainbow, resources.GetString("btnMaskRainbow.ToolTip"));
-            this.btnMaskRainbow.UseVisualStyleBackColor = false;
-            this.btnMaskRainbow.Click += new System.EventHandler(this.btnMaskRainbow_Click);
-            // 
-            // btnMaskPipe
-            // 
-            this.btnMaskPipe.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskPipe, "btnMaskPipe");
-            this.btnMaskPipe.Name = "btnMaskPipe";
-            this.btnMaskPipe.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskPipe, resources.GetString("btnMaskPipe.ToolTip"));
-            this.btnMaskPipe.UseVisualStyleBackColor = false;
-            this.btnMaskPipe.Click += new System.EventHandler(this.btnMaskPipe_Click);
-            // 
-            // btnMaskIndex
-            // 
-            this.btnMaskIndex.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.btnMaskIndex, "btnMaskIndex");
-            this.btnMaskIndex.Name = "btnMaskIndex";
-            this.btnMaskIndex.TabStop = false;
-            this.toolTip.SetToolTip(this.btnMaskIndex, resources.GetString("btnMaskIndex.ToolTip"));
-            this.btnMaskIndex.UseVisualStyleBackColor = false;
-            this.btnMaskIndex.Click += new System.EventHandler(this.btnMaskIndex_Click);
-            // 
-            // ViewPlatformsMenuItem
-            // 
-            this.ViewPlatformsMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(73)))), ((int)(((byte)(82)))));
-            this.ViewPlatformsMenuItem.CheckOnClick = true;
-            this.ViewPlatformsMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            resources.ApplyResources(this.ViewPlatformsMenuItem, "ViewPlatformsMenuItem");
-            this.ViewPlatformsMenuItem.Name = "ViewPlatformsMenuItem";
-            this.ViewPlatformsMenuItem.Click += new System.EventHandler(this.ViewPlatformsMenuItem_Click);
             // 
             // pbxWorkspace
             // 
