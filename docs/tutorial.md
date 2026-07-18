@@ -1,5 +1,17 @@
 This is an unfinished tutorial for using the Manual Screen Editor.
 
+# Definitions:
+
+*Canvas* – The work area where camera previewing and editing occur.
+
+*Layer* – Here a layer referrs to a category of information or component encoded in a rendered camera png. Above the canvas, there are buttons for each layer (as of 1.4.7 platform shading is bundled with effect colors) as well as one for the aggregate "rendered" layer. The rendered layer can either show the camera png as is or with a palette applied.
+
+*Layer buttons* – These buttons, located above the canvas, can be used to set the viewing mode or toggle layer editing.
+
+*View mode* – This referrs to which layer is being previewed in the canvas. Shift clicking a layer button changes the view mode. The rendered layer can be selected for viewing by left clicking either with or without holding any other key. A layer button has a blue border when it is being viewed.
+
+*Layer editing* – Any layer other than the rendered layer can be marked or unmarked for editing by left clicking its corresponding layer button. A layer can be enabled in isolation by control clicking its layer button. A layer that is enabled for modification has its layer button shaded light blue.
+
 # Example 1: Filling gaps in objects
 
 Sometimes, often due to extreme camera positions or errosion effects, objects might appear broken in ways the modder did not intent.
@@ -7,14 +19,13 @@ In this example, we will see how a modder might fix such a blemish.
 
 1. Import the rendered png that you want to fix.
 
-You can do this either by clicking the file expolorer button across from
-the label "Rendered" or by dragging and droping the png file from your file explorer to anywhere in the Manual Screen Editor main window.
+You can do this by dragging and dropping your rendered camera png file from your file explorer to anywhere in the Manual Screen Editor main window. Dropping a rendered camera image into the program overwrites all previous camera data, so proceed with caution.
 
 ![eg1_1](/docs/figures/eg1_1.png?raw=true)
 
 2. Select the view mode you want to use.
 
-Do this by shift + left clicking one of the 10 square layer buttons above the canvas.
+Do this by shift + left clicking one of the 10 square layer buttons above the canvas. When a layer is bei
 In this case, the depth, level color, sky and rendered layers give us useful information about this particular broken object. This example will continue with rendered layer viewing for clairity.
 
 ![eg1_3](/docs/figures/eg1_3.png?raw=true)
@@ -31,7 +42,7 @@ Click the eye dropper button. When the eye dropper tool is selected it will high
 
 ![eg1_5](/docs/figures/eg1_5.png?raw=true)
 
-5. Left click the layer buttons you want to modify and ensure they are shaded gray.
+5. Left click the layer buttons you want to modify and ensure they are shaded blue.
 
 Here we want to replace sky pixels. That means that we need to supply information about the depth, level color, light and of course sky components. By marking the associated layers for editing, we are able to change only the information related to those components within the pixels we paint. All other information contained in layers we did not select will be preserved.
 
@@ -39,11 +50,13 @@ Here we want to replace sky pixels. That means that we need to supply informatio
 
 6. Left click on the canvas, paiting the pixels you want to fill.
 
-If you make a mistake, you can use Ctrl-Z to undo it.
+If you make a mistake, you can use Ctrl-Z to undo an entire pen stroke. If you need to redo, use Ctrl-Shift-Z.
+
+You can increase your pen size in the left-hand panel.
 
 ![eg1_7](/docs/figures/eg1_7.png?raw=true)
 
-7. Once you have made the fixes you want, use File > Save As to save the modifed screen.
+7. Once you have made the fixes you want, use `File > Save` (Ctrl-S), `File > Save As`, or `File > Save A Copy` to save the modifed screen.
 
 Ensure that your screen has the correct name once placed in the game files.
 
